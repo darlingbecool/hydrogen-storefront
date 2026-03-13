@@ -592,3 +592,15 @@ button.reset:hover:not(:has(> *)) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+..product-right-col * {
+  max-width: 100% !important;
+}
+
+.product-right-col form,
+.product-right-col button[type="submit"] {
+  width: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  display: block !important;
+}

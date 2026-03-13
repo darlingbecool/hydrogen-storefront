@@ -1,27 +1,10 @@
 import {createContext, useContext, useEffect, useState} from 'react';
 
-/**
- * A side bar component with Overlay
- * @example
- * ```jsx
- * <Aside type="search" heading="SEARCH">
- *  <input type="search" />
- *  ...
- * </Aside>
- * ```
- * @param {{
- *   children?: React.ReactNode;
- *   type: AsideType;
- *   heading: React.ReactNode;
- * }}
- */
 export function Aside({children, heading, type}) {
   const {type: activeType, close} = useAside();
   const expanded = type === activeType;
-
   useEffect(() => {
     const abortController = new AbortController();
-
     if (expanded) {
       document.addEventListener(
         'keydown',
@@ -35,7 +18,6 @@ export function Aside({children, heading, type}) {
     }
     return () => abortController.abort();
   }, [close, expanded]);
-
   return (
     <div
       aria-modal
@@ -60,7 +42,6 @@ const AsideContext = createContext(null);
 
 Aside.Provider = function AsideProvider({children}) {
   const [type, setType] = useState('closed');
-
   return (
     <AsideContext.Provider
       value={{
@@ -81,14 +62,3 @@ export function useAside() {
   }
   return aside;
 }
-
-/** @typedef {'search' | 'cart' | 'mobile' | 'closed'} AsideType */
-/**
- * @typedef {{
- *   type: AsideType;
- *   open: (mode: AsideType) => void;
- *   close: () => void;
- * }} AsideContextValue
- */
-
-/** @typedef {import('react').ReactNode} ReactNode */

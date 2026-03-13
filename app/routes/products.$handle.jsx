@@ -1,4 +1,6 @@
-import {useLoaderData} from 'react-router';
+import { useState } from "react";
+import { useLoaderData } from 'react-router';
+import { Link } from 'react-router';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -6,141 +8,567 @@ import {
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
+  CartForm,
+  Money,
 } from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
-import {ProductImage} from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import { useAside } from '~/components/Aside';
+import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
-/**
- * @type {Route.MetaFunction}
- */
+const playfair = "'Playfair Display', serif";
+const bodyFont = "system-ui, -apple-system, sans-serif";
+const warmBg = "#F5F2ED";
+const darkText = "#1A1A1A";
+const goldAccent = "#D4AF37";
+const mutedText = "#6A6A6A";
+const subtleText = "#4A4A4A";
+
+const sizeOptions = ["J", "K", "L", "M", "N", "O", "P", "Q"];
+
+const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+
+const specifications = [
+  { label: "Style", value: "Oval signet" },
+  { label: "Diamond setting", value: "Raised, not inset" },
+  { label: "Diamond options", value: "Lab-grown or natural" },
+  { label: "Gold", value: "9ct, 14ct or 18ct yellow gold" },
+  { label: "Finish", value: "High polish" },
+  { label: "Hallmark", value: "London Assay Office certified" },
+  { label: "Lead time", value: "Eight weeks from order" },
+];
+
 export const meta = ({data}) => {
   return [
-    {title: `Hydrogen | ${data?.product.title ?? ''}`},
-    {
-      rel: 'canonical',
-      href: `/products/${data?.product.handle}`,
-    },
+    {title: `${data?.product.title ?? 'Product'} | Mercer 94`},
+    { rel: 'canonical', href: `/products/${data?.product.handle}` },
   ];
 };
 
-/**
- * @param {Route.LoaderArgs} args
- */
 export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   return {...deferredData, ...criticalData};
 }
 
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
- */
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
-
-  if (!handle) {
-    throw new Error('Expected product handle to be defined');
-  }
+  if (!handle) throw new Error('Expected product handle to be defined');
 
   const [{product}] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
-  if (!product?.id) {
-    throw new Response(null, {status: 404});
-  }
-
-  // The API handle might be localized, so redirect to the localized handle
+  if (!product?.id) throw new Response(null, {status: 404});
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
-  return {
-    product,
-  };
+  let relatedProducts = [];
+  const collectionHandle = product.collections?.nodes?.[0]?.handle;
+  if (collectionHandle) {
+    const {collection} = await storefront.query(RELATED_PRODUCTS_QUERY, {
+      variables: { collectionHandle },
+    });
+    relatedProducts = (collection?.products?.nodes ?? [])
+      .filter(p => p.id !== product.id)
+      .slice(0, 3);
+  }
+
+  return {product, relatedProducts};
 }
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
- */
 function loadDeferredData({context, params}) {
-  // Put any API calls that is not critical to be available on first page render
-  // For example: product reviews, product recommendations, social feeds.
-
   return {};
 }
 
 export default function Product() {
-  /** @type {LoaderReturnData} */
-  const {product} = useLoaderData();
+  const {product, relatedProducts} = useLoaderData();
+  const {open} = useAside();
 
-  // Optimistically selects a variant with given available variant information
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  // Sets the search param to the selected variant without navigation
-  // only when no search params are set in the url
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
-  // Get the product options array
   const productOptions = getProductOptions({
     ...product,
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, descriptionHtml} = product;
+  const {title, description} = product;
+
+  const [activeThumb, setActiveThumb] = useState(0);
+  const [selectedInitial, setSelectedInitial] = useState(null);
+  const [openAccordion, setOpenAccordion] = useState(null);
+
+  const sizeOption = selectedVariant.selectedOptions.find(opt => opt.name === "Size");
+  const selectedSize = sizeOption?.value || "";
+
+  const price = selectedVariant?.price?.amount || 0;
+  const formattedPrice = Math.round(parseFloat(price));
+
+  const productImages = product.media?.nodes
+    ?.filter(node => node.image)
+    ?.map(node => node.image) || [];
+  const mainImage = productImages[activeThumb] || productImages[0] || product.featuredImage || selectedVariant.image;
+
+  const canAdd = selectedInitial !== null && !!selectedVariant?.id;
 
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
+    <div style={{ background: "white", minHeight: "100vh" }}>
+      <style>{`
+        .product-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 60px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 32px 80px;
+        }
+        .product-image-sticky {
+          position: sticky;
+          top: 100px;
+          align-self: flex-start;
+        }
+        .initial-grid {
+          display: grid;
+          grid-template-columns: repeat(10, 1fr);
+          gap: 6px;
+        }
+        .product-right-col {
+          width: 100%;
+          min-width: 0;
+        }
+        .product-right-col form {
+          width: 100%;
+          display: block;
+          margin: 0;
+        }
+        .related-products-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+        }
+        @media (max-width: 768px) {
+          .product-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+            padding: 20px !important;
+          }
+          .product-image-sticky {
+            position: relative !important;
+            top: 0 !important;
+          }
+          .initial-grid {
+            grid-template-columns: repeat(9, 1fr) !important;
+          }
+          .initial-grid button {
+            font-size: 11px !important;
+            padding: 8px 4px !important;
+          }
+          .product-title { font-size: 32px !important; }
+          .thumbnail-row { display: none !important; }
+          .related-products-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+          }
+        }
+      `}</style>
+
+      <div className="product-grid">
+
+        {/* LEFT: Image */}
+        <div className="product-image-sticky">
+          <div style={{ marginBottom: 24 }}>
+            <div style={{
+              width: "100%", aspectRatio: "1", borderRadius: 16,
+              background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
+              overflow: "hidden",
+              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
+            }}>
+              {selectedInitial ? (
+                <>
+                  <p style={{ fontFamily: playfair, fontSize: 120, color: darkText, margin: 0, lineHeight: 1 }}>
+                    {selectedInitial}
+                  </p>
+                  <p style={{ fontSize: 14, letterSpacing: "0.2em", color: subtleText, marginTop: 16 }}>
+                    THE MERCER SIGNET
+                  </p>
+                </>
+              ) : mainImage ? (
+                <img
+                  src={mainImage.url}
+                  alt={mainImage.altText || product.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 0 }}
+                />
+              ) : (
+                <>
+                  <p style={{ fontFamily: playfair, fontSize: 36, color: darkText, margin: "0 0 12px" }}>
+                    Your Initial
+                  </p>
+                  <p style={{ fontSize: 14, letterSpacing: "0.15em", color: subtleText }}>
+                    SELECT A–Z BELOW
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="thumbnail-row">
+            <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+              {productImages.slice(0, 4).map((image, i) => (
+                <button key={i} onClick={() => setActiveThumb(i)}
+                  style={{
+                    flex: 1, maxWidth: 100, aspectRatio: "1",
+                    border: activeThumb === i ? `3px solid ${darkText}` : "1px solid #D4D0CA",
+                    borderRadius: 8, background: "white", cursor: "pointer", overflow: "hidden", padding: 0
+                  }}
+                >
+                  <img src={image.url} alt={image.altText || `Product image ${i + 1}`}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT: Details */}
+        <div className="product-right-col">
+          {/* CHANGE 1: Removed "RINGS" category label above title */}
+          <h1 className="product-title" style={{ fontFamily: playfair, fontSize: 40, color: darkText, marginBottom: 12, fontWeight: 400, lineHeight: 1.2 }}>
+            {title}
+          </h1>
+          <p style={{ fontSize: 24, color: darkText, fontWeight: 500, marginBottom: 24 }}>
+            £{formattedPrice.toLocaleString()}
+          </p>
+
+          {/* Description from Shopify */}
+          <div style={{ fontSize: 16, color: subtleText, lineHeight: 1.7, marginBottom: 40 }}>
+            {description}
+          </div>
+
+          <div style={{ height: 1, background: "#E8E4DE", marginBottom: 32 }} />
+
+          {/* CHANGE 2: Gold dropdown removed — variant managed in Shopify admin */}
+
+          {/* Size */}
+          <div style={{ marginBottom: 8 }}>
+            <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, marginBottom: 16 }}>RING SIZE</p>
+            <select value={selectedSize}
+              onChange={(e) => { window.location.href = `?Size=${encodeURIComponent(e.target.value)}`; }}
+              style={{
+                width: "100%", padding: "16px 20px", border: "2px solid #D4D0CA",
+                borderRadius: 8, background: "white", color: darkText, fontSize: 15,
+                fontFamily: bodyFont, cursor: "pointer", appearance: "none",
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                backgroundRepeat: "no-repeat", backgroundPosition: "right 20px center", paddingRight: "50px"
+              }}
+            >
+              <option value="">Select ring size</option>
+              {sizeOptions.map((size) => <option key={size} value={size}>{size}</option>)}
+            </select>
+          </div>
+          {/* CHANGE 3: Combined size guide + ring sizer links into one line */}
+          <p style={{ fontSize: 13, color: mutedText, marginBottom: 32, lineHeight: 1.5 }}>
+            <Link to="/pages/size-guide" style={{ color: darkText, textDecoration: "underline" }}>Not sure of your size?</Link>
+            {' '}We can also{' '}
+            <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a complimentary ring sizer</Link>.
+          </p>
+
+          {/* Initial selector */}
+          <div style={{ marginBottom: 32 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, margin: 0 }}>YOUR INITIAL</p>
+              {selectedInitial && (
+                <button onClick={() => setSelectedInitial(null)}
+                  style={{ fontSize: 12, color: mutedText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
+                  Clear
+                </button>
+              )}
+            </div>
+
+            <div className="initial-grid" style={{ marginBottom: 16 }}>
+              {alphabet.map((letter) => (
+                <button key={letter} onClick={() => setSelectedInitial(letter)}
+                  style={{
+                    aspectRatio: "1",
+                    border: selectedInitial === letter ? `2px solid ${darkText}` : "1px solid #D4D0CA",
+                    borderRadius: 6,
+                    background: selectedInitial === letter ? darkText : "white",
+                    color: selectedInitial === letter ? "white" : darkText,
+                    fontSize: 13,
+                    fontWeight: selectedInitial === letter ? 600 : 400,
+                    fontFamily: bodyFont,
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
+            {/* CHANGE 4: Removed "One letter, rendered in diamonds..." paragraph */}
+          </div>
+
+          {/* Add to Bag */}
+          <CartForm
+            route="/cart"
+            action={CartForm.ACTIONS.LinesAdd}
+            inputs={{
+              lines: canAdd ? [
+                {
+                  merchandiseId: selectedVariant.id,
+                  quantity: 1,
+                  attributes: [
+                    {key: 'Initial or Symbol', value: selectedInitial},
+                  ],
+                },
+              ] : [],
+            }}
+          >
+            {(fetcher) => (
+              <button
+                type="submit"
+                disabled={!canAdd || fetcher.state !== 'idle'}
+                onClick={() => { if (canAdd) open('cart'); }}
+                style={{
+                  width: "100%",
+                  display: "block",
+                  boxSizing: "border-box",
+                  margin: 0,
+                  marginBottom: 12,
+                  padding: 20,
+                  border: canAdd ? "none" : "2px solid #D4D0CA",
+                  borderRadius: 8,
+                  background: !canAdd ? "transparent" : fetcher.state !== 'idle' ? "#555" : darkText,
+                  color: canAdd ? "white" : mutedText,
+                  fontSize: 15,
+                  letterSpacing: "0.15em",
+                  fontWeight: 500,
+                  fontFamily: bodyFont,
+                  cursor: canAdd ? "pointer" : "default",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                {!canAdd ? "SELECT AN INITIAL TO CONTINUE" : fetcher.state !== 'idle' ? "ADDING..." : "ADD TO BAG"}
+              </button>
+            )}
+          </CartForm>
+
+          <div style={{ textAlign: "center", padding: "16px 0", marginBottom: 32 }}>
+            <p style={{ fontSize: 13, color: subtleText, fontStyle: "italic", marginBottom: 12 }}>
+              ✦ Made to order in London — eight week lead time ✦
+            </p>
+            <a href="/pages/gift-cards" style={{ fontSize: 14, color: mutedText, textDecoration: "none" }}>
+              Not sure? <span style={{ color: darkText, textDecoration: "underline" }}>Gift a card instead</span>
+            </a>
+          </div>
+
+          {/* Trust badges */}
+          <div style={{ display: "flex", justifyContent: "space-around", gap: 32, padding: "32px 0", borderTop: "1px solid #E8E4DE", borderBottom: "1px solid #E8E4DE", marginBottom: 24 }}>
+            {[
+              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><path d="M8 1.5L2.5 4v4c0 3.5 2.5 5.5 5.5 6.5 3-1 5.5-3 5.5-6.5V4L8 1.5z" /><path d="M5.5 8l2 2 3-3.5" /></svg>, text: "London hallmarked" },
+              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><circle cx="8" cy="8" r="6.5" /><path d="M8 4v5l3 2" /></svg>, text: "8 week lead time" },
+              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><path d="M2 6l6-4 6 4v6a1 1 0 01-1 1H3a1 1 0 01-1-1V6z" /><path d="M6 13V9h4v4" /></svg>, text: "Free UK delivery" },
+            ].map((b, i) => (
+              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+                {b.icon}
+                <span style={{ fontSize: 11, color: subtleText, letterSpacing: "0.05em" }}>{b.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Accordions */}
+          <div style={{ marginTop: 24 }}>
+            {[
+              {
+                id: "diamond",
+                label: "About the Diamond",
+                content: (
+                  <div style={{ paddingBottom: 4 }}>
+                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 12px", paddingLeft: 12 }}>
+                      The initial or symbol is rendered in diamonds raised from the face of the ring — not set into it. The effect is tactile as much as visual.
+                    </p>
+                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 4px", paddingLeft: 12 }}>
+                      Both lab-grown and natural diamonds are available. The material, brilliance and appearance are identical — the difference is origin and price point. If you'd like guidance on which to choose, <a href="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>get in touch</a>.
+                    </p>
+                  </div>
+                )
+              },
+              {
+                id: "gift", label: "Gift Wrapping",
+                content: (
+                  <>
+                    {["Signature packaging included with every order — complimentary", "The Gift Edit — luxury box, wax seal, bespoke paper (+£20)", "Handwritten note card — your message, our stationery (+£5)", "Gift bag — branded, ready to give (+£10)"].map((line, i) => (
+                      <p key={i} style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 12 }}>· {line}</p>
+                    ))}
+                    <a href="/pages/gift-wrapping" style={{ display: "inline-block", fontSize: 13, color: goldAccent, textDecoration: "none", fontWeight: 500, marginTop: 8, paddingLeft: 12 }}>VIEW ALL OPTIONS →</a>
+                  </>
+                )
+              },
+              {
+                id: "delivery", label: "Delivery & Returns",
+                content: (
+                  <div>
+                    {[
+                      "Free UK delivery on all orders over £250",
+                      "Sent via Royal Mail tracked and insured post",
+                      "Dispatched on completion of your piece",
+                      "International shipping — get in touch for details",
+                      "Made-to-order pieces cannot be returned — see our Returns page for full details",
+                      "If something arrives damaged, we will always put it right",
+                    ].map((line, i) => (
+                      <p key={i} style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 12 }}>· {line}</p>
+                    ))}
+                  </div>
+                )
+              },
+              {
+                id: "care", label: "Care",
+                content: (
+                  <div style={{ paddingLeft: 12 }}>
+                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 8px" }}>
+                      Solid gold is remarkably hardwearing — the ring that inspired this piece is thirty years old and barely shows it.
+                    </p>
+                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: "0 0 4px" }}>
+                      · Clean occasionally with warm water and a soft cloth
+                    </p>
+                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: "0 0 4px" }}>
+                      · Avoid prolonged contact with perfume, chlorine and harsh chemicals
+                    </p>
+                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: 0 }}>
+                      · Store in the pouch provided when not wearing
+                    </p>
+                  </div>
+                )
+              },
+            ].map((section) => (
+              <div key={section.id} style={{ borderBottom: "1px solid #E8E4DE" }}>
+                <button
+                  onClick={() => setOpenAccordion(openAccordion === section.id ? null : section.id)}
+                  style={{ width: "100%", padding: "16px 0", background: "none", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", fontFamily: bodyFont }}
+                >
+                  <span style={{ fontSize: 15, color: darkText, fontWeight: 500 }}>{section.label}</span>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke={mutedText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                    style={{ transform: openAccordion === section.id ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.3s ease" }}>
+                    <path d="M4 6l4 4 4-4" />
+                  </svg>
+                </button>
+                {openAccordion === section.id && (
+                  <div style={{ paddingBottom: 16 }}>{section.content}</div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* CHANGE 5: Concierge — expanded to mention gold options, numbers & symbols */}
+          <div style={{ marginTop: 24, padding: 20, background: warmBg, borderRadius: 12, display: "flex", alignItems: "flex-start", gap: 16 }}>
+            <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke={goldAccent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+              <path d="M3 13.5V15l3-1.5h8A1.5 1.5 0 0015.5 12V5A1.5 1.5 0 0014 3.5H4A1.5 1.5 0 002.5 5v7A1.5 1.5 0 003 13.5z" />
+              <path d="M6 7h6M6 9.5h4" />
+            </svg>
+            <div>
+              <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Have a question about this piece?</p>
+              <p style={{ fontSize: 13, color: subtleText, margin: "0 0 6px", lineHeight: 1.6 }}>
+                Kate is happy to talk through sizing, gold options (9ct, 14ct or 18ct), and diamond choices — lab-grown or natural — before you order.
+              </p>
+              <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
+                Interested in a number or symbol instead of a letter?{' '}
+                <a href="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</a> to discuss a bespoke design.
+              </p>
+            </div>
+          </div>
+
+          {/* Specifications */}
+          <div style={{ marginTop: 40 }}>
+            <h3 style={{ fontFamily: playfair, fontSize: 24, color: darkText, marginBottom: 20, fontWeight: 400 }}>Specifications</h3>
+            {specifications.map((spec, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "14px 0", borderBottom: i < specifications.length - 1 ? "1px solid #E8E4DE" : "none" }}>
+                <span style={{ fontSize: 15, color: darkText }}>{spec.label}</span>
+                <span style={{ fontSize: 15, color: subtleText, textAlign: "right" }}>{spec.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* YOU MAY ALSO LIKE */}
+      {relatedProducts.length > 0 && (
+        <div style={{
+          maxWidth: 1200,
+          margin: '0 auto',
+          padding: '80px 32px',
+          borderTop: '1px solid #E8E4DE',
+        }}>
+          <h2 style={{
+            fontFamily: playfair,
+            fontSize: 28,
+            fontWeight: 400,
+            color: darkText,
+            textAlign: 'center',
+            marginBottom: 40,
+          }}>
+            You May Also Like
+          </h2>
+          <div className="related-products-grid">
+            {relatedProducts.map((relatedProduct) => {
+              const relatedPrice = relatedProduct.priceRange?.minVariantPrice;
+              const relatedImage = relatedProduct.featuredImage;
+              return (
+                <Link
+                  key={relatedProduct.id}
+                  to={`/products/${relatedProduct.handle}`}
+                  style={{ textDecoration: 'none', display: 'block' }}
+                >
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, cursor: 'pointer' }}
+                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                  >
+                    <div style={{
+                      width: '100%', aspectRatio: '1', borderRadius: 16,
+                      background: 'linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)',
+                      overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      {relatedImage ? (
+                        <img src={relatedImage.url} alt={relatedImage.altText || relatedProduct.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <div style={{ fontFamily: playfair, fontSize: 14, color: mutedText, letterSpacing: '0.1em', textAlign: 'center', padding: 20 }}>
+                          {relatedProduct.title}
+                        </div>
+                      )}
+                    </div>
+                    <div style={{ textAlign: 'center' }}>
+                      <p style={{ fontFamily: playfair, fontSize: 18, color: darkText, marginBottom: 6, fontWeight: 400 }}>
+                        {relatedProduct.title}
+                      </p>
+                      {relatedPrice && (
+                        <p style={{ fontSize: 15, color: mutedText, fontWeight: 400 }}>
+                          From <Money data={relatedPrice} />
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       <Analytics.ProductView
         data={{
-          products: [
-            {
-              id: product.id,
-              title: product.title,
-              price: selectedVariant?.price.amount || '0',
-              vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
-              quantity: 1,
-            },
-          ],
+          products: [{
+            id: product.id, title: product.title,
+            price: selectedVariant?.price.amount || '0',
+            vendor: product.vendor,
+            variantId: selectedVariant?.id || '',
+            variantTitle: selectedVariant?.title || '',
+            quantity: 1,
+          }],
         }}
       />
     </div>
@@ -150,77 +578,46 @@ export default function Product() {
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
+    compareAtPrice { amount currencyCode }
     id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
-    sku
-    title
-    unitPrice {
-      amount
-      currencyCode
-    }
+    image { __typename id url altText width height }
+    price { amount currencyCode }
+    product { title handle }
+    selectedOptions { name value }
+    sku title
+    unitPrice { amount currencyCode }
   }
 `;
 
 const PRODUCT_FRAGMENT = `#graphql
   fragment Product on Product {
-    id
-    title
-    vendor
-    handle
-    descriptionHtml
-    description
-    encodedVariantExistence
-    encodedVariantAvailability
+    id title vendor handle descriptionHtml description
+    encodedVariantExistence encodedVariantAvailability
+    collections(first: 1) {
+      nodes { handle }
+    }
+    media(first: 10) {
+      nodes {
+        ... on MediaImage {
+          id
+          image { id url altText width height }
+        }
+      }
+    }
+    featuredImage { id url altText width height }
     options {
       name
       optionValues {
         name
-        firstSelectableVariant {
-          ...ProductVariant
-        }
-        swatch {
-          color
-          image {
-            previewImage {
-              url
-            }
-          }
-        }
+        firstSelectableVariant { ...ProductVariant }
+        swatch { color image { previewImage { url } } }
       }
     }
     selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant
     }
-    adjacentVariants (selectedOptions: $selectedOptions) {
-      ...ProductVariant
-    }
-    seo {
-      description
-      title
-    }
+    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+    seo { description title }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
@@ -232,12 +629,29 @@ const PRODUCT_QUERY = `#graphql
     $language: LanguageCode
     $selectedOptions: [SelectedOptionInput!]!
   ) @inContext(country: $country, language: $language) {
-    product(handle: $handle) {
-      ...Product
-    }
+    product(handle: $handle) { ...Product }
   }
   ${PRODUCT_FRAGMENT}
 `;
 
-/** @typedef {import('./+types/products.$handle').Route} Route */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+const RELATED_PRODUCTS_QUERY = `#graphql
+  query RelatedProducts(
+    $country: CountryCode
+    $language: LanguageCode
+    $collectionHandle: String!
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $collectionHandle) {
+      products(first: 10) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage { url altText }
+          priceRange {
+            minVariantPrice { amount currencyCode }
+          }
+        }
+      }
+    }
+  }
+`;

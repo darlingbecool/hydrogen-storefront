@@ -1,138 +1,208 @@
-import {redirect, useLoaderData} from 'react-router';
-import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {useLoaderData, Link} from 'react-router';
+import {getPaginationVariables, Pagination, Money} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {ProductItem} from '~/components/ProductItem';
 
-/**
- * @type {Route.MetaFunction}
- */
+const playfair = "'Playfair Display', serif";
+const bodyFont = "system-ui, -apple-system, sans-serif";
+const darkText = "#1A1A1A";
+const goldAccent = "#D4AF37";
+const mutedText = "#6A6A6A";
+const warmBg = "#F5F2ED";
+
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.collection.title ?? ''} Collection`}];
+  return [{title: `${data?.collection?.title ?? 'Collection'} | Mercer 94`}];
 };
 
-/**
- * @param {Route.LoaderArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return {...deferredData, ...criticalData};
-}
-
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
- */
-async function loadCriticalData({context, params, request}) {
+export async function loader({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+  if (!handle) throw new Error('Expected collection handle');
+
+  const paginationVariables = getPaginationVariables(request, {pageBy: 12});
+
+  const {collection} = await storefront.query(COLLECTION_QUERY, {
+    variables: {handle, ...paginationVariables},
   });
 
-  if (!handle) {
-    throw redirect('/collections');
-  }
-
-  const [{collection}] = await Promise.all([
-    storefront.query(COLLECTION_QUERY, {
-      variables: {handle, ...paginationVariables},
-      // Add other queries here, so that they are loaded in parallel
-    }),
-  ]);
-
-  if (!collection) {
-    throw new Response(`Collection ${handle} not found`, {
-      status: 404,
-    });
-  }
-
-  // The API handle might be localized, so redirect to the localized handle
+  if (!collection) throw new Response(null, {status: 404});
   redirectIfHandleIsLocalized(request, {handle, data: collection});
 
-  return {
-    collection,
-  };
-}
-
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
- */
-function loadDeferredData({context}) {
-  return {};
+  return {collection};
 }
 
 export default function Collection() {
-  /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
 
   return (
-    <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
-      <PaginatedResourceSection
-        connection={collection.products}
-        resourcesClassName="products-grid"
-      >
-        {({node: product, index}) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
+    <div style={{background: 'white', minHeight: '100vh'}}>
+      <style>{`
+        .collection-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 40px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 32px 80px;
+        }
+        @media (max-width: 768px) {
+          .collection-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
+            padding: 0 20px 60px !important;
+          }
+          .collection-hero {
+            padding: 40px 20px 32px !important;
+          }
+        }
+      `}</style>
+
+      {/* Hero */}
+      <div className="collection-hero" style={{
+        padding: '8px 32px 4px',
+        maxWidth: 1200,
+        margin: '0 auto',
+        marginBottom: 48,
+      }}>
+        <h1 style={{
+          fontFamily: bodyFont,
+          fontSize: 16,
+          fontWeight: 400,
+          color: goldAccent,
+          marginBottom: 16,
+          lineHeight: 1.1,
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+        }}>
+          {collection.title}
+        </h1>
+        {collection.description && (
+          <p style={{
+            fontSize: 16,
+            color: mutedText,
+            lineHeight: 1.7,
+            maxWidth: 560,
+            margin: 0,
+            fontFamily: bodyFont,
+          }}>
+            {collection.description}
+          </p>
         )}
-      </PaginatedResourceSection>
-      <Analytics.CollectionView
-        data={{
-          collection: {
-            id: collection.id,
-            handle: collection.handle,
-          },
-        }}
-      />
+      </div>
+
+      {/* Product Grid */}
+      <Pagination connection={collection.products}>
+        {({nodes, isLoading, PreviousLink, NextLink}) => (
+          <>
+            <div className="collection-grid">
+              {nodes.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+
+            {/* Load more */}
+            <div style={{textAlign: 'center', padding: '40px 0 80px'}}>
+              <NextLink style={{
+                display: 'inline-block',
+                padding: '14px 40px',
+                border: '1px solid #D4D0CA',
+                borderRadius: 8,
+                fontSize: 13,
+                letterSpacing: '0.1em',
+                color: darkText,
+                textDecoration: 'none',
+                fontFamily: bodyFont,
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = darkText;
+                e.target.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'white';
+                e.target.style.color = darkText;
+              }}
+              >
+                {isLoading ? 'Loading...' : 'LOAD MORE'}
+              </NextLink>
+            </div>
+          </>
+        )}
+      </Pagination>
     </div>
   );
 }
 
-const PRODUCT_ITEM_FRAGMENT = `#graphql
-  fragment MoneyProductItem on MoneyV2 {
-    amount
-    currencyCode
-  }
-  fragment ProductItem on Product {
-    id
-    handle
-    title
-    featuredImage {
-      id
-      altText
-      url
-      width
-      height
-    }
-    priceRange {
-      minVariantPrice {
-        ...MoneyProductItem
-      }
-      maxVariantPrice {
-        ...MoneyProductItem
-      }
-    }
-  }
-`;
+function ProductCard({product}) {
+  const price = product.priceRange?.minVariantPrice;
+  const image = product.featuredImage;
 
-// NOTE: https://shopify.dev/docs/api/storefront/2022-04/objects/collection
+  return (
+    <Link
+      to={`/products/${product.handle}`}
+      style={{textDecoration: 'none', display: 'block'}}
+    >
+      <div
+        style={{cursor: 'pointer'}}
+        onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+        onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+      >
+        {/* Square image with rounded corners */}
+        <div style={{
+          width: '100%',
+          aspectRatio: '1',
+          borderRadius: 16,
+          background: 'linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)',
+          overflow: 'hidden',
+          marginBottom: 16,
+        }}>
+          {image ? (
+            <img
+              src={image.url}
+              alt={image.altText || product.title}
+              style={{width: '100%', height: '100%', objectFit: 'cover'}}
+            />
+          ) : (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+            }}>
+              <p style={{
+                fontFamily: playfair,
+                fontSize: 32,
+                color: darkText,
+                opacity: 0.3,
+                margin: 0,
+              }}>M</p>
+            </div>
+          )}
+        </div>
+
+        {/* Product info */}
+        <p style={{
+          fontFamily: playfair,
+          fontSize: 18,
+          color: darkText,
+          marginBottom: 6,
+          fontWeight: 400,
+        }}>
+          {product.title}
+        </p>
+        {price && (
+          <p style={{fontSize: 15, color: mutedText}}>
+            From <Money data={price} />
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
 const COLLECTION_QUERY = `#graphql
-  ${PRODUCT_ITEM_FRAGMENT}
   query Collection(
     $handle: String!
     $country: CountryCode
@@ -154,19 +224,21 @@ const COLLECTION_QUERY = `#graphql
         after: $endCursor
       ) {
         nodes {
-          ...ProductItem
+          id
+          title
+          handle
+          featuredImage { url altText }
+          priceRange {
+            minVariantPrice { amount currencyCode }
+          }
         }
         pageInfo {
           hasPreviousPage
           hasNextPage
-          endCursor
           startCursor
+          endCursor
         }
       }
     }
   }
 `;
-
-/** @typedef {import('./+types/collections.$handle').Route} Route */
-/** @typedef {import('storefrontapi.generated').ProductItemFragment} ProductItemFragment */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

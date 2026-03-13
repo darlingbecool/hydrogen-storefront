@@ -14,6 +14,7 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
+import AIConcierge from '~/components/AIConcierge';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -180,6 +181,7 @@ export default function App() {
     >
       <PageLayout {...data}>
         <Outlet />
+        <AIConcierge />
       </PageLayout>
     </Analytics.Provider>
   );
