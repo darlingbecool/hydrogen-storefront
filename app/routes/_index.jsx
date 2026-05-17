@@ -10,13 +10,14 @@ const subtleText = "#4A4A4A";
 const borderColor = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Mercer 94 - Hand-Crafted Luxury Jewellery'}];
+  return [{title: 'Mercer 79 — Made-to-Order Gold Signet Rings'}];
 };
 
 export async function loader({context}) {
   const {storefront} = context;
-  const {products} = await storefront.query(FEATURED_PRODUCTS_QUERY);
-  return {products: products.nodes};
+  const data = await storefront.query(FEATURED_PRODUCTS_QUERY);
+  const products = [data.product1, data.product2, data.product3].filter(Boolean);
+  return {products};
 }
 
 export default function Homepage() {
@@ -26,7 +27,6 @@ export default function Homepage() {
     <>
       <style>{`
         /* ── Hero ── */
-        /* Placeholder gradient — swap for image/video when ready */
         .hero-section {
           background: linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 50%, #F5F2ED 100%);
           width: 100%;
@@ -107,15 +107,10 @@ export default function Homepage() {
           color: #ffffff;
         }
 
-        /* ── Homepage only: hide the newsletter divider line ──
-           The story banner sits directly above the newsletter section,
-           so no divider is needed. On all other pages it shows normally
-           because this style block only exists on the homepage. */
+        /* ── Homepage only: hide the newsletter divider line ── */
         .newsletter-divider {
           display: none;
         }
-        /* Also remove the newsletter section's top padding since
-           the story banner provides enough visual separation */
         .newsletter-section {
           padding-top: 40px !important;
         }
@@ -170,7 +165,6 @@ export default function Homepage() {
         .story-banner:hover .story-banner-img {
           transform: scale(1.03);
         }
-        /* Warm cream gradient overlay — sits on top of the image */
         .story-banner-overlay {
           position: absolute;
           inset: 0;
@@ -224,12 +218,12 @@ export default function Homepage() {
             fontSize: 11,
             letterSpacing: '0.2em',
             color: goldAccent,
-            fontWeight: 500,
+            fontWeight: 600,
             marginBottom: 28,
             fontFamily: bodyFont,
             textTransform: 'uppercase',
           }}>
-            London Atelier · Est. 1994
+            Mercer 79
           </p>
 
           <h1 style={{
@@ -241,7 +235,7 @@ export default function Homepage() {
             fontWeight: 400,
             maxWidth: 640,
           }}>
-            Where Gold<br />Becomes Memory
+            Made to order.<br />Made to last.
           </h1>
 
           <div style={{
@@ -252,67 +246,63 @@ export default function Homepage() {
           }} />
 
           <p style={{
-            fontSize: 15,
+            fontSize: 17,
             color: subtleText,
-            marginBottom: 44,
-            lineHeight: 1.8,
-            maxWidth: 420,
+            marginBottom: 16,
+            lineHeight: 1.75,
+            maxWidth: 480,
             fontFamily: bodyFont,
           }}>
-            Hand-crafted in London · Ethically sourced · 4–6 week process
+            Bespoke gold signet rings, hand-crafted in the UK. Your initial, your gold, your size - made once, for you.
+          </p>
+
+          <p style={{
+            fontSize: 13,
+            color: mutedText,
+            marginBottom: 44,
+            lineHeight: 1.6,
+            maxWidth: 420,
+            fontFamily: bodyFont,
+            letterSpacing: '0.04em',
+          }}>
+            Hand-crafted in the UK.
           </p>
 
           <Link to="/collections/all" className="hero-cta">
-            Explore the Collection
+            View the collection
           </Link>
         </div>
       </section>
 
       {/* ── EDITORIAL IMAGES ─────────────────────────────────────────────────── */}
-      {/*
-        Images are stored in Shopify Admin → Content → Files.
-        Replace the src URLs below with your actual file URLs when ready.
-        aspect-ratio 3/4 gives a tall portrait crop — adjust to taste.
-      */}
       <div className="editorial-grid">
         <div className="editorial-image-wrap">
           <img
             src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/1fba28d32664bf7f7f988005efbe93a6.avf.avif?v=1772747763"
-            alt="Mercer 94 editorial"
+            alt="Mercer 79 — No. 1 Oval Signet Ring with Diamond Initial"
           />
         </div>
         <div className="editorial-image-wrap">
           <img
             src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/9705e8c88497bd11c04443b53681f16f.avf.avif?v=1772747634"
-            alt="Mercer 94 editorial"
+            alt="Mercer 79 — hand-crafted gold signet rings"
           />
         </div>
       </div>
 
       {/* ── FEATURED PRODUCTS ────────────────────────────────────────────────── */}
-      {/*
-        No section title — grid sits directly below the editorial images.
-        Pulls the 3 most recently created products via the GraphQL query below.
-      */}
       <div className="featured-grid">
-        {products.slice(0, 3).map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
       {/* ── STORY BANNER ─────────────────────────────────────────────────────── */}
-      {/*
-        Full-bleed image linking to the About page.
-        Replace the src URL below with your chosen image from Shopify Admin → Content → Files.
-        The cream gradient overlay keeps the text readable over any image.
-        To use without an image yet, just remove the <img> tag — the gradient background shows.
-      */}
       <Link to="/pages/about" className="story-banner">
-        {/* Swap this src for your chosen image URL when ready */}
         <img
           className="story-banner-img"
           src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/1fba28d32664bf7f7f988005efbe93a6.avf.avif?v=1772747763"
-          alt="The Mercer 94 story"
+          alt="The ring that started Mercer 79"
         />
         <div className="story-banner-overlay" />
         <div className="story-banner-content">
@@ -321,11 +311,11 @@ export default function Homepage() {
             fontSize: 11,
             letterSpacing: '0.2em',
             color: goldAccent,
-            fontWeight: 500,
+            fontWeight: 600,
             textTransform: 'uppercase',
             marginBottom: 20,
           }}>
-            The Atelier
+            The story
           </p>
           <h2 style={{
             fontFamily: playfair,
@@ -336,9 +326,9 @@ export default function Homepage() {
             maxWidth: 520,
             marginBottom: 0,
           }}>
-            Made by hand.<br />Worn for life.
+            A ring found in a drawer.<br />Never taken off since.
           </h2>
-          <span className="story-banner-cta">Our Story</span>
+          <span className="story-banner-cta">Read the story</span>
         </div>
       </Link>
     </>
@@ -388,22 +378,20 @@ function ProductCard({product}) {
 // ── GraphQL query ──────────────────────────────────────────────────────────────
 const FEATURED_PRODUCTS_QUERY = `#graphql
   query FeaturedProducts {
-    products(first: 3, sortKey: CREATED_AT, reverse: true) {
-      nodes {
-        id
-        title
-        handle
-        featuredImage {
-          url
-          altText
-        }
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-      }
+    product1: product(handle: "no-1-oval-signet") {
+      id title handle
+      featuredImage { url altText }
+      priceRange { minVariantPrice { amount currencyCode } }
+    }
+    product2: product(handle: "no-2-rectangular-signet") {
+      id title handle
+      featuredImage { url altText }
+      priceRange { minVariantPrice { amount currencyCode } }
+    }
+    product3: product(handle: "no-3-flat-band") {
+      id title handle
+      featuredImage { url altText }
+      priceRange { minVariantPrice { amount currencyCode } }
     }
   }
 `;

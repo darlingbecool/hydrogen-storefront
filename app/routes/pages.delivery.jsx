@@ -8,9 +8,10 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Delivery & Returns | Mercer 94'}];
+  return [{title: 'Delivery & Returns | Mercer 79'}];
 };
 
 export default function DeliveryReturnsPage() {
@@ -23,171 +24,131 @@ export default function DeliveryReturnsPage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const prose = {
+    fontSize: isMobile ? 15 : 17,
+    color: subtleText,
+    lineHeight: 1.85,
+    marginBottom: 16,
+    fontFamily: bodyFont,
+  };
+
+  const h2 = {
+    fontFamily: playfair,
+    fontSize: isMobile ? 22 : 26,
+    fontWeight: 400,
+    color: darkText,
+    marginTop: 48,
+    marginBottom: 16,
+    paddingBottom: 10,
+    borderBottom: `2px solid ${borderCol}`,
+  };
+
+  const wrap = {
+    maxWidth: 760,
+    margin: '0 auto',
+    padding: isMobile ? '48px 24px 80px' : '64px 32px 100px',
+    fontFamily: bodyFont,
+  };
+
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh' }}>
+      <div style={wrap}>
 
-      {/* Hero */}
-      <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        paddingRight: isMobile ? "24px" : "48px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 36 : 48,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            lineHeight: 1.2
-          }}>
-            Delivery & Returns
-          </h1>
-          <div style={{
-            width: 80, height: 2, background: goldAccent, margin: "0 auto", opacity: 0.6
-          }} />
+        {/* Page title */}
+        <h1 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 32 : 42,
+          fontWeight: 400,
+          color: darkText,
+          marginBottom: 8,
+          marginTop: 0,
+        }}>
+          Delivery & Returns
+        </h1>
+        <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
+          Everything you need to know about how your order is sent and what happens if something is not right.
+        </p>
+
+        {/* Delivery */}
+        <h2 style={h2}>Delivery</h2>
+        <p style={prose}>
+          All UK orders are sent via Royal Mail Special Delivery - tracked, insured, and requiring a signature on receipt. Delivery is free on all orders over £300. A dispatch notification with tracking details is sent as soon as your piece is on its way.
+        </p>
+        <p style={prose}>
+          Orders are dispatched once the piece is complete. The lead time for all pieces is four to six weeks from the date of order - please bear this in mind when ordering for a specific occasion.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          If you have a specific date in mind, get in touch before placing your order and we will do our best to help.
+        </p>
+
+        {/* Packaging */}
+        <h2 style={h2}>Packaging</h2>
+        <p style={prose}>
+          Every Mercer 79 commission is packaged by hand. Your piece arrives in a black soft-touch ring box with a velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid. The box is wrapped in black tissue and packed securely for transit.
+        </p>
+        
+
+        {/* International */}
+        <h2 style={h2}>International delivery</h2>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          We ship internationally. Get in touch before ordering for delivery times and costs outside the UK.
+        </p>
+
+        {/* Returns */}
+        <h2 style={h2}>Returns</h2>
+        <p style={prose}>
+          Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          This is not small print - it is simply the nature of how the pieces are made. Please take your time before ordering. The Size Guide is there to help with fit, the product pages cover materials and details in full, and we are happy to answer any questions before you place your order.
+        </p>
+
+        {/* If something isn't right */}
+        <h2 style={h2}>If something is not right</h2>
+        <p style={prose}>
+          If a piece arrives damaged, or does not match what was agreed at the time of order, it will always be put right. Please get in touch as soon as possible with photographs and a description of the issue.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Queries about an order can be sent to{' '}
+          <a href="mailto:hello@mercer79.com" style={{ color: darkText, textDecoration: 'underline' }}>
+            hello@mercer79.com
+          </a>.
+        </p>
+
+        {/* Sizing */}
+        <h2 style={h2}>Sizing</h2>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Getting your size right before ordering matters. Full guidance is on the Size Guide page - and a complimentary ring sizer can be posted to you anywhere in the UK before you commit to anything. Just get in touch with your name and address.
+        </p>
+
+        {/* CTA */}
+        <div style={{
+          marginTop: 56,
+          paddingTop: 40,
+          borderTop: `2px solid ${borderCol}`,
+        }}>
+          <p style={prose}>
+            Any questions about delivery, sizing, or your order - get in touch.
+          </p>
+          <Link
+            to="/pages/contact"
+            style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: darkText,
+              color: 'white',
+              fontFamily: bodyFont,
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            Get in touch
+          </Link>
         </div>
+
       </div>
-
-      {/* Content */}
-      <div style={{ background: "white", padding: isMobile ? "48px 24px" : "80px 48px" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-
-          {/* Delivery */}
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            fontWeight: 400
-          }}>
-            Delivery
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            All UK orders are sent via Royal Mail on a tracked, insured service. Delivery is free on all orders over £250.
-          </p>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Orders are dispatched once the piece is complete — please allow around eight weeks from the date of order. A dispatch notification with tracking details is sent as soon as the piece is on its way.
-          </p>
-
-          {/* Packaging placeholder */}
-          <div style={{
-            padding: isMobile ? 20 : 24,
-            background: warmBg,
-            borderRadius: 8,
-            marginBottom: 24,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <p style={{ fontSize: 14, color: mutedText, lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>
-              [Packaging details to be added.]
-            </p>
-          </div>
-
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 32 }}>
-            <strong style={{ color: darkText, fontWeight: 500 }}>Need it sooner?</strong> If you have a specific date in mind, get in touch before placing your order and we'll do our best to help.
-          </p>
-
-          {/* International placeholder */}
-          <div style={{
-            padding: isMobile ? 20 : 24,
-            background: warmBg,
-            borderRadius: 8,
-            marginBottom: 56,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <p style={{ fontSize: 14, color: mutedText, lineHeight: 1.6, margin: 0, fontStyle: 'italic' }}>
-              [International shipping information to be added.]
-            </p>
-          </div>
-
-          {/* Returns */}
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            fontWeight: 400
-          }}>
-            Returns
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Because every Mercer 94 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods.
-          </p>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            This isn't small print. It's simply the nature of how the pieces are made. Customers are encouraged to take their time before ordering — the Size Guide is there to help with fit, the product pages cover materials and details in full, and Kate is always happy to answer questions before a decision is made.
-          </p>
-
-          {/* If something isn't right */}
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginBottom: 56,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{
-              fontFamily: playfair,
-              fontSize: 20,
-              color: darkText,
-              fontWeight: 400,
-              marginBottom: 12
-            }}>
-              If something isn't right
-            </h3>
-            <p style={{ fontSize: isMobile ? 14 : 15, color: subtleText, lineHeight: 1.7, margin: 0 }}>
-              If a piece arrives damaged, or doesn't match what was agreed at the time of order, Mercer 94 will always put it right. Please get in touch within 48 hours of receiving your order with photographs and a description of the issue.
-            </p>
-          </div>
-
-          {/* Sizing */}
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            fontWeight: 400
-          }}>
-            Sizing
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Getting your size right before ordering matters. Full guidance is on the Size Guide page — and a complimentary ring sizer can be posted to you before you commit to anything. Just get in touch with your name and address.
-          </p>
-
-          {/* Contact CTA */}
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginTop: 48,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{
-              fontFamily: playfair,
-              fontSize: 22,
-              color: darkText,
-              fontWeight: 400,
-              marginBottom: 12
-            }}>
-              Any questions?
-            </h3>
-            <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7, marginBottom: 16 }}>
-              Get in touch before you order — Kate is happy to help with anything about delivery, sizing, or your piece.
-            </p>
-            <Link
-              to="/pages/contact"
-              style={{ fontSize: 15, color: darkText, fontWeight: 500, textDecoration: 'underline' }}
-            >
-              Get in touch →
-            </Link>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   );
 }

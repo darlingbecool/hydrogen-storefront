@@ -9,11 +9,12 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 const amounts = ["50", "100", "250", "500"];
 
 export const meta = () => {
-  return [{title: 'Gift Card | Mercer 94'}];
+  return [{title: 'Gift Card | Mercer 79'}];
 };
 
 export async function loader({context}) {
@@ -49,48 +50,28 @@ export default function GiftCardPage() {
 
   const inputStyle = {
     width: "100%",
-    padding: 16,
-    border: "1px solid #D4D0CA",
+    padding: "14px 16px",
+    border: `1px solid ${borderCol}`,
     borderRadius: 8,
     fontSize: 15,
     fontFamily: bodyFont,
     outline: "none",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    color: darkText,
+    background: "white",
   };
 
   return (
     <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
 
-      {/* Breadcrumb */}
-      <div style={{ padding: isMobile ? "16px 24px" : "20px 32px" }}>
-        <Link
-          to="/"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            fontSize: 13,
-            color: subtleText,
-            textDecoration: "none",
-            letterSpacing: "0.05em"
-          }}
-        >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke={darkText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 9H3" />
-            <path d="M8 4L3 9l5 5" />
-          </svg>
-          Home / Gift Card
-        </Link>
-      </div>
-
       {/* Main Content */}
       <div style={{
-        maxWidth: "100%",
+        maxWidth: 1100,
         margin: "0 auto",
-        padding: isMobile ? "0 24px 64px" : "0 32px 80px",
+        padding: isMobile ? "24px 24px 64px" : "48px 32px 80px",
         display: "grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-        gap: isMobile ? 40 : 60
+        gap: isMobile ? 40 : 80,
       }}>
 
         {/* Left: Gift Card Visual */}
@@ -99,83 +80,132 @@ export default function GiftCardPage() {
             <div style={{
               width: "100%",
               aspectRatio: "1",
-              borderRadius: 8,
-              border: "12px solid rgba(180,175,165,0.25)",
+              border: `1px solid ${borderCol}`,
               overflow: "hidden",
-              position: "relative"
             }}>
               <Image
                 data={giftCard.featuredImage}
                 aspectRatio="1/1"
                 sizes="(min-width: 768px) 50vw, 100vw"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
           ) : (
             <div style={{
               width: "100%",
               aspectRatio: "1",
-              borderRadius: 8,
-              background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
-              border: "12px solid rgba(180,175,165,0.25)",
+              background: warmBg,
+              border: `1px solid ${borderCol}`,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
+              gap: 12,
             }}>
-              <p style={{ fontSize: 14, letterSpacing: "0.2em", color: subtleText, marginBottom: 12 }}>GIFT CARD</p>
-              <p style={{ fontFamily: playfair, fontSize: isMobile ? 52 : 72, color: darkText, margin: 0, lineHeight: 1 }}>
+              <p style={{
+                fontFamily: bodyFont,
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: goldAccent,
+                margin: 0,
+              }}>
+                Mercer 79
+              </p>
+              <p style={{
+                fontFamily: playfair,
+                fontSize: isMobile ? 52 : 72,
+                color: darkText,
+                margin: 0,
+                lineHeight: 1,
+              }}>
                 £{displayAmount}
               </p>
-              <p style={{ fontSize: 14, letterSpacing: "0.2em", color: subtleText, marginTop: 12 }}>MERCER 94</p>
+              <p style={{
+                fontFamily: bodyFont,
+                fontSize: 11,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: mutedText,
+                margin: 0,
+              }}>
+                Gift Card
+              </p>
             </div>
           )}
         </div>
 
-        {/* Right: Details & Form */}
+        {/* Right: Details and form */}
         <div>
-          <p style={{ fontSize: 12, letterSpacing: "0.15em", color: goldAccent, fontWeight: 500, marginBottom: 8 }}>GIFT</p>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 32 : 40,
-            color: darkText,
+          <p style={{
+            fontFamily: bodyFont,
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: goldAccent,
             marginBottom: 12,
-            fontWeight: 400,
-            lineHeight: 1.2
+            marginTop: 0,
           }}>
             Gift Card
+          </p>
+          <h1 style={{
+            fontFamily: playfair,
+            fontSize: isMobile ? 32 : 42,
+            color: darkText,
+            marginBottom: 16,
+            marginTop: 0,
+            fontWeight: 400,
+            lineHeight: 1.2,
+          }}>
+            £{displayAmount}
           </h1>
-          <p style={{ fontSize: 24, color: darkText, fontWeight: 500, marginBottom: 24 }}>£{displayAmount}</p>
-          <p style={{ fontSize: 16, color: subtleText, lineHeight: 1.7, marginBottom: 40 }}>
-            Give the gift of hand-crafted jewelry. Your recipient will receive a beautifully designed digital gift card, valid for 12 months from purchase. Redeemable against any piece in our collection.
+          <p style={{
+            fontSize: isMobile ? 15 : 17,
+            color: subtleText,
+            lineHeight: 1.85,
+            marginBottom: 32,
+            fontFamily: bodyFont,
+          }}>
+            A Mercer 79 gift card lets someone choose their own piece - the ring, the initial, the gold. Sent by email instantly, with no expiry date.
           </p>
 
-          <div style={{ height: 1, background: "#E8E4DE", marginBottom: 32 }} />
+          <div style={{ height: 1, background: borderCol, marginBottom: 32 }} />
 
-          {/* Amount Selection */}
+          {/* Amount */}
           <div style={{ marginBottom: 32 }}>
-            <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, marginBottom: 16 }}>AMOUNT</p>
+            <p style={{
+              fontFamily: bodyFont,
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: goldAccent,
+              marginBottom: 16,
+              marginTop: 0,
+            }}>
+              Amount
+            </p>
             <div style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: 12,
-              marginBottom: 16
+              gap: 8,
+              marginBottom: 12,
             }}>
               {amounts.map((a) => (
                 <button
                   key={a}
                   onClick={() => { setAmount(a); setCustomAmount(""); }}
                   style={{
-                    padding: isMobile ? "12px 8px" : "16px 20px",
-                    border: amount === a && !customAmount ? `2px solid ${darkText}` : "1px solid #D4D0CA",
+                    padding: "14px 8px",
+                    border: amount === a && !customAmount ? `1px solid ${darkText}` : `1px solid ${borderCol}`,
                     borderRadius: 8,
                     background: amount === a && !customAmount ? darkText : "white",
                     color: amount === a && !customAmount ? "white" : darkText,
-                    fontSize: isMobile ? 14 : 15,
-                    fontWeight: amount === a && !customAmount ? 500 : 400,
+                    fontSize: 15,
                     fontFamily: bodyFont,
                     cursor: "pointer",
-                    transition: "all 0.2s ease",
                     textAlign: "center",
                   }}
                 >
@@ -197,69 +227,105 @@ export default function GiftCardPage() {
               placeholder="Custom amount (minimum £50)"
               style={{
                 ...inputStyle,
-                border: customAmount ? `2px solid ${darkText}` : "1px solid #D4D0CA",
+                border: customAmount ? `1px solid ${darkText}` : `1px solid ${borderCol}`,
               }}
             />
           </div>
 
-          {/* Recipient Details */}
+          {/* Recipient */}
           <div style={{ marginBottom: 32 }}>
-            <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, marginBottom: 16 }}>RECIPIENT</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <input type="text" placeholder="Recipient Name" value={recipient.name}
-                onChange={(e) => setRecipient({...recipient, name: e.target.value})} style={inputStyle} />
-              <input type="email" placeholder="Recipient Email" value={recipient.email}
-                onChange={(e) => setRecipient({...recipient, email: e.target.value})} style={inputStyle} />
-              <textarea placeholder="Personal Message (Optional)" value={recipient.message}
+            <p style={{
+              fontFamily: bodyFont,
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: goldAccent,
+              marginBottom: 16,
+              marginTop: 0,
+            }}>
+              Recipient
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <input
+                type="text"
+                placeholder="Recipient name"
+                value={recipient.name}
+                onChange={(e) => setRecipient({...recipient, name: e.target.value})}
+                style={inputStyle}
+              />
+              <input
+                type="email"
+                placeholder="Recipient email"
+                value={recipient.email}
+                onChange={(e) => setRecipient({...recipient, email: e.target.value})}
+                style={inputStyle}
+              />
+              <textarea
+                placeholder="Personal message (optional)"
+                value={recipient.message}
                 onChange={(e) => setRecipient({...recipient, message: e.target.value})}
-                rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+                rows={3}
+                style={{ ...inputStyle, resize: "vertical" }}
+              />
             </div>
           </div>
 
-          {/* Add to Bag */}
+          {/* Purchase button */}
           <button
             onClick={handleAddToBag}
             style={{
               width: "100%",
-              padding: 20,
-              marginBottom: 12,
+              padding: "16px 28px",
               border: "none",
               borderRadius: 8,
               background: addedToBag ? "#2D5A27" : darkText,
               color: "white",
-              fontSize: 15,
+              fontSize: 12,
               letterSpacing: "0.15em",
-              fontWeight: 500,
+              textTransform: "uppercase",
               fontFamily: bodyFont,
               cursor: "pointer",
-              transition: "all 0.3s ease"
+              transition: "background 0.3s ease",
             }}
           >
-            {addedToBag ? "✓ ADDED TO BAG" : "PURCHASE GIFT CARD"}
+            {addedToBag ? "Added to bag" : "Purchase gift card"}
           </button>
 
           {/* Details */}
-          <div style={{ marginTop: 40 }}>
-            <h3 style={{ fontFamily: playfair, fontSize: 24, color: darkText, marginBottom: 20, fontWeight: 400 }}>
+          <div style={{ marginTop: 40, borderTop: `1px solid ${borderCol}`, paddingTop: 32 }}>
+            <p style={{
+              fontFamily: bodyFont,
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: goldAccent,
+              marginBottom: 16,
+              marginTop: 0,
+            }}>
               Details
-            </h3>
+            </p>
             {[
-              { label: "Delivery", value: "Sent instantly via email" },
-              { label: "Validity", value: "12 months from purchase" },
-              { label: "Redeemable", value: "Any piece in our collection" },
-              { label: "Personalisation", value: "Custom message included" },
+              { label: "Delivery", value: "Sent immediately to the email address provided above" },
+              { label: "Validity", value: "No expiry date" },
+              { label: "Redeemable against", value: "Any piece in the collection" },
+              { label: "Personal message", value: "Included - add yours above" },
             ].map((item, i, arr) => (
               <div key={i} style={{
                 display: "flex",
                 justifyContent: "space-between",
-                padding: "14px 0",
-                borderBottom: i < arr.length - 1 ? "1px solid #E8E4DE" : "none"
+                alignItems: "flex-start",
+                padding: "12px 0",
+                borderBottom: i < arr.length - 1 ? `1px solid ${borderCol}` : "none",
+                gap: 16,
               }}>
-                <span style={{ fontSize: 15, color: darkText }}>{item.label}</span>
-                <span style={{ fontSize: 15, color: subtleText, textAlign: "right" }}>{item.value}</span>
+                <span style={{ fontSize: 14, color: darkText, flexShrink: 0 }}>{item.label}</span>
+                <span style={{ fontSize: 14, color: subtleText, textAlign: "right" }}>{item.value}</span>
               </div>
             ))}
           </div>
+
         </div>
       </div>
     </div>

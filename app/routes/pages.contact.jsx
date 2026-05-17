@@ -8,9 +8,10 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Contact | Mercer 94'}];
+  return [{title: 'Contact | Mercer 79'}];
 };
 
 export default function ContactPage() {
@@ -42,245 +43,255 @@ export default function ContactPage() {
   const inputStyle = {
     width: "100%",
     padding: 16,
-    border: "1px solid #D4D0CA",
+    border: `1px solid ${borderCol}`,
     borderRadius: 8,
     fontSize: 15,
     fontFamily: bodyFont,
     outline: "none",
     boxSizing: "border-box",
+    background: "white",
+    color: darkText,
+  };
+
+  const labelStyle = {
+    display: 'block',
+    fontFamily: bodyFont,
+    fontSize: 11,
+    fontWeight: 600,
+    letterSpacing: '0.15em',
+    textTransform: 'uppercase',
+    color: goldAccent,
+    marginBottom: 8,
+  };
+
+  const cardStyle = {
+    padding: isMobile ? 20 : 24,
+    background: warmBg,
+    border: `1px solid ${borderCol}`,
+    marginBottom: 16,
   };
 
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh' }}>
 
       {/* Hero */}
       <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        paddingRight: isMobile ? "24px" : "48px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
+        background: warmBg,
+        padding: isMobile ? '56px 24px 48px' : '80px 32px 64px',
+        borderBottom: `2px solid ${borderCol}`,
+        textAlign: 'center',
       }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+        <div style={{ maxWidth: 760, margin: '0 auto' }}>
+          <p style={{
+            fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
+            letterSpacing: '0.15em', textTransform: 'uppercase',
+            color: goldAccent, marginBottom: 16, marginTop: 0,
+          }}>
+            Mercer 79
+          </p>
           <h1 style={{
             fontFamily: playfair,
-            fontSize: isMobile ? 36 : 48,
+            fontSize: isMobile ? 36 : 52,
             color: darkText,
-            marginBottom: 16,
             fontWeight: 400,
-            lineHeight: 1.2
+            lineHeight: 1.15,
+            marginBottom: 24,
+            marginTop: 0,
           }}>
-            Get in Touch
+            Get in touch
           </h1>
-          <div style={{
-            width: 80, height: 2, background: goldAccent, margin: "0 auto 24px", opacity: 0.6
-          }} />
           <p style={{
+            fontFamily: bodyFont,
             fontSize: isMobile ? 15 : 17,
             color: subtleText,
-            lineHeight: 1.6
+            lineHeight: 1.75,
+            maxWidth: 520,
+            margin: '0 auto',
           }}>
-            Whether you have a question about a piece, want help with sizing, or simply want to know more before you decide — please do reach out. No question is too small.
+            Questions about a piece, sizing, or the making process - get in touch before you order. No question is too small.
           </p>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div style={{ padding: isMobile ? "48px 24px" : "80px 48px" }}>
-        <div style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? 48 : 80,
-          alignItems: "start"
+      {/* Intro — above the grid */}
+      <div style={{
+        maxWidth: 1100,
+        margin: '0 auto',
+        padding: isMobile ? '48px 24px 0' : '64px 48px 0',
+      }}>
+        <h2 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 26 : 32,
+          color: darkText,
+          fontWeight: 400,
+          marginBottom: 12,
+          marginTop: 0,
         }}>
-
-          {/* Left: Contact Info */}
-          <div>
-            <h2 style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 28 : 32,
-              color: darkText,
-              marginBottom: 32,
-              fontWeight: 400
-            }}>
-              Let's talk
-            </h2>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 40 }}>
-              All messages are responded to within 24 hours. For a quicker conversation, find Mercer 94 on Instagram — DMs are always welcome.
-            </p>
-
-            {[
-              {
-                label: "EMAIL",
-                main: "hello@mercer94.com",
-                sub: "Responded to within 24 hours, Monday to Friday."
-              },
-              {
-                label: "INSTAGRAM",
-                main: "[Instagram handle to be added]",
-                sub: "DMs welcome. A good place for quick questions or to see work in progress."
-              },
-              {
-                label: "THE STUDIO",
-                main: "London, United Kingdom",
-                sub: "Studio visits are by appointment. Get in touch if you'd like to come and see pieces in person before commissioning."
-              },
-            ].map((item) => (
-              <div key={item.label} style={{
-                padding: isMobile ? 20 : 32,
-                background: warmBg,
-                borderRadius: 12,
-                marginBottom: 24,
-                border: `1px solid ${goldAccent}20`
-              }}>
-                <h3 style={{
-                  fontSize: 14,
-                  letterSpacing: "0.15em",
-                  color: goldAccent,
-                  fontWeight: 600,
-                  marginBottom: 16,
-                  fontFamily: bodyFont
-                }}>
-                  {item.label}
-                </h3>
-                {item.main && (
-                  <p style={{ fontSize: 17, color: darkText, margin: "0 0 8px", fontWeight: 500 }}>
-                    {item.main}
-                  </p>
-                )}
-                <p style={{ fontSize: 14, color: subtleText, margin: 0, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
-                  {item.sub}
-                </p>
-              </div>
-            ))}
-
-            {/* AI Concierge callout */}
-            <div style={{
-              padding: isMobile ? 20 : 32,
-              background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-              borderRadius: 12,
-              border: `1px solid ${goldAccent}40`
-            }}>
-              <h3 style={{
-                fontSize: 14,
-                letterSpacing: "0.15em",
-                color: goldAccent,
-                fontWeight: 600,
-                marginBottom: 16,
-                fontFamily: bodyFont
-              }}>
-                INSTANT ANSWERS
-              </h3>
-              <p style={{ fontSize: 14, color: subtleText, margin: 0, lineHeight: 1.6 }}>
-                The Mercer 94 concierge is available on the site around the clock — ask it anything about the collection, the making process, sizing, or materials.
-              </p>
-            </div>
-
-          </div>
-
-          {/* Right: Contact Form */}
-          <div>
-            <form onSubmit={handleSubmit}>
-              {[
-                { label: "NAME *", name: "name", type: "text", required: true },
-                { label: "EMAIL *", name: "email", type: "email", required: true },
-              ].map((field) => (
-                <div key={field.name} style={{ marginBottom: 24 }}>
-                  <label style={{
-                    display: 'block', fontSize: 14, fontWeight: 500,
-                    color: darkText, marginBottom: 8, letterSpacing: '0.05em'
-                  }}>
-                    {field.label}
-                  </label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    required={field.required}
-                    style={inputStyle}
-                    onFocus={(e) => e.target.style.border = `2px solid ${goldAccent}`}
-                    onBlur={(e) => e.target.style.border = "1px solid #D4D0CA"}
-                  />
-                </div>
-              ))}
-
-              <div style={{ marginBottom: 24 }}>
-                <label style={{
-                  display: 'block', fontSize: 14, fontWeight: 500,
-                  color: darkText, marginBottom: 8, letterSpacing: '0.05em'
-                }}>
-                  SUBJECT
-                </label>
-                <select
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  style={{ ...inputStyle, background: 'white' }}
-                  onFocus={(e) => e.target.style.border = `2px solid ${goldAccent}`}
-                  onBlur={(e) => e.target.style.border = "1px solid #D4D0CA"}
-                >
-                  <option value="">Select a subject</option>
-                  <option value="new-piece">New Piece</option>
-                  <option value="sizing">Ring Sizer Request</option>
-                  <option value="existing">Existing Order</option>
-                  <option value="other">Something Else</option>
-                </select>
-              </div>
-
-              <div style={{ marginBottom: 32 }}>
-                <label style={{
-                  display: 'block', fontSize: 14, fontWeight: 500,
-                  color: darkText, marginBottom: 8, letterSpacing: '0.05em'
-                }}>
-                  MESSAGE *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  style={{ ...inputStyle, resize: "vertical" }}
-                  onFocus={(e) => e.target.style.border = `2px solid ${goldAccent}`}
-                  onBlur={(e) => e.target.style.border = "1px solid #D4D0CA"}
-                />
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  width: "100%",
-                  padding: 18,
-                  border: "none",
-                  borderRadius: 8,
-                  background: submitted ? "#2D5A27" : darkText,
-                  color: "white",
-                  fontSize: 14,
-                  letterSpacing: "0.15em",
-                  fontWeight: 500,
-                  fontFamily: bodyFont,
-                  cursor: "pointer",
-                  transition: "all 0.3s ease"
-                }}
-              >
-                {submitted ? "✓ MESSAGE SENT" : "SEND MESSAGE"}
-              </button>
-
-              <p style={{ fontSize: 13, color: mutedText, marginTop: 16, textAlign: 'center', lineHeight: 1.5 }}>
-                By submitting this form, you agree to our{' '}
-                <Link to="/pages/privacy" style={{ color: darkText, textDecoration: 'underline' }}>Privacy Policy</Link>
-              </p>
-            </form>
-          </div>
-
-        </div>
+          Let's talk
+        </h2>
+        <p style={{
+          fontFamily: bodyFont,
+          fontSize: isMobile ? 15 : 17,
+          color: subtleText,
+          lineHeight: 1.8,
+          marginBottom: 0,
+          maxWidth: 560,
+        }}>
+          All messages are responded to within 24 hours, Monday to Friday. For a quicker conversation, find us on Instagram - DMs are always welcome.
+        </p>
       </div>
 
+      {/* Main grid — starts at same point on both sides */}
+      <div style={{
+        maxWidth: 1100,
+        margin: '0 auto',
+        padding: isMobile ? '32px 24px 80px' : '40px 48px 100px',
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+        gap: isMobile ? 48 : 80,
+        alignItems: 'start',
+      }}>
+
+        {/* Left: contact cards */}
+        <div>
+          <div style={cardStyle}>
+            <p style={{ ...labelStyle, marginBottom: 12 }}>Email</p>
+            <p style={{ fontSize: 16, color: darkText, margin: '0 0 6px', fontWeight: 500, fontFamily: bodyFont }}>
+              hello@mercer79.com
+            </p>
+            <p style={{ fontSize: 13, color: mutedText, margin: 0, lineHeight: 1.6, fontFamily: bodyFont }}>
+              Responded to within 24 hours, Monday to Friday.
+            </p>
+          </div>
+
+          <div style={cardStyle}>
+            <p style={{ ...labelStyle, marginBottom: 12 }}>Instagram</p>
+            <p style={{ fontSize: 16, color: darkText, margin: '0 0 6px', fontWeight: 500, fontFamily: bodyFont }}>
+              @mercerseventynine
+            </p>
+            <p style={{ fontSize: 13, color: mutedText, margin: 0, lineHeight: 1.6, fontFamily: bodyFont }}>
+              DMs welcome - a good place for quick questions or to see work in progress.
+            </p>
+          </div>
+
+          <div style={cardStyle}>
+            <p style={{ ...labelStyle, marginBottom: 12 }}>Pinterest</p>
+            <a href="https://uk.pinterest.com/mercerseventynine/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 16, color: darkText, margin: '0 0 6px', fontWeight: 500, fontFamily: bodyFont, display: 'block', textDecoration: 'none' }}>
+              pinterest.com/mercerseventynine
+            </a>
+            <p style={{ fontSize: 13, color: mutedText, margin: 0, lineHeight: 1.6, fontFamily: bodyFont }}>
+              Inspiration, references, and the world behind the collection.
+            </p>
+          </div>
+
+          {/* PLACEHOLDER — concierge callout to be added once AI concierge is live */}
+          {/* Uncomment when ready:
+          <div style={{ ...cardStyle, marginBottom: 0, background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)` }}>
+            <p style={{ ...labelStyle, marginBottom: 12 }}>Instant answers</p>
+            <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6, fontFamily: bodyFont }}>
+              The Mercer 79 concierge is available on the site around the clock — ask it anything about the collection, sizing, or the making process.
+            </p>
+          </div>
+          */}
+        </div>
+
+        {/* Right: contact form */}
+        <div>
+          <form onSubmit={handleSubmit}>
+
+            <div style={{ marginBottom: 24 }}>
+              <label style={labelStyle}>Name *</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+                onFocus={(e) => e.target.style.border = `1px solid ${darkText}`}
+                onBlur={(e) => e.target.style.border = `1px solid ${borderCol}`}
+              />
+            </div>
+
+            <div style={{ marginBottom: 24 }}>
+              <label style={labelStyle}>Email *</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                style={inputStyle}
+                onFocus={(e) => e.target.style.border = `1px solid ${darkText}`}
+                onBlur={(e) => e.target.style.border = `1px solid ${borderCol}`}
+              />
+            </div>
+
+            <div style={{ marginBottom: 24 }}>
+              <label style={labelStyle}>Subject</label>
+              <select
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                style={{ ...inputStyle }}
+                onFocus={(e) => e.target.style.border = `1px solid ${darkText}`}
+                onBlur={(e) => e.target.style.border = `1px solid ${borderCol}`}
+              >
+                <option value="">Select a subject</option>
+                <option value="new-piece">New piece enquiry</option>
+                <option value="sizing">Ring sizer request</option>
+                <option value="bespoke">Bespoke enquiry</option>
+                <option value="existing">Existing order</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div style={{ marginBottom: 32 }}>
+              <label style={labelStyle}>Message *</label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={6}
+                style={{ ...inputStyle, resize: "vertical" }}
+                onFocus={(e) => e.target.style.border = `1px solid ${darkText}`}
+                onBlur={(e) => e.target.style.border = `1px solid ${borderCol}`}
+              />
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: 18,
+                border: "none",
+                borderRadius: 8,
+                background: submitted ? "#2D5A27" : darkText,
+                color: "white",
+                fontSize: 12,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                fontFamily: bodyFont,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+            >
+              {submitted ? "✓ Message sent" : "Send message"}
+            </button>
+
+            <p style={{ fontSize: 13, color: mutedText, marginTop: 16, textAlign: 'center', lineHeight: 1.5, fontFamily: bodyFont }}>
+              By submitting this form you agree to our{' '}
+              <Link to="/pages/privacy" style={{ color: darkText, textDecoration: 'underline' }}>
+                Privacy Policy
+              </Link>
+            </p>
+
+          </form>
+        </div>
+
+      </div>
     </div>
   );
 }

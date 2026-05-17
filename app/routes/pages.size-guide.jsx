@@ -8,32 +8,33 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 const sizes = [
-  { uk: "D", diameter: "14.9", circumference: "46.8" },
-  { uk: "E", diameter: "15.3", circumference: "48.0" },
-  { uk: "F", diameter: "15.7", circumference: "49.3" },
-  { uk: "G", diameter: "16.1", circumference: "50.6" },
-  { uk: "H", diameter: "16.5", circumference: "51.9" },
-  { uk: "I", diameter: "16.9", circumference: "53.1" },
-  { uk: "J", diameter: "17.3", circumference: "54.4" },
-  { uk: "K", diameter: "17.7", circumference: "55.7" },
-  { uk: "L", diameter: "18.1", circumference: "57.0" },
-  { uk: "M", diameter: "18.5", circumference: "58.3" },
-  { uk: "N", diameter: "18.9", circumference: "59.5" },
-  { uk: "O", diameter: "19.3", circumference: "60.8" },
-  { uk: "P", diameter: "19.7", circumference: "62.1" },
-  { uk: "Q", diameter: "20.1", circumference: "63.4" },
-  { uk: "R", diameter: "20.5", circumference: "64.6" },
-  { uk: "S", diameter: "20.9", circumference: "65.9" },
-  { uk: "T", diameter: "21.3", circumference: "67.2" },
-  { uk: "U", diameter: "21.7", circumference: "68.5" },
-  { uk: "V", diameter: "22.1", circumference: "69.7" },
-  { uk: "W", diameter: "22.5", circumference: "71.0" },
+  { uk: "D",  diameter: "14.9", circumference: "46.8" },
+  { uk: "E",  diameter: "15.3", circumference: "48.0" },
+  { uk: "F",  diameter: "15.7", circumference: "49.3" },
+  { uk: "G",  diameter: "16.1", circumference: "50.6" },
+  { uk: "H",  diameter: "16.5", circumference: "51.9" },
+  { uk: "I",  diameter: "16.9", circumference: "53.1" },
+  { uk: "J",  diameter: "17.3", circumference: "54.4" },
+  { uk: "K",  diameter: "17.7", circumference: "55.7" },
+  { uk: "L",  diameter: "18.1", circumference: "57.0" },
+  { uk: "M",  diameter: "18.5", circumference: "58.3" },
+  { uk: "N",  diameter: "18.9", circumference: "59.5" },
+  { uk: "O",  diameter: "19.3", circumference: "60.8" },
+  { uk: "P",  diameter: "19.7", circumference: "62.1" },
+  { uk: "Q",  diameter: "20.1", circumference: "63.4" },
+  { uk: "R",  diameter: "20.5", circumference: "64.6" },
+  { uk: "S",  diameter: "20.9", circumference: "65.9" },
+  { uk: "T",  diameter: "21.3", circumference: "67.2" },
+  { uk: "U",  diameter: "21.7", circumference: "68.5" },
+  { uk: "V",  diameter: "22.1", circumference: "69.7" },
+  { uk: "W",  diameter: "22.5", circumference: "71.0" },
 ];
 
 export const meta = () => {
-  return [{title: 'Size Guide | Mercer 94'}];
+  return [{title: 'Size Guide | Mercer 79'}];
 };
 
 export default function SizeGuidePage() {
@@ -46,225 +47,192 @@ export default function SizeGuidePage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const prose = {
+    fontSize: isMobile ? 15 : 17,
+    color: subtleText,
+    lineHeight: 1.85,
+    marginBottom: 16,
+    fontFamily: bodyFont,
+  };
+
+  const h2 = {
+    fontFamily: playfair,
+    fontSize: isMobile ? 22 : 26,
+    fontWeight: 400,
+    color: darkText,
+    marginTop: 48,
+    marginBottom: 16,
+    paddingBottom: 10,
+    borderBottom: `2px solid ${borderCol}`,
+  };
+
+
+  const wrap = {
+    maxWidth: 760,
+    margin: '0 auto',
+    padding: isMobile ? '48px 24px 80px' : '64px 32px 100px',
+    fontFamily: bodyFont,
+  };
+
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh' }}>
+      <div style={wrap}>
 
-      {/* Hero */}
-      <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        paddingRight: isMobile ? "24px" : "48px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 36 : 48,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            lineHeight: 1.2
-          }}>
-            Size Guide
-          </h1>
-          <div style={{
-            width: 80, height: 2, background: goldAccent, margin: "0 auto", opacity: 0.6
-          }} />
-        </div>
-      </div>
+        {/* Page title */}
+        <h1 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 32 : 42,
+          fontWeight: 400,
+          color: darkText,
+          marginBottom: 8,
+          marginTop: 0,
+        }}>
+          Size Guide
+        </h1>
+        <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
+          Because every piece is made to order, getting your size right before you place your order matters. Take your time - and if you would like help, just get in touch.
+        </p>
 
-      {/* How to Measure */}
-      <div style={{ padding: isMobile ? "48px 24px 40px" : "80px 48px 60px", background: "white" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto" }}>
+        {/* Section 1: How to measure */}
+        <h2 style={h2}>Finding your size</h2>
 
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 28 : 32,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            textAlign: 'center'
-          }}>
-            Finding Your Size
-          </h2>
-          <p style={{
-            fontSize: isMobile ? 15 : 16,
-            color: subtleText,
-            lineHeight: 1.8,
-            textAlign: 'center',
-            maxWidth: 560,
-            margin: '0 auto 48px',
-          }}>
-            Because every piece is made to order, getting your size right before you place your order matters. Take your time — and if you'd like help, just get in touch.
-          </p>
+        <p style={prose}>There are three reliable ways to find your ring size. The first is the most accurate.</p>
 
-          {/* 3 Steps */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-            gap: isMobile ? 32 : 32,
-            marginBottom: 48
-          }}>
-            {[
-              {
-                num: "1",
-                title: "Request a Ring Sizer",
-                text: "The most reliable method. Get in touch with your name and address and a complimentary ring sizer will be posted to you."
-              },
-              {
-                num: "2",
-                title: "Measure an Existing Ring",
-                text: "Place a well-fitting ring on a flat surface and measure the internal diameter — straight across the inside of the band — in millimetres."
-              },
-              {
-                num: "3",
-                title: "String or Paper Method",
-                text: "Wrap a thin strip of paper or string snugly around the base of your finger. Mark where it meets, lay flat, and measure the length in millimetres."
-              },
-            ].map((step) => (
-              <div key={step.num} style={{ textAlign: 'center' }}>
-                <div style={{
-                  width: 48, height: 48, borderRadius: "50%", background: goldAccent,
-                  color: "white", display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 20, fontWeight: 500, margin: '0 auto 16px', fontFamily: playfair
-                }}>
-                  {step.num}
-                </div>
-                <h3 style={{ fontSize: 16, color: darkText, fontWeight: 500, marginBottom: 8, letterSpacing: '0.05em' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: 28,
+          marginTop: 28,
+        }}>
+          {[
+            {
+              num: '01',
+              title: 'Request a ring sizer',
+              text: 'The most reliable method. Get in touch with your name and address and a complimentary ring sizer will be posted to you, free of charge, before you commit to an order.',
+            },
+            {
+              num: '02',
+              title: 'Measure an existing ring',
+              text: 'Place a well-fitting ring on a flat surface and measure the internal diameter - straight across the inside of the band - in millimetres. Match to the chart below.',
+            },
+            {
+              num: '03',
+              title: 'String or paper method',
+              text: 'Wrap a thin strip of paper or string snugly around the base of your finger. Mark where it meets, lay it flat, and measure the length in millimetres for your circumference.',
+            },
+          ].map((step) => (
+            <div key={step.num} style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
+              <p style={{
+                fontFamily: bodyFont,
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: goldAccent,
+                marginBottom: 0,
+                marginTop: 2,
+                flexShrink: 0,
+                width: 28,
+              }}>
+                {step.num}
+              </p>
+              <div>
+                <p style={{ fontFamily: bodyFont, fontSize: 11, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: goldAccent, marginBottom: 8, marginTop: 0 }}>
                   {step.title}
-                </h3>
-                <p style={{ fontSize: 14, color: subtleText, margin: 0, lineHeight: 1.6 }}>
+                </p>
+                <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: 0 }}>
                   {step.text}
                 </p>
               </div>
-            ))}
-          </div>
-
-          {/* Tips */}
-          <div style={{ padding: isMobile ? 24 : 32, background: warmBg, borderRadius: 12, marginBottom: 48 }}>
-            <h3 style={{
-              fontSize: 18, color: darkText, fontWeight: 500, marginBottom: 20,
-              textAlign: 'center', letterSpacing: '0.05em'
-            }}>
-              A Few Things Worth Knowing
-            </h3>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-              gap: isMobile ? 20 : 24
-            }}>
-              {[
-                { icon: "🌡", text: "Fingers are slightly larger in the evening and when warm — measure at the end of the day for the most accurate result" },
-                { icon: "❄️", text: "Avoid measuring first thing in the morning or in cold weather — fingers shrink more than you'd expect" },
-                { icon: "↔️", text: "Mercer 94 works in full sizes only. If you fall between two sizes, sizing up gives the most comfortable fit" },
-              ].map((tip, i) => (
-                <div key={i} style={{ textAlign: 'center' }}>
-                  <span style={{ fontSize: 32, display: "block", marginBottom: 12 }}>{tip.icon}</span>
-                  <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.5 }}>{tip.text}</p>
-                </div>
-              ))}
             </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Size Chart */}
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 28 : 32,
-            color: darkText,
-            marginBottom: 32,
-            fontWeight: 400,
-            textAlign: 'center'
-          }}>
-            UK Ring Size Chart
-          </h2>
+        {/* Section 2: Tips */}
+        <h2 style={h2}>A few things worth knowing</h2>
 
+        <p style={prose}>
+          Fingers change size more than most people expect. For the most accurate result, measure at the end of the day rather than first thing in the morning, and avoid measuring in cold weather - fingers are noticeably smaller when cold.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Mercer 79 works in full sizes only. If you fall between two sizes, sizing up gives the most comfortable fit for everyday wear.
+        </p>
+
+        {/* Section 3: Size chart */}
+        <h2 style={h2}>UK ring size chart</h2>
+
+        <p style={{ ...prose, marginBottom: 28 }}>
+          All measurements are in millimetres. Diameter is measured straight across the inside of the band; circumference is the full inner length around the ring.
+        </p>
+
+        <div style={{
+          border: `1px solid ${borderCol}`,
+          borderRadius: 4,
+          overflow: 'hidden',
+          marginBottom: 0,
+        }}>
+          {/* Table header */}
           <div style={{
-            maxWidth: 500,
-            margin: '0 auto 48px',
-            borderRadius: 12,
-            overflow: "hidden",
-            border: "2px solid #E8E4DE",
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr 1fr',
+            background: darkText,
+            padding: '14px 0',
           }}>
-            {/* Header */}
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              background: darkText,
-              padding: '16px 0'
-            }}>
-              {["UK Size", "Diameter (mm)", "Circumference (mm)"].map((h) => (
-                <div key={h} style={{
-                  textAlign: "center", fontSize: 11, color: "white",
-                  fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase"
-                }}>
-                  {h}
-                </div>
-              ))}
-            </div>
-            {sizes.map((row, i) => (
-              <div key={row.uk} style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-                background: i % 2 === 0 ? "white" : warmBg,
-                padding: '12px 0',
-                borderTop: '1px solid #E8E4DE'
+            {['UK size', 'Diameter (mm)', 'Circumference (mm)'].map((h) => (
+              <div key={h} style={{
+                textAlign: 'center',
+                fontSize: 11,
+                color: 'white',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
               }}>
-                <div style={{ textAlign: "center", fontSize: 15, color: darkText, fontWeight: 500 }}>{row.uk}</div>
-                <div style={{ textAlign: "center", fontSize: 15, color: subtleText }}>{row.diameter}</div>
-                <div style={{ textAlign: "center", fontSize: 15, color: subtleText }}>{row.circumference}</div>
+                {h}
               </div>
             ))}
           </div>
-
-          {/* CTA */}
-          <div style={{
-            maxWidth: 600,
-            margin: '0 auto',
-            padding: isMobile ? 28 : 40,
-            background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-            borderRadius: 12,
-            border: `2px solid ${goldAccent}`,
-            textAlign: 'center'
-          }}>
-            <h3 style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 20 : 24,
-              color: darkText,
-              fontWeight: 400,
-              marginBottom: 12
+          {/* Table rows */}
+          {sizes.map((row, i) => (
+            <div key={row.uk} style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr',
+              background: i % 2 === 0 ? 'white' : warmBg,
+              padding: '11px 0',
+              borderTop: `1px solid ${borderCol}`,
             }}>
-              Want to measure properly first?
-            </h3>
-            <p style={{ fontSize: 16, color: subtleText, marginBottom: 24, lineHeight: 1.6 }}>
-              A complimentary ring sizer can be posted to you before you order. Just get in touch.
-            </p>
-            <Link
-              to="/pages/contact"
-              style={{
-                display: 'inline-block',
-                padding: '16px 40px',
-                background: darkText,
-                color: 'white',
-                fontSize: 14,
-                letterSpacing: '0.15em',
-                fontWeight: 500,
-                fontFamily: bodyFont,
-                borderRadius: 8,
-                textDecoration: 'none',
-              }}
-              onMouseEnter={(e) => { e.target.style.background = 'white'; e.target.style.color = darkText; e.target.style.outline = `2px solid ${darkText}`; }}
-              onMouseLeave={(e) => { e.target.style.background = darkText; e.target.style.color = 'white'; e.target.style.outline = 'none'; }}
-            >
-              REQUEST RING SIZER
-            </Link>
-          </div>
-
+              <div style={{ textAlign: 'center', fontSize: 15, color: darkText, fontWeight: 500 }}>{row.uk}</div>
+              <div style={{ textAlign: 'center', fontSize: 15, color: subtleText }}>{row.diameter}</div>
+              <div style={{ textAlign: 'center', fontSize: 15, color: subtleText }}>{row.circumference}</div>
+            </div>
+          ))}
         </div>
-      </div>
 
+        {/* Section 4: Still unsure */}
+        <h2 style={h2}>Still unsure?</h2>
+
+        <p style={prose}>
+          A complimentary ring sizer can be posted to you anywhere in the UK before you place your order. It takes a minute to use and removes any guesswork. Just get in touch with your name and address.
+        </p>
+
+        <Link
+          to="/pages/contact"
+          style={{
+            display: 'inline-block',
+            marginTop: 8,
+            padding: '12px 28px',
+            background: darkText,
+            color: 'white',
+            fontFamily: bodyFont,
+            fontSize: 12,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            textDecoration: 'none',
+          }}
+        >
+          Request a ring sizer
+        </Link>
+
+      </div>
     </div>
   );
 }

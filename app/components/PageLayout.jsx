@@ -21,15 +21,15 @@ const NAV_HEIGHT = '60px';
 // ── Navigation data (unchanged from your original) ────────────────────────────
 const navSections = [
   {
-    title: 'SHOP',
-    items: [
-      {label: 'All Pieces', path: '/collections/all'},
-      {label: 'Rings', path: '/collections/rings'},
-      {label: 'Necklaces', path: '/collections/necklaces'},
-      {label: 'Bespoke', path: '/bespoke'},
-      {label: 'Gift Cards', path: '/pages/gift-cards'},
-    ],
-  },
+  title: 'SHOP',
+  items: [
+    {label: 'No. 1 Oval Signet', path: '/products/no-1-oval-signet'},
+    {label: 'No. 3 Flat Band', path: '/products/no-3-flat-band'},
+    {label: 'No. 2 Rectangular Signet', path: '/products/no-2-rectangular-signet'},
+    {label: 'Bespoke', path: '/bespoke'},
+    {label: 'Gift Cards', path: '/pages/gift-cards'},
+  ],
+},
   {
     title: 'ABOUT',
     items: [
@@ -45,7 +45,6 @@ const navSections = [
       {label: 'Delivery & Returns', path: '/pages/delivery'},
       {label: 'Terms & Conditions', path: '/pages/terms'},
       {label: 'Privacy Policy', path: '/pages/privacy'},
-      {label: 'Gift Wrapping', path: '/pages/gift-wrapping'},
     ],
   },
 ];
@@ -430,7 +429,7 @@ function SlideMenu({isOpen, onClose, cart}) {
           textAlign: 'center', letterSpacing: '0.08em',
           marginTop: 40, marginBottom: 0,
         }}>
-          Hand-crafted in London
+          Hand-crafted in the UK
         </p>
       </div>
     </>

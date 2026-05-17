@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLoaderData } from 'react-router';
 import { Link } from 'react-router';
 import {
@@ -21,25 +21,22 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
-
-const sizeOptions = ["J", "K", "L", "M", "N", "O", "P", "Q"];
+const borderCol = "#E8D7AE";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
 
 const specifications = [
   { label: "Style", value: "Oval signet" },
   { label: "Diamond setting", value: "Raised, not inset" },
-  { label: "Diamond options", value: "Lab-grown or natural" },
-  { label: "Gold", value: "9ct, 14ct or 18ct yellow gold" },
+  { label: "Gold", value: "9ct yellow gold" },
   { label: "Finish", value: "High polish" },
-  { label: "Hallmark", value: "London Assay Office certified" },
-  { label: "Lead time", value: "Eight weeks from order" },
+  { label: "Face dimensions", value: "[oval width × height — to be confirmed]" },
+  { label: "Band width", value: "[mm at widest point — to be confirmed]" },
 ];
 
 export const meta = ({data}) => {
   return [
-    {title: `${data?.product.title ?? 'Product'} | Mercer 94`},
+    {title: `${data?.product.title ?? 'Product'} | Mercer 79`},
     { rel: 'canonical', href: `/products/${data?.product.handle}` },
   ];
 };
@@ -64,18 +61,7 @@ async function loadCriticalData({context, params, request}) {
   if (!product?.id) throw new Response(null, {status: 404});
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
-  let relatedProducts = [];
-  const collectionHandle = product.collections?.nodes?.[0]?.handle;
-  if (collectionHandle) {
-    const {collection} = await storefront.query(RELATED_PRODUCTS_QUERY, {
-      variables: { collectionHandle },
-    });
-    relatedProducts = (collection?.products?.nodes ?? [])
-      .filter(p => p.id !== product.id)
-      .slice(0, 3);
-  }
-
-  return {product, relatedProducts};
+  return {product};
 }
 
 function loadDeferredData({context, params}) {
@@ -83,7 +69,7 @@ function loadDeferredData({context, params}) {
 }
 
 export default function Product() {
-  const {product, relatedProducts} = useLoaderData();
+  const {product} = useLoaderData();
   const {open} = useAside();
 
   const selectedVariant = useOptimisticVariant(
@@ -103,6 +89,7 @@ export default function Product() {
   const [activeThumb, setActiveThumb] = useState(0);
   const [selectedInitial, setSelectedInitial] = useState(null);
   const [openAccordion, setOpenAccordion] = useState(null);
+  const cartFormRef = useRef(null);
 
   const sizeOption = selectedVariant.selectedOptions.find(opt => opt.name === "Size");
   const selectedSize = sizeOption?.value || "";
@@ -142,15 +129,11 @@ export default function Product() {
           width: 100%;
           min-width: 0;
         }
-        .product-right-col form {
-          width: 100%;
-          display: block;
-          margin: 0;
-        }
-        .related-products-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
+        .product-right-col form,
+        .product-right-col form > * {
+          width: 100% !important;
+          display: block !important;
+          box-sizing: border-box !important;
         }
         @media (max-width: 768px) {
           .product-grid {
@@ -171,10 +154,6 @@ export default function Product() {
           }
           .product-title { font-size: 32px !important; }
           .thumbnail-row { display: none !important; }
-          .related-products-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 20px !important;
-          }
         }
       `}</style>
 
@@ -184,7 +163,7 @@ export default function Product() {
         <div className="product-image-sticky">
           <div style={{ marginBottom: 24 }}>
             <div style={{
-              width: "100%", aspectRatio: "1", borderRadius: 16,
+              width: "100%", aspectRatio: "1",
               background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
               overflow: "hidden",
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
@@ -194,23 +173,23 @@ export default function Product() {
                   <p style={{ fontFamily: playfair, fontSize: 120, color: darkText, margin: 0, lineHeight: 1 }}>
                     {selectedInitial}
                   </p>
-                  <p style={{ fontSize: 14, letterSpacing: "0.2em", color: subtleText, marginTop: 16 }}>
-                    THE MERCER SIGNET
+                  <p style={{ fontSize: 11, letterSpacing: "0.2em", color: subtleText, marginTop: 16, fontWeight: 600, textTransform: "uppercase" }}>
+                    Mercer 79
                   </p>
                 </>
               ) : mainImage ? (
                 <img
                   src={mainImage.url}
                   alt={mainImage.altText || product.title}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 0 }}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
                 />
               ) : (
                 <>
                   <p style={{ fontFamily: playfair, fontSize: 36, color: darkText, margin: "0 0 12px" }}>
                     Your Initial
                   </p>
-                  <p style={{ fontSize: 14, letterSpacing: "0.15em", color: subtleText }}>
-                    SELECT A–Z BELOW
+                  <p style={{ fontSize: 11, letterSpacing: "0.15em", color: subtleText, fontWeight: 600, textTransform: "uppercase" }}>
+                    Select A–Z below
                   </p>
                 </>
               )}
@@ -219,10 +198,10 @@ export default function Product() {
           <div className="thumbnail-row">
             <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
               {productImages.slice(0, 4).map((image, i) => (
-                <button key={i} onClick={() => setActiveThumb(i)}
+                <button key={i} onClick={() => { setActiveThumb(i); setSelectedInitial(null); }}
                   style={{
                     flex: 1, maxWidth: 100, aspectRatio: "1",
-                    border: activeThumb === i ? `3px solid ${darkText}` : "1px solid #D4D0CA",
+                    border: activeThumb === i ? `2px solid ${darkText}` : `1px solid ${borderCol}`,
                     borderRadius: 8, background: "white", cursor: "pointer", overflow: "hidden", padding: 0
                   }}
                 >
@@ -236,7 +215,6 @@ export default function Product() {
 
         {/* RIGHT: Details */}
         <div className="product-right-col">
-          {/* CHANGE 1: Removed "RINGS" category label above title */}
           <h1 className="product-title" style={{ fontFamily: playfair, fontSize: 40, color: darkText, marginBottom: 12, fontWeight: 400, lineHeight: 1.2 }}>
             {title}
           </h1>
@@ -244,22 +222,31 @@ export default function Product() {
             £{formattedPrice.toLocaleString()}
           </p>
 
-          {/* Description from Shopify */}
           <div style={{ fontSize: 16, color: subtleText, lineHeight: 1.7, marginBottom: 40 }}>
             {description}
           </div>
 
-          <div style={{ height: 1, background: "#E8E4DE", marginBottom: 32 }} />
+          <div style={{ height: 1, background: borderCol, marginBottom: 32 }} />
 
-          {/* CHANGE 2: Gold dropdown removed — variant managed in Shopify admin */}
-
-          {/* Size */}
+          {/* Ring size */}
           <div style={{ marginBottom: 8 }}>
-            <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, marginBottom: 16 }}>RING SIZE</p>
-            <select value={selectedSize}
-              onChange={(e) => { window.location.href = `?Size=${encodeURIComponent(e.target.value)}`; }}
+            <p style={{
+              fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
+              letterSpacing: "0.15em", textTransform: "uppercase",
+              color: goldAccent, marginBottom: 16,
+            }}>
+              Ring size
+            </p>
+            <select
+              value={selectedSize}
+              onChange={(e) => {
+                const url = new URL(window.location.href);
+                url.searchParams.set('Size', e.target.value);
+                window.location.href = url.toString();
+              }}
               style={{
-                width: "100%", padding: "16px 20px", border: "2px solid #D4D0CA",
+                width: "100%", padding: "16px 20px",
+                border: `1px solid ${borderCol}`,
                 borderRadius: 8, background: "white", color: darkText, fontSize: 15,
                 fontFamily: bodyFont, cursor: "pointer", appearance: "none",
                 backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")`,
@@ -267,20 +254,29 @@ export default function Product() {
               }}
             >
               <option value="">Select ring size</option>
-              {sizeOptions.map((size) => <option key={size} value={size}>{size}</option>)}
+              {productOptions
+                .find(opt => opt.name === 'Size')
+                ?.optionValues.map(({name}) => (
+                <option key={name} value={name}>{name}</option>
+              ))}
             </select>
           </div>
-          {/* CHANGE 3: Combined size guide + ring sizer links into one line */}
+
           <p style={{ fontSize: 13, color: mutedText, marginBottom: 32, lineHeight: 1.5 }}>
-            <Link to="/pages/size-guide" style={{ color: darkText, textDecoration: "underline" }}>Not sure of your size?</Link>
-            {' '}We can also{' '}
-            <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a complimentary ring sizer</Link>.
+            Not sure of your size? Get in touch and we'll{' '}
+            <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a ring sizer</Link>.
           </p>
 
           {/* Initial selector */}
           <div style={{ marginBottom: 32 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-              <p style={{ fontSize: 14, letterSpacing: "0.1em", color: darkText, fontWeight: 500, margin: 0 }}>YOUR INITIAL</p>
+              <p style={{
+                fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
+                letterSpacing: "0.15em", textTransform: "uppercase",
+                color: goldAccent, margin: 0,
+              }}>
+                Your initial
+              </p>
               {selectedInitial && (
                 <button onClick={() => setSelectedInitial(null)}
                   style={{ fontSize: 12, color: mutedText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
@@ -294,7 +290,7 @@ export default function Product() {
                 <button key={letter} onClick={() => setSelectedInitial(letter)}
                   style={{
                     aspectRatio: "1",
-                    border: selectedInitial === letter ? `2px solid ${darkText}` : "1px solid #D4D0CA",
+                    border: selectedInitial === letter ? `2px solid ${darkText}` : `1px solid ${borderCol}`,
                     borderRadius: 6,
                     background: selectedInitial === letter ? darkText : "white",
                     color: selectedInitial === letter ? "white" : darkText,
@@ -310,7 +306,6 @@ export default function Product() {
                 </button>
               ))}
             </div>
-            {/* CHANGE 4: Removed "One letter, rendered in diamonds..." paragraph */}
           </div>
 
           {/* Add to Bag */}
@@ -330,123 +325,95 @@ export default function Product() {
             }}
           >
             {(fetcher) => (
-              <button
-                type="submit"
-                disabled={!canAdd || fetcher.state !== 'idle'}
-                onClick={() => { if (canAdd) open('cart'); }}
-                style={{
-                  width: "100%",
-                  display: "block",
-                  boxSizing: "border-box",
-                  margin: 0,
-                  marginBottom: 12,
-                  padding: 20,
-                  border: canAdd ? "none" : "2px solid #D4D0CA",
-                  borderRadius: 8,
-                  background: !canAdd ? "transparent" : fetcher.state !== 'idle' ? "#555" : darkText,
-                  color: canAdd ? "white" : mutedText,
-                  fontSize: 15,
-                  letterSpacing: "0.15em",
-                  fontWeight: 500,
-                  fontFamily: bodyFont,
-                  cursor: canAdd ? "pointer" : "default",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                {!canAdd ? "SELECT AN INITIAL TO CONTINUE" : fetcher.state !== 'idle' ? "ADDING..." : "ADD TO BAG"}
-              </button>
+              <input type="hidden" name="_cart_form" value="1" ref={cartFormRef} />
             )}
           </CartForm>
+          <button
+            type="button"
+            disabled={!canAdd}
+            onClick={() => {
+              if (canAdd) {
+                cartFormRef.current?.closest('form')?.requestSubmit();
+                open('cart');
+              }
+            }}
+            style={{
+              width: "100%",
+              display: "block",
+              boxSizing: "border-box",
+              margin: "0 0 12px 0",
+              padding: 20,
+              border: canAdd ? "none" : `1px solid ${borderCol}`,
+              borderRadius: 8,
+              background: !canAdd ? "transparent" : darkText,
+              color: canAdd ? "white" : mutedText,
+              fontSize: 13,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+              fontFamily: bodyFont,
+              cursor: canAdd ? "pointer" : "default",
+              transition: "all 0.3s ease",
+            }}
+          >
+            {!canAdd ? "Select an initial to continue" : "Add to bag"}
+          </button>
 
-          <div style={{ textAlign: "center", padding: "16px 0", marginBottom: 32 }}>
-            <p style={{ fontSize: 13, color: subtleText, fontStyle: "italic", marginBottom: 12 }}>
-              ✦ Made to order in London — eight week lead time ✦
-            </p>
-            <a href="/pages/gift-cards" style={{ fontSize: 14, color: mutedText, textDecoration: "none" }}>
-              Not sure? <span style={{ color: darkText, textDecoration: "underline" }}>Gift a card instead</span>
-            </a>
-          </div>
+          {/* Gift card link */}
+          <p style={{ fontSize: 13, color: mutedText, marginBottom: 32 }}>
+            Not sure?{' '}
+            <Link to="/pages/gift-cards" style={{ color: darkText, textDecoration: "underline" }}>
+              Gift a card instead
+            </Link>
+          </p>
 
-          {/* Trust badges */}
-          <div style={{ display: "flex", justifyContent: "space-around", gap: 32, padding: "32px 0", borderTop: "1px solid #E8E4DE", borderBottom: "1px solid #E8E4DE", marginBottom: 24 }}>
-            {[
-              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><path d="M8 1.5L2.5 4v4c0 3.5 2.5 5.5 5.5 6.5 3-1 5.5-3 5.5-6.5V4L8 1.5z" /><path d="M5.5 8l2 2 3-3.5" /></svg>, text: "London hallmarked" },
-              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><circle cx="8" cy="8" r="6.5" /><path d="M8 4v5l3 2" /></svg>, text: "8 week lead time" },
-              { icon: <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke={goldAccent} strokeWidth="1.2"><path d="M2 6l6-4 6 4v6a1 1 0 01-1 1H3a1 1 0 01-1-1V6z" /><path d="M6 13V9h4v4" /></svg>, text: "Free UK delivery" },
-            ].map((b, i) => (
-              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                {b.icon}
-                <span style={{ fontSize: 11, color: subtleText, letterSpacing: "0.05em" }}>{b.text}</span>
+          {/* Trust bar — style B */}
+          <div style={{
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "24px 0",
+            borderTop: `1px solid ${borderCol}`, borderBottom: `1px solid ${borderCol}`,
+            marginBottom: 24,
+          }}>
+            {["4–6 weeks", "Made by hand in the UK", "Free UK delivery over £300"].map((item, i, arr) => (
+              <div key={i} style={{ display: "flex", alignItems: "center" }}>
+                <span style={{ fontSize: 12, color: subtleText, padding: "0 16px" }}>{item}</span>
+                {i < arr.length - 1 && (
+                  <span style={{ width: 4, height: 4, borderRadius: "50%", background: goldAccent, flexShrink: 0, display: "inline-block" }} />
+                )}
               </div>
             ))}
           </div>
 
-          {/* Accordions */}
+          {/* Accordions — delivery & returns, care only */}
           <div style={{ marginTop: 24 }}>
             {[
               {
-                id: "diamond",
-                label: "About the Diamond",
+                id: "delivery", label: "Delivery & returns",
                 content: (
-                  <div style={{ paddingBottom: 4 }}>
-                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 12px", paddingLeft: 12 }}>
-                      The initial or symbol is rendered in diamonds raised from the face of the ring — not set into it. The effect is tactile as much as visual.
+                  <div style={{ paddingLeft: 0 }}>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand - a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Sent via Royal Mail Special Delivery, tracked and insured</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Free UK delivery on all orders over £300</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Made-to-order pieces cannot be returned</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0 12px", paddingLeft: 16, textIndent: -16 }}>
+                      · <Link to="/pages/delivery" style={{ color: darkText, textDecoration: "underline" }}>See our returns page for full details</Link>
                     </p>
-                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 4px", paddingLeft: 12 }}>
-                      Both lab-grown and natural diamonds are available. The material, brilliance and appearance are identical — the difference is origin and price point. If you'd like guidance on which to choose, <a href="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>get in touch</a>.
-                    </p>
-                  </div>
-                )
-              },
-              {
-                id: "gift", label: "Gift Wrapping",
-                content: (
-                  <>
-                    {["Signature packaging included with every order — complimentary", "The Gift Edit — luxury box, wax seal, bespoke paper (+£20)", "Handwritten note card — your message, our stationery (+£5)", "Gift bag — branded, ready to give (+£10)"].map((line, i) => (
-                      <p key={i} style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 12 }}>· {line}</p>
-                    ))}
-                    <a href="/pages/gift-wrapping" style={{ display: "inline-block", fontSize: 13, color: goldAccent, textDecoration: "none", fontWeight: 500, marginTop: 8, paddingLeft: 12 }}>VIEW ALL OPTIONS →</a>
-                  </>
-                )
-              },
-              {
-                id: "delivery", label: "Delivery & Returns",
-                content: (
-                  <div>
-                    {[
-                      "Free UK delivery on all orders over £250",
-                      "Sent via Royal Mail tracked and insured post",
-                      "Dispatched on completion of your piece",
-                      "International shipping — get in touch for details",
-                      "Made-to-order pieces cannot be returned — see our Returns page for full details",
-                      "If something arrives damaged, we will always put it right",
-                    ].map((line, i) => (
-                      <p key={i} style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 12 }}>· {line}</p>
-                    ))}
                   </div>
                 )
               },
               {
                 id: "care", label: "Care",
                 content: (
-                  <div style={{ paddingLeft: 12 }}>
-                    <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: "0 0 8px" }}>
-                      Solid gold is remarkably hardwearing — the ring that inspired this piece is thirty years old and barely shows it.
-                    </p>
-                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: "0 0 4px" }}>
-                      · Clean occasionally with warm water and a soft cloth
-                    </p>
-                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: "0 0 4px" }}>
-                      · Avoid prolonged contact with perfume, chlorine and harsh chemicals
-                    </p>
-                    <p style={{ fontSize: 13, color: mutedText, lineHeight: 1.6, margin: 0 }}>
-                      · Store in the pouch provided when not wearing
-                    </p>
+                  <div style={{ paddingLeft: 0 }}>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery - the ring that inspired this piece is decades old and barely shows it</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the pouch provided when not wearing</p>
                   </div>
                 )
               },
             ].map((section) => (
-              <div key={section.id} style={{ borderBottom: "1px solid #E8E4DE" }}>
+              <div key={section.id} style={{ borderBottom: `1px solid ${borderCol}` }}>
                 <button
                   onClick={() => setOpenAccordion(openAccordion === section.id ? null : section.id)}
                   style={{ width: "100%", padding: "16px 0", background: "none", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", fontFamily: bodyFont }}
@@ -464,20 +431,20 @@ export default function Product() {
             ))}
           </div>
 
-          {/* CHANGE 5: Concierge — expanded to mention gold options, numbers & symbols */}
-          <div style={{ marginTop: 24, padding: 20, background: warmBg, borderRadius: 12, display: "flex", alignItems: "flex-start", gap: 16 }}>
+          {/* Concierge box */}
+          <div style={{ marginTop: 24, padding: 20, background: warmBg, borderRadius: 8, display: "flex", alignItems: "flex-start", gap: 16 }}>
             <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke={goldAccent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
               <path d="M3 13.5V15l3-1.5h8A1.5 1.5 0 0015.5 12V5A1.5 1.5 0 0014 3.5H4A1.5 1.5 0 002.5 5v7A1.5 1.5 0 003 13.5z" />
               <path d="M6 7h6M6 9.5h4" />
             </svg>
             <div>
-              <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Have a question about this piece?</p>
-              <p style={{ fontSize: 13, color: subtleText, margin: "0 0 6px", lineHeight: 1.6 }}>
-                Kate is happy to talk through sizing, gold options (9ct, 14ct or 18ct), and diamond choices — lab-grown or natural — before you order.
+              <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Questions about this piece?</p>
+              <p style={{ fontSize: 13, color: subtleText, margin: "0 0 8px", lineHeight: 1.6 }}>
+                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order - we're happy to talk through sizing, the making process, or anything specific to your piece.
               </p>
               <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
-                Interested in a number or symbol instead of a letter?{' '}
-                <a href="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</a> to discuss a bespoke design.
+                Looking for something beyond the collection?{' '}
+                <Link to="/bespoke" style={{ color: darkText, textDecoration: "underline" }}>The bespoke page</Link> is a good place to start.
               </p>
             </div>
           </div>
@@ -486,78 +453,15 @@ export default function Product() {
           <div style={{ marginTop: 40 }}>
             <h3 style={{ fontFamily: playfair, fontSize: 24, color: darkText, marginBottom: 20, fontWeight: 400 }}>Specifications</h3>
             {specifications.map((spec, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "14px 0", borderBottom: i < specifications.length - 1 ? "1px solid #E8E4DE" : "none" }}>
-                <span style={{ fontSize: 15, color: darkText }}>{spec.label}</span>
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "14px 0", borderBottom: i < specifications.length - 1 ? `1px solid ${borderCol}` : "none", gap: 16 }}>
+                <span style={{ fontSize: 15, color: darkText, flexShrink: 0 }}>{spec.label}</span>
                 <span style={{ fontSize: 15, color: subtleText, textAlign: "right" }}>{spec.value}</span>
               </div>
             ))}
           </div>
+
         </div>
       </div>
-
-      {/* YOU MAY ALSO LIKE */}
-      {relatedProducts.length > 0 && (
-        <div style={{
-          maxWidth: 1200,
-          margin: '0 auto',
-          padding: '80px 32px',
-          borderTop: '1px solid #E8E4DE',
-        }}>
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: 28,
-            fontWeight: 400,
-            color: darkText,
-            textAlign: 'center',
-            marginBottom: 40,
-          }}>
-            You May Also Like
-          </h2>
-          <div className="related-products-grid">
-            {relatedProducts.map((relatedProduct) => {
-              const relatedPrice = relatedProduct.priceRange?.minVariantPrice;
-              const relatedImage = relatedProduct.featuredImage;
-              return (
-                <Link
-                  key={relatedProduct.id}
-                  to={`/products/${relatedProduct.handle}`}
-                  style={{ textDecoration: 'none', display: 'block' }}
-                >
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, cursor: 'pointer' }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
-                  >
-                    <div style={{
-                      width: '100%', aspectRatio: '1', borderRadius: 16,
-                      background: 'linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)',
-                      overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      {relatedImage ? (
-                        <img src={relatedImage.url} alt={relatedImage.altText || relatedProduct.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      ) : (
-                        <div style={{ fontFamily: playfair, fontSize: 14, color: mutedText, letterSpacing: '0.1em', textAlign: 'center', padding: 20 }}>
-                          {relatedProduct.title}
-                        </div>
-                      )}
-                    </div>
-                    <div style={{ textAlign: 'center' }}>
-                      <p style={{ fontFamily: playfair, fontSize: 18, color: darkText, marginBottom: 6, fontWeight: 400 }}>
-                        {relatedProduct.title}
-                      </p>
-                      {relatedPrice && (
-                        <p style={{ fontSize: 15, color: mutedText, fontWeight: 400 }}>
-                          From <Money data={relatedPrice} />
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
 
       <Analytics.ProductView
         data={{
@@ -632,26 +536,4 @@ const PRODUCT_QUERY = `#graphql
     product(handle: $handle) { ...Product }
   }
   ${PRODUCT_FRAGMENT}
-`;
-
-const RELATED_PRODUCTS_QUERY = `#graphql
-  query RelatedProducts(
-    $country: CountryCode
-    $language: LanguageCode
-    $collectionHandle: String!
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $collectionHandle) {
-      products(first: 10) {
-        nodes {
-          id
-          title
-          handle
-          featuredImage { url altText }
-          priceRange {
-            minVariantPrice { amount currencyCode }
-          }
-        }
-      }
-    }
-  }
 `;

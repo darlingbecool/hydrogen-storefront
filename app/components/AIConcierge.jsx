@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from '@remix-run/react';
+import { useLocation } from 'react-router';
 
 export default function AIConcierge() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,18 +9,16 @@ export default function AIConcierge() {
   const messagesEndRef = useRef(null);
   const location = useLocation();
 
-  // Scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Opening message when panel first opens
   useEffect(() => {
     if (isOpen && messages.length === 0) {
       setMessages([
         {
           role: 'assistant',
-          content: 'Hello. I\'m here if you have any questions about our pieces, the making process, sizing, or anything else.',
+          content: "Hello. I'm here if you have any questions about our pieces, the making process, sizing, or anything else.",
         },
       ]);
     }
@@ -46,18 +44,21 @@ export default function AIConcierge() {
         }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      console.log('Raw response:', text);
+      const data = JSON.parse(text);
 
       setMessages((prev) => [
         ...prev,
         { role: 'assistant', content: data.reply },
       ]);
     } catch (error) {
+      console.log('Fetch error:', error.message);
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: 'I\'m sorry, something went wrong. Please try again or contact us directly.',
+          content: "I'm sorry, something went wrong. Please try again or contact us directly.",
         },
       ]);
     } finally {
@@ -172,7 +173,6 @@ export default function AIConcierge() {
               </div>
             ))}
 
-            {/* Loading indicator */}
             {isLoading && (
               <div style={{ alignSelf: 'flex-start' }}>
                 <div

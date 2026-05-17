@@ -29,8 +29,7 @@ export function CartLineItem({layout, line, childrenMap}) {
 
   // Pull out the engraved initial if it exists
   // This was set as a line item attribute when the customer added to bag
-  const engravingAttr = line.attributes?.find(a => a.key === 'Engraved Initial');
-
+  const engravingAttr = line.attributes?.find(a => a.key === 'Initial or Symbol');
   return (
     <li style={{
       display: 'grid',
@@ -123,12 +122,17 @@ export function CartLineItem({layout, line, childrenMap}) {
           }}>
             {selectedOptions
               .filter(opt => opt.value !== 'Default Title')
-              .map((option, index, arr) => (
-                <span key={option.name}>
-                  {option.value}
-                  {index < arr.length - 1 ? ' · ' : ''}
-                </span>
-              ))}
+              .map((option) => (
+                <div key={option.name} style={{
+                fontSize: 12,
+                color: goldAccent,
+                marginBottom: 4,
+                letterSpacing: '0.05em',
+                fontWeight: 500,
+              }}>
+                {option.name}: {option.value}
+              </div>
+            ))}
           </div>
 
           {/* Engraved initial — shown as a subtle note if present */}

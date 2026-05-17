@@ -7,22 +7,24 @@ const warmBg = "#F5F2ED";
 const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
+const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 const faqs = [
   {
-    category: "The Making Process",
+    category: "The making process",
     items: [
       {
         q: "How are the pieces made?",
-        a: "Every piece is made to order in Mercer 94's London studio, by hand. Traditional jewellery-making techniques form the foundation — the same methods behind the vintage pieces that inspired the brand — combined with contemporary approaches where they serve the work better. Nothing is mass produced, nothing is held in stock. Each piece is made specifically for the person who ordered it."
+        a: "Every piece is made to order by hand in the UK. Nothing is held in stock — each ring is made specifically for the person who ordered it, and does not exist until they do. The process uses lost-wax casting and hand engraving."
       },
       {
         q: "How long will my order take?",
-        a: "The lead time for all pieces is around eight weeks from the date of order. You'll be kept informed at each key stage throughout the making process."
+        a: "The lead time for all pieces is four to six weeks from the date of order. You will receive updates as your piece moves through the making process."
       },
       {
         q: "Can I see progress on my order?",
-        a: "Yes — updates are sent as your piece moves through the studio. Any questions along the way can be directed to Kate directly."
+        a: "Yes — updates are sent at each key stage. Any questions along the way can be directed to Kate directly."
       },
     ]
   },
@@ -31,28 +33,28 @@ const faqs = [
     items: [
       {
         q: "What can be customised?",
-        a: "Every piece can be made in 9ct, 14ct or 18ct gold — get in touch if you'd like guidance on which carat is right for you. Signet rings can be engraved with initials. Beyond that, options vary by piece and are outlined on each product page."
+        a: "Every piece can be made in 9ct, 14ct or 18ct yellow gold. Signet rings are made with a diamond-set initial — the initial is yours to choose. If you would like guidance on which carat is right for you, get in touch before ordering."
       },
       {
         q: "Can I order something that isn't on the site?",
-        a: "The current collection focuses on signet rings and minimal bands. If you have something specific in mind, get in touch and we'll let you know what's possible."
+        a: "The current collection focuses on signet rings and a minimal band. If you have something specific in mind, use the bespoke enquiry form and Kate will let you know what is possible."
       },
     ]
   },
   {
-    category: "Materials & Hallmarking",
+    category: "Materials",
     items: [
       {
         q: "What metals do you use?",
-        a: "All pieces are made in solid gold — 9ct (37.5% pure), 14ct (58.5% pure), or 18ct (75% pure) — ethically sourced from certified suppliers."
+        a: "All pieces are made in solid gold — 9ct (37.5% pure gold), 14ct (58.5% pure gold), or 18ct (75% pure gold). Gold is alloyed with other metals to give it strength; higher carat gold is softer and richer in colour, lower carat is more hardwearing."
       },
       {
-        q: "Are the pieces hallmarked?",
-        a: "Yes. Every piece leaves the studio hallmarked by the London Assay Office — the institution that has been independently certifying the quality of British precious metals since 1478. The hallmark is your assurance that the gold is exactly what it says it is."
+        q: "What is the difference between natural and lab-grown diamonds?",
+        a: "Both are real diamonds — chemically and physically identical. Natural diamonds are formed over billions of years underground; lab-grown diamonds are created in a controlled environment in a fraction of the time. Lab-grown diamonds are typically less expensive. Both are available for all Mercer 79 pieces."
       },
       {
-        q: "Are your diamonds conflict-free?",
-        a: "Yes. Both natural and lab-grown diamonds are available, and all are ethically sourced from certified suppliers."
+        q: "Are your diamonds ethically sourced?",
+        a: "Yes. Both natural and lab-grown diamonds come from certified suppliers."
       },
     ]
   },
@@ -61,11 +63,11 @@ const faqs = [
     items: [
       {
         q: "How do I find my ring size?",
-        a: "Full guidance is on the Size Guide page. A complimentary ring sizer can also be posted to you before you order — just get in touch with your name and address."
+        a: "Full guidance is on the Size Guide page. A complimentary ring sizer can be posted to you anywhere in the UK before you order — just get in touch with your name and address."
       },
       {
         q: "What if my ring doesn't fit when it arrives?",
-        a: "Please get in touch and we'll advise on next steps. [Resizing policy to be added.]"
+        a: "Get in touch and Kate will advise on next steps. Because each piece is made to order, please take time to confirm your size before ordering — the Size Guide and complimentary ring sizer are there to help with that."
       },
     ]
   },
@@ -74,7 +76,11 @@ const faqs = [
     items: [
       {
         q: "How do I pay?",
-        a: "Full payment is taken at the time of order. All prices are in GBP and include VAT where applicable."
+        a: "Full payment is taken at the time of order via the website. All prices are in GBP."
+      },
+      {
+        q: "Are prices inclusive of VAT?",
+        a: "Mercer 79 is not currently VAT registered. Prices shown are the full price — there is no VAT to add."
       },
     ]
   },
@@ -83,11 +89,11 @@ const faqs = [
     items: [
       {
         q: "How will my order be delivered?",
-        a: "All pieces are packaged carefully and sent via tracked, insured Royal Mail post. Full details are on the Delivery page."
+        a: "All pieces are carefully packaged and sent via tracked, insured post. Full details are on the Delivery page."
       },
       {
         q: "Do you ship internationally?",
-        a: "[International shipping information to be added.]"
+        a: "Yes. Get in touch before ordering for delivery times and costs outside the UK."
       },
     ]
   },
@@ -96,50 +102,65 @@ const faqs = [
     items: [
       {
         q: "Can I return my piece?",
-        a: "Because every Mercer 94 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods — it's not small print, it's simply the nature of how the pieces are made. Customers are encouraged to take their time before ordering, and Kate is always happy to answer questions before a decision is made. If something arrives damaged or doesn't match what was agreed, Mercer 94 will always put it right."
+        a: "Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods — not small print, simply the nature of how the pieces are made. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right."
       },
     ]
   },
 ];
 
 export const meta = () => {
-  return [{title: 'FAQs | Mercer 94'}];
+  return [{title: 'FAQs | Mercer 79'}];
 };
 
 function FAQItem({ faq }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ borderBottom: "1px solid #E8E4DE", paddingBottom: 20, marginBottom: 20 }}>
-      <button
+    <div style={{ borderBottom: `1px solid ${borderCol}` }}>
+      <div
         onClick={() => setOpen(!open)}
         style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          background: "none",
-          border: "none",
-          padding: 0,
-          cursor: "pointer",
-          textAlign: "left"
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '16px 0',
+          cursor: 'pointer',
         }}
       >
-        <h3 style={{ fontSize: 18, color: darkText, fontWeight: 500, margin: 0, paddingRight: 16 }}>
-          {faq.q}
-        </h3>
         <span style={{
-          fontSize: 20,
+          fontFamily: bodyFont,
+          fontSize: 11,
+          fontWeight: 600,
+          letterSpacing: '0.15em',
+          textTransform: 'uppercase',
+          color: goldAccent,
+          paddingRight: 16,
+          lineHeight: 1.4,
+        }}>
+          {faq.q}
+        </span>
+        <span style={{
+          fontSize: 22,
           color: goldAccent,
           flexShrink: 0,
           transition: 'transform 0.2s',
-          transform: open ? 'rotate(45deg)' : 'rotate(0deg)'
+          transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+          display: 'inline-block',
+          lineHeight: 1,
         }}>
           +
         </span>
-      </button>
+      </div>
       {open && (
-        <p style={{ fontSize: 16, color: mutedText, lineHeight: 1.7, marginTop: 16, marginBottom: 0 }}>
+        <p style={{
+          fontFamily: bodyFont,
+          fontSize: 15,
+          color: subtleText,
+          lineHeight: 1.8,
+          paddingBottom: 16,
+          marginTop: 0,
+          marginBottom: 0,
+        }}>
           {faq.a}
         </p>
       )}
@@ -157,101 +178,80 @@ export default function FAQsPage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const h2 = {
+    fontFamily: playfair,
+    fontSize: isMobile ? 22 : 26,
+    fontWeight: 400,
+    color: darkText,
+    marginTop: 48,
+    marginBottom: 16,
+    paddingBottom: 10,
+    borderBottom: `2px solid ${borderCol}`,
+  };
+
+  const wrap = {
+    maxWidth: 760,
+    margin: '0 auto',
+    padding: isMobile ? '48px 24px 80px' : '64px 32px 100px',
+    fontFamily: bodyFont,
+  };
+
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh' }}>
+      <div style={wrap}>
 
-      {/* Hero */}
-      <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        paddingRight: isMobile ? "24px" : "48px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 32 : 48,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            lineHeight: 1.2
-          }}>
-            Frequently Asked Questions
-          </h1>
-          <div style={{
-            width: 80, height: 2, background: goldAccent, margin: "0 auto", opacity: 0.6
-          }} />
-        </div>
-      </div>
+        {/* Page title */}
+        <h1 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 32 : 42,
+          fontWeight: 400,
+          color: darkText,
+          marginBottom: 8,
+          marginTop: 0,
+        }}>
+          Frequently asked questions
+        </h1>
+        <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
+          If your question is not here, get in touch and Kate will answer it directly.
+        </p>
 
-      {/* FAQs */}
-      <div style={{ background: "white", padding: isMobile ? "48px 24px" : "80px 48px" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-
-          {faqs.map((section, si) => (
-            <div key={si} style={{ marginBottom: 48 }}>
-              <h2 style={{
-                fontFamily: playfair,
-                fontSize: isMobile ? 20 : 22,
-                color: darkText,
-                fontWeight: 400,
-                marginBottom: 24,
-                paddingBottom: 12,
-                borderBottom: `2px solid ${goldAccent}`,
-                display: 'inline-block',
-                letterSpacing: '0.02em'
-              }}>
-                {section.category}
-              </h2>
-              {section.items.map((faq, i) => (
-                <FAQItem key={i} faq={faq} />
-              ))}
-            </div>
-          ))}
-
-          {/* Contact CTA */}
-          <div style={{
-            marginTop: 48,
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            textAlign: "center",
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{ fontFamily: playfair, fontSize: 22, color: darkText, fontWeight: 400, marginBottom: 12 }}>
-              Still have a question?
-            </h3>
-            <p style={{ fontSize: 15, color: mutedText, lineHeight: 1.7, marginBottom: 20 }}>
-              Get in touch — Kate is happy to help with anything before you order.
-            </p>
-            <Link
-              to="/pages/contact"
-              style={{
-                display: 'inline-block',
-                padding: "14px 32px",
-                border: `2px solid ${darkText}`,
-                background: "white",
-                borderRadius: 8,
-                fontSize: 13,
-                letterSpacing: "0.1em",
-                fontWeight: 500,
-                fontFamily: bodyFont,
-                color: darkText,
-                textDecoration: 'none',
-              }}
-              onMouseEnter={(e) => { e.target.style.background = darkText; e.target.style.color = 'white'; }}
-              onMouseLeave={(e) => { e.target.style.background = 'white'; e.target.style.color = darkText; }}
-            >
-              GET IN TOUCH
-            </Link>
+        {faqs.map((section, si) => (
+          <div key={si}>
+            <h2 style={h2}>{section.category}</h2>
+            {section.items.map((faq, i) => (
+              <FAQItem key={i} faq={faq} />
+            ))}
           </div>
+        ))}
 
+        {/* CTA */}
+        <div style={{
+          marginTop: 56,
+          paddingTop: 40,
+          borderTop: `2px solid ${borderCol}`,
+        }}>
+          <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.8, marginBottom: 16 }}>
+            Still have a question? Get in touch and Kate will answer it directly.
+          </p>
+          <Link
+            to="/pages/contact"
+            style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: darkText,
+              color: 'white',
+              fontFamily: bodyFont,
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            Get in touch
+          </Link>
         </div>
-      </div>
 
+      </div>
     </div>
   );
 }

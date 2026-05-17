@@ -1,7 +1,6 @@
 import {Link} from 'react-router';
 import {useState, useEffect} from 'react';
 
-// Design constants
 const playfair = "'Playfair Display', serif";
 const bodyFont = "system-ui, -apple-system, sans-serif";
 const warmBg = "#F5F2ED";
@@ -9,9 +8,10 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'About | Mercer 94'}];
+  return [{title: 'Our Story | Mercer 79'}];
 };
 
 export default function AboutPage() {
@@ -24,248 +24,178 @@ export default function AboutPage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const prose = {
+    fontSize: isMobile ? 15 : 17,
+    color: subtleText,
+    lineHeight: 1.85,
+    marginBottom: 20,
+    fontFamily: bodyFont,
+  };
+
+  const wrap = {
+    maxWidth: 760,
+    margin: '0 auto',
+    padding: isMobile ? '0 24px' : '0 32px',
+  };
+
+  const rule = {
+    border: 'none',
+    borderTop: `2px solid ${borderCol}`,
+    margin: '0',
+  };
+
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh', fontFamily: bodyFont }}>
+      <div style={{ ...wrap, paddingTop: isMobile ? 48 : 64, paddingBottom: isMobile ? 64 : 100 }}>
 
-      {/* Hero */}
-      <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 36 : 48,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            lineHeight: 1.2
-          }}>
-            Our Story
-          </h1>
-          <div style={{
-            width: 80,
-            height: 2,
-            background: goldAccent,
-            margin: "0 auto",
-            opacity: 0.6
-          }} />
-        </div>
-      </div>
-
-      {/* Opening Text */}
-      <div style={{
-        background: "white",
-        padding: isMobile ? "48px 24px 32px" : "80px 48px 40px"
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <p style={{
-            fontSize: isMobile ? 16 : 18,
-            color: subtleText,
-            lineHeight: 1.8,
-            marginBottom: 32,
-            textAlign: 'center'
-          }}>
-            Some things are just made differently. There's a signet ring that started all of this — a chunky, oversized gold signet that belonged to my partner's uncle, engraved with his initials, worn every day for decades. When it was passed down, it found its way onto my hand. And that's when I noticed something that stopped me: the initials engraved into the gold were the same as my children's.
-          </p>
-          <p style={{
-            fontSize: isMobile ? 16 : 18,
-            color: subtleText,
-            lineHeight: 1.8,
-            marginBottom: 0,
-            textAlign: 'center'
-          }}>
-            A small miracle, as these things go. The kind that makes you look at an object completely differently.
-          </p>
-        </div>
-      </div>
-
-      {/* Section 1: The Making — Image Left */}
-      <div style={{
-        padding: isMobile ? "40px 24px" : "60px 48px",
-        background: "white"
-      }}>
-        <div style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? 32 : 60,
-          alignItems: "center"
+        {/* Page title */}
+        <h1 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 32 : 42,
+          fontWeight: 400,
+          color: darkText,
+          marginBottom: 8,
+          marginTop: 0,
         }}>
-          {/* Image placeholder */}
-          <div style={{
-            width: "100%",
-            aspectRatio: "4/3",
-            background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
-            border: "8px solid rgba(180,175,165,0.25)",
-            borderRadius: 12,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: mutedText,
-            fontSize: 14,
-            letterSpacing: "0.15em"
-          }}>
-            WORKSHOP / ATELIER PHOTO
-          </div>
-          <div>
-            <h2 style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 28 : 36,
-              color: darkText,
-              marginBottom: 24,
-              fontWeight: 400
-            }}>
-              Made by Hand, in London
-            </h2>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-              Every Mercer 94 piece is made to order in my London studio. The designs draw on traditional jewellery-making for their shapes and sensibility — the same methods behind the vintage pieces that inspired the brand — combined with contemporary techniques where they serve the work better.
-            </p>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 0 }}>
-              Nothing is held in stock. Nothing is rushed. Each piece is made specifically for the person who ordered it, using 9ct, 14ct or 18ct gold with ethically sourced materials — including natural and lab-grown diamonds.
-            </p>
-          </div>
-        </div>
-      </div>
+          Our Story
+        </h1>
+        <p style={{ fontSize: 13, color: mutedText, marginBottom: 40, marginTop: 0 }}>
+          Mercer 79 began with a ring found in a drawer - one I have not taken off since.
+        </p>
 
-      {/* Section 2: Made to Last — Image Right */}
-      <div style={{
-        padding: isMobile ? "40px 24px" : "60px 48px",
-        background: "white"
-      }}>
-        <div style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
-          gap: isMobile ? 32 : 60,
-          alignItems: "center"
+        {/* Section 1: The ring */}
+        <h2 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 22 : 26,
+          fontWeight: 400,
+          color: darkText,
+          marginTop: 48,
+          marginBottom: 16,
+          paddingBottom: 10,
+          borderBottom: `2px solid ${borderCol}`,
         }}>
-          <div>
-            <h2 style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 28 : 36,
-              color: darkText,
-              marginBottom: 24,
-              fontWeight: 400
-            }}>
-              Built to Last a Lifetime
-            </h2>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-              The ring that started Mercer 94 is thirty years old and barely shows it. No thinning, no wearing away — just a quiet, stubborn beauty that refuses to age. That's the standard every piece here is held to.
-            </p>
-            <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 0 }}>
-              Each order carries a lead time of around eight weeks — not a caveat, just an honest reflection of what it takes to make something properly. Every piece leaves the studio hallmarked by the London Assay Office, which has been certifying the quality of British precious metals since 1478.
-            </p>
-          </div>
-          {/* Image placeholder */}
-          <div style={{
-            width: "100%",
-            aspectRatio: "4/3",
-            background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
-            border: "8px solid rgba(180,175,165,0.25)",
-            borderRadius: 12,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: mutedText,
-            fontSize: 14,
-            letterSpacing: "0.15em"
-          }}>
-            ENGRAVING / PROCESS PHOTO
-          </div>
-        </div>
-      </div>
+          The ring that started it
+        </h2>
+        <p style={prose}>
+          The ring belonged to my partner's uncle. An oval signet in 9ct yellow gold, engraved with his initials - SG - worn every day for decades until it was passed down, and eventually found its way into a drawer.
+        </p>
+        <p style={prose}>
+          I found it there, and when I looked at it properly, noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          People noticed it. They asked about it - the shape, the weight, the way it sits on the hand. For a long time I'd explain the story, and then add that I was going to have one made. Eventually I stopped saying eventually.
+        </p>
 
-      {/* Values */}
-      <div style={{
-        background: "white",
-        padding: isMobile ? "48px 24px" : "80px 48px"
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h2 style={{
+        {/* Image placeholder */}
+        <div style={{
+          width: '100%',
+          aspectRatio: '3/2',
+          background: warmBg,
+          border: `1px solid ${borderCol}`,
+          borderRadius: 4,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: mutedText,
+          fontSize: 11,
+          letterSpacing: '0.15em',
+          margin: '32px 0 0',
+        }}>
+          IMAGE — THE ORIGINAL RING
+        </div>
+
+        {/* Section 2: The making */}
+        <h2 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 22 : 26,
+          fontWeight: 400,
+          color: darkText,
+          marginTop: 56,
+          marginBottom: 16,
+          paddingBottom: 10,
+          borderBottom: `2px solid ${borderCol}`,
+        }}>
+          Made by hand, in the UK
+        </h2>
+        <p style={prose}>
+          I worked with a goldsmith to recreate the ring as closely as possible, with one change: instead of an engraved initial, the initial is set in diamonds - raised slightly from the surface, tactile as much as visual. That piece became No. 1. The Oval Signet Ring with Diamond Initial.
+        </p>
+        <p style={prose}>
+          Every piece in the collection is made to order. Nothing is held in stock - each ring is made specifically for the person who ordered it, and does not exist until they do. Each order takes four to six weeks.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          The ring that inspired this brand is decades old and barely shows it. That is the standard I hold every piece to - not jewellery for occasions, but jewellery that becomes part of how you move through the world.
+        </p>
+
+        {/* Image placeholder */}
+        <div style={{
+          width: '100%',
+          aspectRatio: '3/2',
+          background: warmBg,
+          border: `1px solid ${borderCol}`,
+          borderRadius: 4,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: mutedText,
+          fontSize: 11,
+          letterSpacing: '0.15em',
+          margin: '32px 0 0',
+        }}>
+          IMAGE — WORKSHOP / PROCESS
+        </div>
+
+        {/* Closing CTA */}
+        <div style={{
+          marginTop: 64,
+          paddingTop: 48,
+          borderTop: `2px solid ${borderCol}`,
+          textAlign: 'center',
+        }}>
+          <p style={{
             fontFamily: playfair,
-            fontSize: isMobile ? 28 : 36,
-            color: darkText,
-            marginBottom: 40,
+            fontSize: isMobile ? 20 : 24,
             fontWeight: 400,
-            textAlign: 'center'
+            color: darkText,
+            lineHeight: 1.5,
+            marginBottom: 28,
+            marginTop: 0,
           }}>
-            How I Work
-          </h2>
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginBottom: 24,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{ fontFamily: playfair, fontSize: 18, color: darkText, fontWeight: 500, marginBottom: 12 }}>No stock. No compromise.</h3>
-            <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7, margin: 0 }}>
-              Every piece is made to order. That means your piece is made for you — not pulled from a shelf, not mass produced, not sitting in a warehouse.
-            </p>
-          </div>
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginBottom: 24,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{ fontFamily: playfair, fontSize: 18, color: darkText, fontWeight: 500, marginBottom: 12 }}>Ethically sourced, always.</h3>
-            <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7, margin: 0 }}>
-              All gold is ethically sourced. Diamonds — natural or lab-grown — come from certified suppliers. The materials are held to the same standard as the making.
-            </p>
-          </div>
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginBottom: 48,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{ fontFamily: playfair, fontSize: 18, color: darkText, fontWeight: 500, marginBottom: 12 }}>Designed to be worn, not displayed.</h3>
-            <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7, margin: 0 }}>
-              The pieces here are inspired by jewellery that has been worn every day for decades and still looks extraordinary. That's what Mercer 94 is trying to make.
-            </p>
-          </div>
-
-          {/* Closing quote */}
-          <div style={{
-            textAlign: "center",
-            padding: isMobile ? 32 : 48,
-            background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-            borderRadius: 12
-          }}>
-            <p style={{
-              fontFamily: playfair,
-              fontSize: isMobile ? 20 : 24,
+            The collection starts at £1,200.<br />Each piece takes four to six weeks.
+          </p>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/collections/all" style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: darkText,
+              color: 'white',
+              fontFamily: bodyFont,
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}>
+              View the collection
+            </Link>
+            <Link to="/pages/bespoke" style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: 'transparent',
               color: darkText,
-              lineHeight: 1.6,
-              fontStyle: "italic",
-              margin: 0
+              fontFamily: bodyFont,
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+              border: `1px solid ${darkText}`,
             }}>
-              "I came to jewellery through fashion and design — years spent understanding not just how things look, but how they're put together."
-            </p>
-            <p style={{
-              fontSize: 14,
-              color: mutedText,
-              marginTop: 16,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase"
-            }}>
-              Kate, Founder
-            </p>
+              Enquire about bespoke
+            </Link>
           </div>
-
         </div>
-      </div>
 
+
+      </div>
     </div>
   );
 }

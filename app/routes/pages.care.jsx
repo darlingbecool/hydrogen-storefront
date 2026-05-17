@@ -8,9 +8,10 @@ const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
+const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Care Guide | Mercer 94'}];
+  return [{title: 'Care Guide | Mercer 79'}];
 };
 
 export default function CareGuidePage() {
@@ -23,146 +24,118 @@ export default function CareGuidePage() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  const prose = {
+    fontSize: isMobile ? 15 : 17,
+    color: subtleText,
+    lineHeight: 1.85,
+    marginBottom: 16,
+    fontFamily: bodyFont,
+  };
+
+  const h2 = {
+    fontFamily: playfair,
+    fontSize: isMobile ? 22 : 26,
+    fontWeight: 400,
+    color: darkText,
+    marginTop: 48,
+    marginBottom: 16,
+    paddingBottom: 10,
+    borderBottom: `2px solid ${borderCol}`,
+  };
+
+  const wrap = {
+    maxWidth: 760,
+    margin: '0 auto',
+    padding: isMobile ? '48px 24px 80px' : '64px 32px 100px',
+    fontFamily: bodyFont,
+  };
+
   return (
-    <div style={{ background: 'white', marginLeft: isMobile ? '0' : '50px' }}>
+    <div style={{ background: 'white', minHeight: '100vh' }}>
+      <div style={wrap}>
 
-      {/* Hero */}
-      <div style={{
-        background: `linear-gradient(135deg, ${warmBg} 0%, #E8D7AE 50%, ${warmBg} 100%)`,
-        padding: isMobile ? "60px 24px" : "80px 0",
-        paddingLeft: isMobile ? "24px" : "298px",
-        paddingRight: isMobile ? "24px" : "48px",
-        textAlign: "center",
-        marginLeft: isMobile ? '0' : '-250px',
-        marginRight: isMobile ? '0' : '-48px',
-      }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-          <h1 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 36 : 48,
-            color: darkText,
-            marginBottom: 16,
-            fontWeight: 400,
-            lineHeight: 1.2
-          }}>
-            Care Guide
-          </h1>
-          <div style={{
-            width: 80,
-            height: 2,
-            background: goldAccent,
-            margin: "0 auto",
-            opacity: 0.6
-          }} />
+        {/* Page title */}
+        <h1 style={{
+          fontFamily: playfair,
+          fontSize: isMobile ? 32 : 42,
+          fontWeight: 400,
+          color: darkText,
+          marginBottom: 8,
+          marginTop: 0,
+        }}>
+          Care Guide
+        </h1>
+        <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
+          Solid gold is one of the most durable materials in jewellery. Looked after well, a piece can last decades without losing anything. The ring that inspired this brand is proof of that.
+        </p>
+
+        {/* Daily wear */}
+        <h2 style={h2}>Daily wear</h2>
+        <p style={prose}>
+          Mercer 79 pieces are made to be worn every day, not kept for occasions. That said, there are a few things worth avoiding to keep your ring in the best condition.
+        </p>
+        <p style={prose}>
+          Remove your ring before heavy exercise, manual work, or using cleaning products, bleach, or harsh chemicals. These won't necessarily cause immediate damage, but repeated exposure will dull the surface over time.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Apply lotions, perfumes, and hand creams before putting your ring on, not after. Allow them to absorb fully first.
+        </p>
+
+        {/* Cleaning */}
+        <h2 style={h2}>Cleaning</h2>
+        <p style={prose}>
+          Clean your ring every few months, or whenever it starts to look dull. Warm water, a small amount of mild washing-up liquid, and a soft toothbrush is all you need. Work gently around the diamond setting, rinse thoroughly, and pat dry with a soft cloth - do not leave it to air dry.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          For a more thorough clean, any local jeweller will be able to help. Most do this routinely and it takes only a few minutes.
+        </p>
+
+        {/* Storage */}
+        <h2 style={h2}>Storage</h2>
+        <p style={prose}>
+          Every Mercer 79 order comes with a soft pouch - use it. Storing your ring loose with other jewellery is the most common cause of surface scratches, and gold is softer than most people expect.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Keep it somewhere dry. Avoid leaving it on the edge of a sink or in a bathroom cabinet long-term - humidity and condensation are not good for gold over time.
+        </p>
+
+        {/* Patina */}
+        <h2 style={h2}>Patina and polish</h2>
+        <p style={prose}>
+          With wear, gold develops a patina - a slightly softer, more matte finish than the original high polish. This is normal and, for many people, preferable. The ring that started Mercer 79 has it, and it looks all the better for the years of wear.
+        </p>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          If you want to restore the original finish, any jeweller can re-polish your ring. It will not affect the gold or the diamond setting.
+        </p>
+
+        {/* CTA */}
+        <div style={{
+          marginTop: 56,
+          paddingTop: 40,
+          borderTop: `2px solid ${borderCol}`,
+        }}>
+          <p style={prose}>
+            If you have a question about caring for your specific piece, get in touch.
+          </p>
+          <Link
+            to="/pages/contact"
+            style={{
+              display: 'inline-block',
+              padding: '12px 28px',
+              background: darkText,
+              color: 'white',
+              fontFamily: bodyFont,
+              fontSize: 12,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
+            }}
+          >
+            Get in touch
+          </Link>
         </div>
+
       </div>
-
-      {/* Content */}
-      <div style={{ background: "white", padding: isMobile ? "48px 24px" : "80px 48px" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
-
-          <p style={{
-            fontSize: isMobile ? 16 : 18,
-            color: subtleText,
-            lineHeight: 1.8,
-            marginBottom: 32,
-            textAlign: 'center'
-          }}>
-            Solid gold jewelry is remarkably durable and improves with age. With proper care, your pieces will last for generations.
-          </p>
-
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            marginTop: 56,
-            fontWeight: 400
-          }}>
-            Daily Wear
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Our jewelry is designed for everyday wear. Solid gold is naturally resistant to tarnish and can be worn while washing hands, showering, or swimming. However, we recommend removing your jewelry before:
-          </p>
-          <ul style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 2, marginBottom: 32, paddingLeft: 24 }}>
-            <li>Heavy exercise or manual work</li>
-            <li>Using harsh chemicals or cleaning products</li>
-            <li>Applying lotions, perfumes, or hairspray (wait until they're absorbed)</li>
-          </ul>
-
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            marginTop: 56,
-            fontWeight: 400
-          }}>
-            Cleaning
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Clean your pieces every few months with warm water and mild soap. Use a soft toothbrush to gently remove any buildup, then rinse and pat dry with a soft cloth.
-          </p>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 32 }}>
-            For a deeper clean, bring your piece to any jeweler for professional cleaning. Most will do this for free or a small fee.
-          </p>
-
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            marginTop: 56,
-            fontWeight: 400
-          }}>
-            Storage
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 32 }}>
-            Store pieces separately to prevent scratching. We include a soft pouch with every order—perfect for storage when not wearing your jewelry.
-          </p>
-
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 26 : 32,
-            color: darkText,
-            marginBottom: 20,
-            marginTop: 56,
-            fontWeight: 400
-          }}>
-            Patina & Character
-          </h2>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 24 }}>
-            Over time, gold develops a beautiful patina—a soft, matte finish that many people prefer to high polish. This is completely normal and adds character to your piece.
-          </p>
-          <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.8, marginBottom: 32 }}>
-            If you prefer to restore the original polish, any jeweler can re-polish your piece. This won't damage the gold.
-          </p>
-
-          {/* Contact CTA */}
-          <div style={{
-            padding: isMobile ? 24 : 32,
-            background: warmBg,
-            borderRadius: 12,
-            marginTop: 48,
-            border: `1px solid ${goldAccent}20`
-          }}>
-            <h3 style={{ fontSize: 18, color: darkText, fontWeight: 500, marginBottom: 12 }}>
-              Questions About Care?
-            </h3>
-            <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7, marginBottom: 12 }}>
-              Our team is always happy to advise on caring for your specific piece.
-            </p>
-            <Link
-              to="/pages/contact"
-              style={{ fontSize: 15, color: darkText, fontWeight: 500, textDecoration: 'underline' }}
-            >
-              Get in touch →
-            </Link>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   );
 }
