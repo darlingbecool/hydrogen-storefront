@@ -106,7 +106,7 @@ export default function Homepage() {
             gap: 40px;
           }
           .story-banner {
-            min-height: 100vh !important;
+            min-height: 400px !important;
           }
           .story-banner h2 {
             font-size: 36px !important;
