@@ -117,7 +117,7 @@ export default function Homepage() {
         .story-banner {
           position: relative;
           width: 100%;
-          min-height: 100vh;
+          min-height: 640px;
           display: flex;
           align-items: center;
           justify-content: center;
