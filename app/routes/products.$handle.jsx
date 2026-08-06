@@ -52,16 +52,23 @@ async function loadCriticalData({context, params, request}) {
   const {storefront} = context;
   if (!handle) throw new Error('Expected product handle to be defined');
 
-  const [{product}] = await Promise.all([
+  const isNo1 = handle === 'no-1-oval-signet';
+  const isNo2 = handle === 'no-2-rectangular-signet';
+  const resinHandle = isNo1 ? 'resin-proof-no-1' : isNo2 ? 'resin-proof-no-2' : null;
+
+  const [{ product }, resinData] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
+    resinHandle
+      ? storefront.query(RESIN_VARIANTS_QUERY, { variables: { handle: resinHandle } })
+      : Promise.resolve(null),
   ]);
 
   if (!product?.id) throw new Response(null, {status: 404});
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
-  return {product};
+  return {product, resinVariants: resinData?.product?.variants?.nodes ?? []};
 }
 
 function loadDeferredData({context, params}) {
@@ -69,7 +76,7 @@ function loadDeferredData({context, params}) {
 }
 
 export default function Product() {
-  const {product} = useLoaderData();
+  const {product, resinVariants} = useLoaderData();
   const {open} = useAside();
 
   const selectedVariant = useOptimisticVariant(
@@ -103,6 +110,12 @@ export default function Product() {
   const mainImage = productImages[activeThumb] || productImages[0] || product.featuredImage || selectedVariant.image;
 
   const canAdd = selectedInitial !== null && !!selectedVariant?.id;
+
+  const resinProofHandle = product.handle === 'no-1-oval-signet'
+    ? 'resin-proof-no-1'
+    : 'resin-proof-no-2';
+
+  const resinVariant = resinVariants?.[0] ?? null;
 
   return (
     <div style={{ background: "white", minHeight: "100vh" }}>
@@ -374,7 +387,7 @@ export default function Product() {
             borderTop: `1px solid ${borderCol}`, borderBottom: `1px solid ${borderCol}`,
             marginBottom: 24,
           }}>
-            {["4–6 weeks", "Made by hand in the UK", "Free UK delivery over £300"].map((item, i, arr) => (
+            {["4–6 weeks", "Made by hand in the UK", "Complimentary UK delivery over £300"].map((item, i, arr) => (
               <div key={i} style={{ display: "flex", alignItems: "center" }}>
                 <span style={{ fontSize: 12, color: subtleText, padding: "0 16px" }}>{item}</span>
                 {i < arr.length - 1 && (
@@ -384,16 +397,69 @@ export default function Product() {
             ))}
           </div>
 
-          {/* Accordions — delivery & returns, care only */}
+          {/* Accordions — resin proof, delivery & returns, care */}
           <div style={{ marginTop: 24 }}>
             {[
+              {
+                id: "resin", label: "Try before you commit",
+                content: (
+                  <div style={{ paddingLeft: 0 }}>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.7, margin: "4px 0 16px" }}>
+                      Not ready to commit to gold? We'll make a resin version of your ring — same size, same initial — so you can check the fit and feel before ordering. Delivered in 1–2 weeks. The £36 is deducted from your gold ring when you order.
+                    </p>
+                    {!selectedInitial || !selectedSize ? (
+                      <p style={{ fontSize: 12, color: mutedText, fontStyle: "italic", margin: 0 }}>
+                        Select your size and initial above to order a resin proof.
+                      </p>
+                    ) : (
+                      <CartForm
+                        route="/cart"
+                        action={CartForm.ACTIONS.LinesAdd}
+                        inputs={{
+                          lines: [{
+                            merchandiseId: resinVariant?.id ?? '',
+                            quantity: 1,
+                            attributes: [
+                              { key: 'Initial', value: selectedInitial },
+                              { key: 'Ring size', value: selectedSize },
+                              { key: 'Based on', value: product.title },
+                            ],
+                          }],
+                        }}
+                      >
+                        {(fetcher) => (
+                          <button
+                            type="submit"
+                            disabled={!resinVariant}
+                            onClick={() => { if (resinVariant) open('cart'); }}
+                            style={{
+                              padding: "12px 24px",
+                              border: `1px solid ${darkText}`,
+                              borderRadius: 8,
+                              background: "transparent",
+                              color: darkText,
+                              fontSize: 11,
+                              letterSpacing: "0.12em",
+                              textTransform: "uppercase",
+                              cursor: "pointer",
+                              fontFamily: bodyFont,
+                            }}
+                          >
+                            {fetcher.state !== 'idle' ? "Adding..." : `Order resin proof — £36 (Size ${selectedSize}, Initial ${selectedInitial})`}
+                          </button>
+                        )}
+                      </CartForm>
+                    )}
+                  </div>
+                )
+              },
               {
                 id: "delivery", label: "Delivery & returns",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand - a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand — a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Sent via Royal Mail Special Delivery, tracked and insured</p>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Free UK delivery on all orders over £300</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Complimentary UK delivery on all orders over £300</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Made-to-order pieces cannot be returned</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0 12px", paddingLeft: 16, textIndent: -16 }}>
                       · <Link to="/pages/delivery" style={{ color: darkText, textDecoration: "underline" }}>See our returns page for full details</Link>
@@ -405,7 +471,7 @@ export default function Product() {
                 id: "care", label: "Care",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery - the ring that inspired this piece is decades old and barely shows it</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery — the ring that inspired this piece is decades old and barely shows it</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the pouch provided when not wearing</p>
@@ -440,11 +506,11 @@ export default function Product() {
             <div>
               <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Questions about this piece?</p>
               <p style={{ fontSize: 13, color: subtleText, margin: "0 0 8px", lineHeight: 1.6 }}>
-                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order - we're happy to talk through sizing, the making process, or anything specific to your piece.
+                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order — we're happy to talk through sizing, the making process, or anything specific to your piece.
               </p>
               <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
                 Looking for something beyond the collection?{' '}
-                <Link to="/bespoke" style={{ color: darkText, textDecoration: "underline" }}>The bespoke page</Link> is a good place to start.
+                <Link to="/pages/bespoke" style={{ color: darkText, textDecoration: "underline" }}>The bespoke page</Link> is a good place to start.
               </p>
             </div>
           </div>
@@ -478,6 +544,24 @@ export default function Product() {
     </div>
   );
 }
+
+const RESIN_VARIANTS_QUERY = `#graphql
+  query ResinVariants(
+    $country: CountryCode
+    $language: LanguageCode
+    $handle: String!
+  ) @inContext(country: $country, language: $language) {
+    product(handle: $handle) {
+      variants(first: 30) {
+        nodes {
+          id
+          availableForSale
+          selectedOptions { name value }
+        }
+      }
+    }
+  }
+`;
 
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {

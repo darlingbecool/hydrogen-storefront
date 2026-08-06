@@ -33,29 +33,6 @@ export default function Homepage() {
           padding: 120px 80px 100px;
         }
 
-        /* ── Editorial ── */
-        .editorial-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-          padding: 0 80px;
-          margin-top: 80px;
-        }
-        .editorial-image-wrap {
-          overflow: hidden;
-          aspect-ratio: 3 / 4;
-        }
-        .editorial-image-wrap img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.7s ease;
-        }
-        .editorial-image-wrap:hover img {
-          transform: scale(1.03);
-        }
-
         /* ── Featured products ── */
         .featured-grid {
           display: grid;
@@ -123,19 +100,13 @@ export default function Homepage() {
           .hero-section h1 {
             font-size: 40px !important;
           }
-          .editorial-grid {
-            grid-template-columns: 1fr;
-            padding: 0 24px;
-            margin-top: 48px;
-            gap: 16px;
-          }
           .featured-grid {
             grid-template-columns: 1fr;
             padding: 48px 24px;
             gap: 40px;
           }
           .story-banner {
-            min-height: 400px !important;
+            min-height: 100vh !important;
           }
           .story-banner h2 {
             font-size: 36px !important;
@@ -146,7 +117,7 @@ export default function Homepage() {
         .story-banner {
           position: relative;
           width: 100%;
-          min-height: 560px;
+          min-height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -248,24 +219,12 @@ export default function Homepage() {
           <p style={{
             fontSize: 17,
             color: subtleText,
-            marginBottom: 16,
+            marginBottom: 44,
             lineHeight: 1.75,
             maxWidth: 480,
             fontFamily: bodyFont,
           }}>
-            Bespoke gold signet rings, hand-crafted in the UK. Your initial, your gold, your size - made once, for you.
-          </p>
-
-          <p style={{
-            fontSize: 13,
-            color: mutedText,
-            marginBottom: 44,
-            lineHeight: 1.6,
-            maxWidth: 420,
-            fontFamily: bodyFont,
-            letterSpacing: '0.04em',
-          }}>
-            Hand-crafted in the UK.
+            Bespoke gold signet rings, hand-crafted in the UK. The kind of thing you wear every day and never take off.
           </p>
 
           <Link to="/collections/all" className="hero-cta">
@@ -273,22 +232,6 @@ export default function Homepage() {
           </Link>
         </div>
       </section>
-
-      {/* ── EDITORIAL IMAGES ─────────────────────────────────────────────────── */}
-      <div className="editorial-grid">
-        <div className="editorial-image-wrap">
-          <img
-            src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/1fba28d32664bf7f7f988005efbe93a6.avf.avif?v=1772747763"
-            alt="Mercer 79 — No. 1 Oval Signet Ring with Diamond Initial"
-          />
-        </div>
-        <div className="editorial-image-wrap">
-          <img
-            src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/9705e8c88497bd11c04443b53681f16f.avf.avif?v=1772747634"
-            alt="Mercer 79 — hand-crafted gold signet rings"
-          />
-        </div>
-      </div>
 
       {/* ── FEATURED PRODUCTS ────────────────────────────────────────────────── */}
       <div className="featured-grid">
@@ -301,8 +244,8 @@ export default function Homepage() {
       <Link to="/pages/about" className="story-banner">
         <img
           className="story-banner-img"
-          src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/1fba28d32664bf7f7f988005efbe93a6.avf.avif?v=1772747763"
-          alt="The ring that started Mercer 79"
+          src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8654_2.jpg?v=1785944728"
+          alt="Hand wearing layered gold signet rings and a necklace"
         />
         <div className="story-banner-overlay" />
         <div className="story-banner-content">
@@ -369,7 +312,7 @@ function ProductCard({product}) {
         margin: 0,
         letterSpacing: '0.04em',
       }}>
-        From £{formattedPrice.toLocaleString()}
+        £{formattedPrice.toLocaleString()}
       </p>
     </Link>
   );
