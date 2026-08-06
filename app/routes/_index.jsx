@@ -215,14 +215,16 @@ export default function Homepage() {
             background: goldAccent,
             marginBottom: 28,
           }} />
-
-          <p style={{
+<p style={{
             fontSize: 17,
             color: subtleText,
             marginBottom: 44,
             lineHeight: 1.75,
+            width: '100%',
             maxWidth: 480,
+            boxSizing: 'border-box',
             fontFamily: bodyFont,
+            border: '3px solid red',
           }}>
             Bespoke gold signet rings, hand-crafted in the UK. The kind of thing you wear every day and never take off.
           </p>
