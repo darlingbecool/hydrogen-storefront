@@ -377,7 +377,7 @@ export default function Product() {
           {/* Trust bar — style B */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "12px 0 24px",
+            padding: "36px 0 24px",
             borderTop: `1px solid ${borderCol}`, borderBottom: `1px solid ${borderCol}`,
             marginBottom: 24,
           }}>
