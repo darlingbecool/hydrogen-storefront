@@ -508,10 +508,6 @@ export default function Product() {
               <p style={{ fontSize: 13, color: subtleText, margin: "0 0 8px", lineHeight: 1.6 }}>
                 <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order — we're happy to talk through sizing, the making process, or anything specific to your piece.
               </p>
-              <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
-                Looking for something beyond the collection?{' '}
-                <Link to="/pages/bespoke" style={{ color: darkText, textDecoration: "underline" }}>The bespoke page</Link> is a good place to start.
-              </p>
             </div>
           </div>
 
