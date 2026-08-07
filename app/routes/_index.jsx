@@ -227,10 +227,6 @@ export default function Homepage() {
           }}>
             Bespoke gold signet rings, hand-crafted in the UK. The kind of thing you wear every day and never take off.
           </p>
-
-          <Link to="/collections/all" className="hero-cta">
-            View the collection
-          </Link>
         </div>
       </section>
 
