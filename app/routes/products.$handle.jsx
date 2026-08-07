@@ -377,9 +377,9 @@ export default function Product() {
           {/* Trust bar — style B */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "36px 0 24px",
+            padding: "24px 0",
             borderTop: `1px solid ${borderCol}`, borderBottom: `1px solid ${borderCol}`,
-            marginBottom: 24,
+            marginBottom: 40,
           }}>
             {["4–6 weeks", "Made by hand in the UK", "Complimentary UK delivery over £300"].map((item, i, arr) => (
               <div key={i} style={{ display: "flex", alignItems: "center" }}>
