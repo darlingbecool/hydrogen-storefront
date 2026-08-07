@@ -373,13 +373,7 @@ export default function Product() {
           </button>
 
           {/* Gift card link */}
-          <p style={{ fontSize: 13, color: mutedText, marginBottom: 32 }}>
-            Not sure?{' '}
-            <Link to="/pages/gift-cards" style={{ color: darkText, textDecoration: "underline" }}>
-              Gift a card instead
-            </Link>
-          </p>
-
+          
           {/* Trust bar — style B */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -506,7 +500,7 @@ export default function Product() {
             <div>
               <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Questions about this piece?</p>
               <p style={{ fontSize: 13, color: subtleText, margin: "0 0 8px", lineHeight: 1.6 }}>
-                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order — we're happy to talk through sizing, the making process, or anything specific to your piece.
+                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order - we're happy to talk through sizing, the making process, or anything specific to your piece.
               </p>
             </div>
           </div>

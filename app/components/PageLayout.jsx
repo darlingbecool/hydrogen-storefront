@@ -24,10 +24,8 @@ const navSections = [
   title: 'SHOP',
   items: [
     {label: 'No. 1 Oval Signet', path: '/products/no-1-oval-signet'},
-    {label: 'No. 3 Flat Band', path: '/products/no-3-flat-band'},
     {label: 'No. 2 Rectangular Signet', path: '/products/no-2-rectangular-signet'},
     {label: 'Bespoke', path: '/bespoke'},
-    {label: 'Gift Cards', path: '/pages/gift-cards'},
   ],
 },
   {
