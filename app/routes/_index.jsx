@@ -235,12 +235,14 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* ── FEATURED PRODUCTS ────────────────────────────────────────────────── */}
-      <div className="featured-grid">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <div
+  className="featured-grid"
+  style={{gridTemplateColumns: `repeat(${products.length}, 1fr)`}}
+>
+  {products.map((product) => (
+    <ProductCard key={product.id} product={product} />
+  ))}
+</div>
 
       {/* ── STORY BANNER ─────────────────────────────────────────────────────── */}
       <Link to="/pages/about" className="story-banner">
