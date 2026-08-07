@@ -101,7 +101,7 @@ export default function Homepage() {
             font-size: 40px !important;
           }
           .featured-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
             padding: 48px 24px;
             gap: 40px;
           }
@@ -224,7 +224,6 @@ export default function Homepage() {
             maxWidth: 480,
             boxSizing: 'border-box',
             fontFamily: bodyFont,
-            border: '3px solid red',
           }}>
             Bespoke gold signet rings, hand-crafted in the UK. The kind of thing you wear every day and never take off.
           </p>
