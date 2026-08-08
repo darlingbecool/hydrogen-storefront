@@ -13,42 +13,32 @@ const borderCol = "#E8D7AE";
 const processSteps = [
   {
     num: "01", title: "The Brief",
-    body: "Everything begins with a conversation. Tell us what you have in mind — a rough idea, a reference image, a feeling. There are no wrong answers at this stage.",
+    body: "Start with whatever you have — a sketch, a photo, a few words describing what you're after. We'll take it from there.",
   },
   {
     num: "02", title: "Design & Quote",
-    body: "We'll come back to you with a design proposal and a detailed quote. For more complex commissions, we may produce a wax model or sketch for your approval before anything is cast.",
+    body: "We'll turn your brief into a design proposal and a detailed quote, so you know exactly what you're agreeing to before anything's made.",
   },
   {
     num: "03", title: "Crafting",
-    body: "Once approved and a deposit received, your piece enters the workshop. Every commission is made by hand in London — lost-wax casting, hand engraving, stone setting.",
+    body: "With your approval and deposit in, your piece goes into the workshop — made by hand in the UK.",
   },
   {
-    num: "04", title: "Hallmarking & Delivery",
-    body: "Your finished piece is hallmarked at the London Assay Office, then dispatched in our signature packaging via tracked, insured post.",
+    num: "04", title: "Inspiration",
+    body: "Family crests and heirlooms, custom initials and monograms, engagement pieces, or a stone you already own. If you have an idea, that's enough to start.",
   },
-];
-
-const inspirations = [
-  { num: "01", title: "Family crests & heirlooms", body: "Recreating or reimagining a piece that carries history." },
-  { num: "02", title: "Custom initials & monograms", body: "Beyond the standard alphabet — numbers, symbols, ligatures." },
-  { num: "03", title: "Engagement & occasion pieces", body: "Something made to mark a moment that matters." },
-  { num: "04", title: "Stone commissions", body: "You have a stone. We'll build the setting around it." },
 ];
 
 export const meta = () => [
   { title: 'Bespoke | Mercer 79' },
-  { name: 'description', content: 'Commission a bespoke piece with Mercer 79 — handcrafted in London to your exact brief.' },
+  { name: 'description', content: 'Commission a bespoke piece with Mercer 79 — handcrafted in the UK to your exact brief.' },
 ];
 
 export async function action({ request }) {
   const formData = await request.formData();
   const name = formData.get('name');
   const email = formData.get('email');
-  const type = formData.get('type') || '';
   const message = formData.get('message');
-  const timeline = formData.get('timeline') || '';
-  const gold = formData.get('gold') || '';
 
   if (!name || !email || !message) {
     return { error: 'Please fill in all required fields.' };
@@ -86,15 +76,6 @@ function ImageBreak({ src, alt = "" }) {
   );
 }
 
-const selectStyle = {
-  width: "100%", boxSizing: "border-box",
-  padding: "14px 18px", border: "1px solid #D4D0CA", borderRadius: 6,
-  fontSize: 15, fontFamily: bodyFont, color: darkText, outline: "none",
-  appearance: "none",
-  backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")`,
-  backgroundRepeat: "no-repeat", backgroundPosition: "right 18px center", paddingRight: 48,
-};
-
 const inputStyle = {
   width: "100%", boxSizing: "border-box",
   padding: "14px 18px", border: "1px solid #D4D0CA", borderRadius: 6,
@@ -112,7 +93,7 @@ const fieldWrap = {
 export default function Bespoke() {
   const fetcher = useFetcher();
   const [formData, setFormData] = useState({
-    name: '', email: '', type: '', message: '', timeline: '', gold: '',
+    name: '', email: '', message: '',
   });
 
   const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -135,13 +116,6 @@ export default function Bespoke() {
           border-radius: 12px;
           overflow: hidden;
         }
-        .bespoke-what-cards {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 32px;
-          max-width: 1100px;
-          margin: 0 auto;
-        }
         .bespoke-form-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -150,11 +124,9 @@ export default function Bespoke() {
         }
         @media (max-width: 900px) {
           .bespoke-process-cards { grid-template-columns: repeat(2, 1fr) !important; }
-          .bespoke-what-cards { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 600px) {
           .bespoke-process-cards { grid-template-columns: 1fr !important; }
-          .bespoke-what-cards { grid-template-columns: 1fr !important; gap: 40px !important; }
           .bespoke-form-row { grid-template-columns: 1fr !important; }
         }
       `}</style>
@@ -170,11 +142,11 @@ export default function Bespoke() {
           <em style={{ fontStyle: "italic", color: subtleText }}>made by hand</em>
         </h1>
         <p style={{ fontSize: 17, color: subtleText, lineHeight: 1.8, maxWidth: 520, margin: "0 auto" }}>
-          Every piece in the Mercer 79 collection began as someone's idea of exactly what they wanted. If you don't see it, we'll make it — bespoke commissions for signet rings in any configuration.
+          Every piece in the Mercer 79 collection began as someone's idea of exactly what they wanted. If you don't see it, we'd love to hear what you have in mind.
         </p>
       </div>
 
-      {/* Image break 1 — add src="..." when you have photography */}
+      {/* Image break — add src="..." when you have photography */}
       <ImageBreak />
 
       {/* Process */}
@@ -194,30 +166,6 @@ export default function Bespoke() {
         </div>
       </div>
 
-      {/* Image break 2 */}
-      <ImageBreak />
-
-      {/* What we make */}
-      <div style={{ padding: "80px 32px" }}>
-        <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <p style={{ fontSize: 11, letterSpacing: "0.2em", color: goldAccent, fontWeight: 500, marginBottom: 16 }}>WHAT WE MAKE</p>
-          <h2 style={{ fontFamily: playfair, fontSize: 32, fontWeight: 400, color: darkText }}>Points of inspiration</h2>
-        </div>
-        <div className="bespoke-what-cards">
-          {inspirations.map((item) => (
-            <div key={item.num} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <div style={{ width: 28, height: 1, background: borderCol }} />
-              <p style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 500 }}>{item.num}</p>
-              <h3 style={{ fontFamily: playfair, fontSize: 19, fontWeight: 400, color: darkText }}>{item.title}</h3>
-              <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7 }}>{item.body}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Image break 3 */}
-      <ImageBreak />
-
       {/* Enquiry form */}
       <div style={{ background: warmBg, padding: "80px 32px" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
@@ -227,7 +175,7 @@ export default function Bespoke() {
               Start your commission
             </h2>
             <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.7 }}>
-              Tell us what you have in mind. We'll come back to you within two working days.
+              Tell us what you have in mind. We'll be in touch very soon.
             </p>
           </div>
 
@@ -242,7 +190,7 @@ export default function Bespoke() {
                 Thank you, {formData.name.split(' ')[0]}
               </h3>
               <p style={{ fontSize: 14, color: mutedText, lineHeight: 1.7 }}>
-                Your enquiry has been received.<br />Kate will be in touch within two working days.
+                Your enquiry has been received.<br />We'll be in touch shortly.
               </p>
             </div>
           ) : (
@@ -259,18 +207,6 @@ export default function Bespoke() {
               </div>
 
               <div style={fieldWrap}>
-                <label style={labelStyle}>TYPE OF PIECE</label>
-                <select style={selectStyle} name="type" value={formData.type} onChange={handleChange}>
-                  <option value="">Select an option</option>
-                  <option value="signet-initial">Signet ring — custom initial or monogram</option>
-                  <option value="signet-symbol">Signet ring — symbol or number</option>
-                  <option value="signet-stone">Signet ring — my own stone</option>
-                  <option value="signet-other">Signet ring — other / not sure yet</option>
-                  <option value="other">Something else entirely</option>
-                </select>
-              </div>
-
-              <div style={fieldWrap}>
                 <label style={labelStyle}>TELL US MORE</label>
                 <textarea
                   style={{ ...inputStyle, minHeight: 140, lineHeight: 1.6, resize: "vertical" }}
@@ -279,27 +215,6 @@ export default function Bespoke() {
                   onChange={handleChange}
                   placeholder="Describe what you have in mind — as much or as little as you know. Reference images, inspiration, occasion, anything helps."
                 />
-              </div>
-
-              <div className="bespoke-form-row">
-                <div style={fieldWrap}>
-                  <label style={labelStyle}>IDEAL TIMELINE</label>
-                  <select style={selectStyle} name="timeline" value={formData.timeline} onChange={handleChange}>
-                    <option value="">No preference</option>
-                    <option value="urgent">Within 6 weeks</option>
-                    <option value="standard">2–3 months</option>
-                    <option value="relaxed">No rush</option>
-                  </select>
-                </div>
-                <div style={fieldWrap}>
-                  <label style={labelStyle}>GOLD PREFERENCE</label>
-                  <select style={selectStyle} name="gold" value={formData.gold} onChange={handleChange}>
-                    <option value="">Not sure yet</option>
-                    <option value="9ct">9ct yellow gold</option>
-                    <option value="14ct">14ct yellow gold</option>
-                    <option value="18ct">18ct yellow gold</option>
-                  </select>
-                </div>
               </div>
 
               {error && (
@@ -323,7 +238,7 @@ export default function Bespoke() {
 
               <p style={{ fontSize: 12, color: mutedText, textAlign: "center", marginTop: 16, lineHeight: 1.6 }}>
                 We'll never share your details. See our{' '}
-                <a href="/policies/privacy-policy" style={{ color: darkText, textDecoration: "underline" }}>privacy policy</a>.
+                <a href="/pages/privacy" style={{ color: darkText, textDecoration: "underline" }}>privacy policy</a>.
               </p>
             </fetcher.Form>
           )}
