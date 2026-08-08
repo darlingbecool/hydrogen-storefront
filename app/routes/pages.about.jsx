@@ -79,11 +79,8 @@ export default function AboutPage() {
         <p style={prose}>
           The ring belonged to my partner's uncle. An oval signet in 9ct yellow gold, engraved with his initials - SG - worn every day for decades until it was passed down, and eventually found its way into a drawer.
         </p>
-        <p style={prose}>
-          I found it there, and when I looked at it properly, noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
-        </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          People noticed it. They asked about it - the shape, the weight, the way it sits on the hand. For a long time I'd explain the story, and then add that I was going to have one made. Eventually I stopped saying eventually.
+          I found it there, and when I looked at it properly, noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
         </p>
 
         {/* Image placeholder */}
@@ -101,7 +98,7 @@ export default function AboutPage() {
           letterSpacing: '0.15em',
           margin: '32px 0 0',
         }}>
-          IMAGE — THE ORIGINAL RING
+          IMAGE - THE ORIGINAL RING
         </div>
 
         {/* Section 2: The making */}
@@ -121,10 +118,10 @@ export default function AboutPage() {
           I worked with a goldsmith to recreate the ring as closely as possible, with one change: instead of an engraved initial, the initial is set in diamonds - raised slightly from the surface, tactile as much as visual. That piece became No. 1. The Oval Signet Ring with Diamond Initial.
         </p>
         <p style={prose}>
-          Every piece in the collection is made to order. Nothing is held in stock - each ring is made specifically for the person who ordered it, and does not exist until they do. Each order takes four to six weeks.
+          Nothing in the collection is held in stock. Every piece is made specifically to order, taking four to six weeks.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          The ring that inspired this brand is decades old and barely shows it. That is the standard I hold every piece to - not jewellery for occasions, but jewellery that becomes part of how you move through the world.
+          The ring that inspired this brand is decades old and barely shows it. That is the standard I hold every piece to - the kind of thing you wear every day and never take off.
         </p>
 
         {/* Image placeholder */}
@@ -142,7 +139,7 @@ export default function AboutPage() {
           letterSpacing: '0.15em',
           margin: '32px 0 0',
         }}>
-          IMAGE — WORKSHOP / PROCESS
+          IMAGE - WORKSHOP / PROCESS
         </div>
 
         {/* Closing CTA */}
@@ -152,19 +149,8 @@ export default function AboutPage() {
           borderTop: `2px solid ${borderCol}`,
           textAlign: 'center',
         }}>
-          <p style={{
-            fontFamily: playfair,
-            fontSize: isMobile ? 20 : 24,
-            fontWeight: 400,
-            color: darkText,
-            lineHeight: 1.5,
-            marginBottom: 28,
-            marginTop: 0,
-          }}>
-            The collection starts at £1,200.<br />Each piece takes four to six weeks.
-          </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/collections/all" style={{
+            <Link to="/" style={{
               display: 'inline-block',
               padding: '12px 28px',
               background: darkText,
@@ -177,7 +163,7 @@ export default function AboutPage() {
             }}>
               View the collection
             </Link>
-            <Link to="/pages/bespoke" style={{
+            <Link to="/bespoke" style={{
               display: 'inline-block',
               padding: '12px 28px',
               background: 'transparent',
