@@ -213,7 +213,7 @@ export default function Bespoke() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Describe what you have in mind — as much or as little as you know. Reference images, inspiration, occasion, anything helps."
+                  placeholder="Describe what you have in mind — as much or as little as you know. We'll reply by email, where you're welcome to send reference images or anything else that helps."
                 />
               </div>
 
