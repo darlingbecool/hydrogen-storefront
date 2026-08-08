@@ -23,16 +23,30 @@ const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
+// ── Uniform spacing between every major section in the right-hand column ──
+const SECTION_GAP = 32;
+
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-const specifications = [
-  { label: "Style", value: "Oval signet" },
-  { label: "Diamond setting", value: "Raised, not inset" },
-  { label: "Gold", value: "9ct yellow gold" },
-  { label: "Finish", value: "High polish" },
-  { label: "Face dimensions", value: "[oval width × height — to be confirmed]" },
-  { label: "Band width", value: "[mm at widest point — to be confirmed]" },
-];
+// ── Specifications, unique per product handle ──
+const specificationsByProduct = {
+  'no-1-oval-signet': [
+    { label: "Style", value: "Oval signet" },
+    { label: "Diamond setting", value: "Raised, not inset" },
+    { label: "Gold", value: "9ct yellow gold" },
+    { label: "Finish", value: "High polish" },
+    { label: "Face dimensions", value: "13mm × 10mm" },
+    { label: "Band width", value: "2mm at narrowest" },
+  ],
+  'no-2-rectangular-signet': [
+    { label: "Style", value: "Rectangular signet" },
+    { label: "Diamond setting", value: "Flush-set" },
+    { label: "Gold", value: "9ct yellow gold" },
+    { label: "Finish", value: "High polish" },
+    { label: "Face dimensions", value: "13mm × 10.5mm" },
+    { label: "Band width", value: "2mm at narrowest" },
+  ],
+};
 
 export const meta = ({data}) => {
   return [
@@ -116,6 +130,8 @@ export default function Product() {
     : 'resin-proof-no-2';
 
   const resinVariant = resinVariants?.[0] ?? null;
+
+  const specifications = specificationsByProduct[product.handle] ?? [];
 
   return (
     <div style={{ background: "white", minHeight: "100vh" }}>
@@ -226,23 +242,26 @@ export default function Product() {
           </div>
         </div>
 
-        {/* RIGHT: Details */}
+        {/* RIGHT: Details — every direct child section below uses SECTION_GAP for consistent rhythm */}
         <div className="product-right-col">
-          <h1 className="product-title" style={{ fontFamily: playfair, fontSize: 40, color: darkText, marginBottom: 12, fontWeight: 400, lineHeight: 1.2 }}>
-            {title}
-          </h1>
-          <p style={{ fontSize: 24, color: darkText, fontWeight: 500, marginBottom: 24 }}>
-            £{formattedPrice.toLocaleString()}
-          </p>
 
-          <div style={{ fontSize: 16, color: subtleText, lineHeight: 1.7, marginBottom: 40 }}>
-            {description}
+          {/* Title / price / description block */}
+          <div style={{ marginBottom: SECTION_GAP }}>
+            <h1 className="product-title" style={{ fontFamily: playfair, fontSize: 40, color: darkText, marginBottom: 12, fontWeight: 400, lineHeight: 1.2 }}>
+              {title}
+            </h1>
+            <p style={{ fontSize: 24, color: darkText, fontWeight: 500, marginBottom: 20 }}>
+              £{formattedPrice.toLocaleString()}
+            </p>
+            <div style={{ fontSize: 16, color: subtleText, lineHeight: 1.7 }}>
+              {description}
+            </div>
           </div>
 
-          <div style={{ height: 1, background: borderCol, marginBottom: 32 }} />
+          <div style={{ height: 1, background: borderCol, marginBottom: SECTION_GAP }} />
 
           {/* Ring size */}
-          <div style={{ marginBottom: 8 }}>
+          <div style={{ marginBottom: SECTION_GAP }}>
             <p style={{
               fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
               letterSpacing: "0.15em", textTransform: "uppercase",
@@ -273,15 +292,14 @@ export default function Product() {
                 <option key={name} value={name}>{name}</option>
               ))}
             </select>
+            <p style={{ fontSize: 13, color: mutedText, marginTop: 12, lineHeight: 1.5 }}>
+              Not sure of your size? Get in touch and we'll{' '}
+              <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a ring sizer</Link>.
+            </p>
           </div>
 
-          <p style={{ fontSize: 13, color: mutedText, marginBottom: 32, lineHeight: 1.5 }}>
-            Not sure of your size? Get in touch and we'll{' '}
-            <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a ring sizer</Link>.
-          </p>
-
           {/* Initial selector */}
-          <div style={{ marginBottom: 32 }}>
+          <div style={{ marginBottom: SECTION_GAP }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
               <p style={{
                 fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
@@ -298,7 +316,7 @@ export default function Product() {
               )}
             </div>
 
-            <div className="initial-grid" style={{ marginBottom: 16 }}>
+            <div className="initial-grid">
               {alphabet.map((letter) => (
                 <button key={letter} onClick={() => setSelectedInitial(letter)}
                   style={{
@@ -322,64 +340,64 @@ export default function Product() {
           </div>
 
           {/* Add to Bag */}
-          <CartForm
-            route="/cart"
-            action={CartForm.ACTIONS.LinesAdd}
-            inputs={{
-              lines: canAdd ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  attributes: [
-                    {key: 'Initial or Symbol', value: selectedInitial},
-                  ],
-                },
-              ] : [],
-            }}
-          >
-            {(fetcher) => (
-              <input type="hidden" name="_cart_form" value="1" ref={cartFormRef} />
-            )}
-          </CartForm>
-          <button
-            type="button"
-            disabled={!canAdd}
-            onClick={() => {
-              if (canAdd) {
-                cartFormRef.current?.closest('form')?.requestSubmit();
-                open('cart');
-              }
-            }}
-            style={{
-              width: "100%",
-              display: "block",
-              boxSizing: "border-box",
-              margin: "0 0 12px 0",
-              padding: 20,
-              border: canAdd ? "none" : `1px solid ${borderCol}`,
-              borderRadius: 8,
-              background: !canAdd ? "transparent" : darkText,
-              color: canAdd ? "white" : mutedText,
-              fontSize: 13,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              fontWeight: 500,
-              fontFamily: bodyFont,
-              cursor: canAdd ? "pointer" : "default",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {!canAdd ? "Select an initial to continue" : "Add to bag"}
-          </button>
+          <div style={{ marginBottom: SECTION_GAP }}>
+            <CartForm
+              route="/cart"
+              action={CartForm.ACTIONS.LinesAdd}
+              inputs={{
+                lines: canAdd ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: 1,
+                    attributes: [
+                      {key: 'Initial or Symbol', value: selectedInitial},
+                    ],
+                  },
+                ] : [],
+              }}
+            >
+              {(fetcher) => (
+                <input type="hidden" name="_cart_form" value="1" ref={cartFormRef} />
+              )}
+            </CartForm>
+            <button
+              type="button"
+              disabled={!canAdd}
+              onClick={() => {
+                if (canAdd) {
+                  cartFormRef.current?.closest('form')?.requestSubmit();
+                  open('cart');
+                }
+              }}
+              style={{
+                width: "100%",
+                display: "block",
+                boxSizing: "border-box",
+                margin: 0,
+                padding: 20,
+                border: canAdd ? "none" : `1px solid ${borderCol}`,
+                borderRadius: 8,
+                background: !canAdd ? "transparent" : darkText,
+                color: canAdd ? "white" : mutedText,
+                fontSize: 13,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                fontFamily: bodyFont,
+                cursor: canAdd ? "pointer" : "default",
+                transition: "all 0.3s ease",
+              }}
+            >
+              {!canAdd ? "Select size & initial to continue" : "Add to bag"}
+            </button>
+          </div>
 
-          {/* Gift card link */}
-          
-          {/* Trust bar — style B */}
+          {/* Trust bar */}
           <div style={{
             display: "flex", alignItems: "center", justifyContent: "center",
             padding: "24px 0",
             borderTop: `1px solid ${borderCol}`, borderBottom: `1px solid ${borderCol}`,
-            marginBottom: 40,
+            marginBottom: SECTION_GAP,
           }}>
             {["4–6 weeks", "Made by hand in the UK", "Complimentary UK delivery over £300"].map((item, i, arr) => (
               <div key={i} style={{ display: "flex", alignItems: "center" }}>
@@ -392,14 +410,14 @@ export default function Product() {
           </div>
 
           {/* Accordions — resin proof, delivery & returns, care */}
-          <div style={{ marginTop: 24 }}>
+          <div style={{ marginBottom: SECTION_GAP }}>
             {[
               {
-                id: "resin", label: "Try before you commit",
+                id: "resin", label: "Check the fit first",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.7, margin: "4px 0 16px" }}>
-                      Not ready to commit to gold? We'll make a resin version of your ring — same size, same initial — so you can check the fit and feel before ordering. Delivered in 1–2 weeks. The £36 is deducted from your gold ring when you order.
+                      Want to check size and fit? We'll make a resin version of your ring in your chosen size and initial so you can check the fit and feel before ordering. Delivered in 1–2 weeks. If you go on to order the gold ring, we'll take the resin cost off the price.
                     </p>
                     {!selectedInitial || !selectedSize ? (
                       <p style={{ fontSize: 12, color: mutedText, fontStyle: "italic", margin: 0 }}>
@@ -468,7 +486,7 @@ export default function Product() {
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery — the ring that inspired this piece is decades old and barely shows it</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the pouch provided when not wearing</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the box provided when not wearing</p>
                   </div>
                 )
               },
@@ -492,21 +510,21 @@ export default function Product() {
           </div>
 
           {/* Concierge box */}
-          <div style={{ marginTop: 24, padding: 20, background: warmBg, borderRadius: 8, display: "flex", alignItems: "flex-start", gap: 16 }}>
+          <div style={{ marginBottom: SECTION_GAP, padding: 20, background: warmBg, borderRadius: 8, display: "flex", alignItems: "flex-start", gap: 16 }}>
             <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke={goldAccent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
               <path d="M3 13.5V15l3-1.5h8A1.5 1.5 0 0015.5 12V5A1.5 1.5 0 0014 3.5H4A1.5 1.5 0 002.5 5v7A1.5 1.5 0 003 13.5z" />
               <path d="M6 7h6M6 9.5h4" />
             </svg>
             <div>
               <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Questions about this piece?</p>
-              <p style={{ fontSize: 13, color: subtleText, margin: "0 0 8px", lineHeight: 1.6 }}>
-                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order - we're happy to talk through sizing, the making process, or anything specific to your piece.
+              <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
+                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order — we're happy to talk through sizing, the making process, or any other questions.
               </p>
             </div>
           </div>
 
-          {/* Specifications */}
-          <div style={{ marginTop: 40 }}>
+          {/* Specifications — last section, no trailing margin needed */}
+          <div>
             <h3 style={{ fontFamily: playfair, fontSize: 24, color: darkText, marginBottom: 20, fontWeight: 400 }}>Specifications</h3>
             {specifications.map((spec, i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", padding: "14px 0", borderBottom: i < specifications.length - 1 ? `1px solid ${borderCol}` : "none", gap: 16 }}>
