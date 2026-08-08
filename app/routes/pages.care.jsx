@@ -83,29 +83,17 @@ export default function CareGuidePage() {
 
         {/* Cleaning */}
         <h2 style={h2}>Cleaning</h2>
-        <p style={prose}>
-          Clean your ring every few months, or whenever it starts to look dull. Warm water, a small amount of mild washing-up liquid, and a soft toothbrush is all you need. Work gently around the diamond setting, rinse thoroughly, and pat dry with a soft cloth - do not leave it to air dry.
-        </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          For a more thorough clean, any local jeweller will be able to help. Most do this routinely and it takes only a few minutes.
+          Clean your ring every few months, or whenever it starts to look dull. Warm water, a small amount of mild washing-up liquid, and a soft toothbrush is all you need. Work gently around the diamond setting, rinse thoroughly, and pat dry with a soft cloth - do not leave it to air dry.
         </p>
 
         {/* Storage */}
         <h2 style={h2}>Storage</h2>
         <p style={prose}>
-          Every Mercer 79 order comes with a soft pouch - use it. Storing your ring loose with other jewellery is the most common cause of surface scratches, and gold is softer than most people expect.
+          Every Mercer 79 order comes with a box - use it. Storing your ring loose with other jewellery is the most common cause of surface scratches, and gold is softer than most people expect.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
           Keep it somewhere dry. Avoid leaving it on the edge of a sink or in a bathroom cabinet long-term - humidity and condensation are not good for gold over time.
-        </p>
-
-        {/* Patina */}
-        <h2 style={h2}>Patina and polish</h2>
-        <p style={prose}>
-          With wear, gold develops a patina - a slightly softer, more matte finish than the original high polish. This is normal and, for many people, preferable. The ring that started Mercer 79 has it, and it looks all the better for the years of wear.
-        </p>
-        <p style={{ ...prose, marginBottom: 0 }}>
-          If you want to restore the original finish, any jeweller can re-polish your ring. It will not affect the gold or the diamond setting.
         </p>
 
         {/* CTA */}
