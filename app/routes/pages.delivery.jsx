@@ -83,15 +83,20 @@ export default function DeliveryReturnsPage() {
 
         {/* Packaging */}
         <h2 style={h2}>Packaging</h2>
-        <p style={prose}>
+        <p style={{ ...prose, marginBottom: 0 }}>
           Every Mercer 79 commission is packaged by hand. Your piece arrives in a black soft-touch ring box with a velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid. The box is wrapped in black tissue and packed securely for transit.
         </p>
-        
 
         {/* International */}
         <h2 style={h2}>International delivery</h2>
         <p style={{ ...prose, marginBottom: 0 }}>
           We ship internationally. Get in touch before ordering for delivery times and costs outside the UK.
+        </p>
+
+        {/* Sizing */}
+        <h2 style={h2}>Sizing</h2>
+        <p style={{ ...prose, marginBottom: 0 }}>
+          Getting your size right before ordering matters. Full guidance is on the <Link to="/pages/size-guide" style={{ color: darkText, textDecoration: 'underline' }}>Size Guide</Link> page - and a complimentary ring sizer can be posted to you anywhere in the UK before you commit to anything. Just get in touch with your name and address.
         </p>
 
         {/* Returns */}
@@ -100,7 +105,7 @@ export default function DeliveryReturnsPage() {
           Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          This is not small print - it is simply the nature of how the pieces are made. Please take your time before ordering. The Size Guide is there to help with fit, the product pages cover materials and details in full, and we are happy to answer any questions before you place your order.
+          This is not small print - it is simply the nature of how the pieces are made. Please take your time before ordering. The product pages cover materials and details in full, and we are happy to answer any questions before you place your order.
         </p>
 
         {/* If something isn't right */}
@@ -113,12 +118,6 @@ export default function DeliveryReturnsPage() {
           <a href="mailto:hello@mercer79.com" style={{ color: darkText, textDecoration: 'underline' }}>
             hello@mercer79.com
           </a>.
-        </p>
-
-        {/* Sizing */}
-        <h2 style={h2}>Sizing</h2>
-        <p style={{ ...prose, marginBottom: 0 }}>
-          Getting your size right before ordering matters. Full guidance is on the Size Guide page - and a complimentary ring sizer can be posted to you anywhere in the UK before you commit to anything. Just get in touch with your name and address.
         </p>
 
         {/* CTA */}
