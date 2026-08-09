@@ -66,7 +66,7 @@ export default function TermsPage() {
           Terms & Conditions
         </h1>
         <p style={{ fontSize: 13, color: mutedText, marginBottom: 0, marginTop: 0 }}>
-          Last updated: March 2026
+          Last updated: August 2026
         </p>
 
         {/* Who we are */}
@@ -81,10 +81,10 @@ export default function TermsPage() {
         {/* Orders */}
         <h2 style={h2}>Orders and the contract between us</h2>
         <p style={prose}>
-          When you place an order, you are making an offer to purchase. That offer is accepted — and a contract formed — when you receive an order confirmation from us by email.
+          When you place an order, you are making an offer to purchase. That offer is accepted - and a contract formed - when you receive an order confirmation from us by email.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          Full payment is taken at the time of order. All prices are in GBP. Mercer 79 is not currently VAT registered — the price shown is the price you pay, with nothing to add.
+          Full payment is taken at the time of order. All prices are in GBP. Mercer 79 is not currently VAT registered - the price shown is the price you pay, with nothing to add.
         </p>
 
         {/* Made to order */}
@@ -93,7 +93,7 @@ export default function TermsPage() {
           Every piece is made specifically for the person who orders it. Nothing is held in stock. The lead time for all pieces is four to six weeks from the date of order.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          By placing an order you confirm that you have read and understood the lead time, and that you accept it. If you have a specific date in mind, please get in touch before ordering.
+          If you have a specific date in mind, please get in touch before ordering.
         </p>
 
         {/* Returns */}
@@ -102,7 +102,7 @@ export default function TermsPage() {
           Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day cancellation right under the Consumer Contracts Regulations 2013. This is a recognised legal exemption that applies to goods made to a customer's specification.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          Please take your time before ordering. If you have any questions about a piece — sizing, materials, or anything else — get in touch before you commit. Kate is happy to help.
+          Please take your time before ordering. If you have any questions about a piece - sizing, materials, or anything else - get in touch before you commit. We're happy to help.
         </p>
 
         {/* Faulty or incorrect goods */}
@@ -117,7 +117,7 @@ export default function TermsPage() {
         {/* Sizing */}
         <h2 style={h2}>Sizing</h2>
         <p style={{ ...prose, marginBottom: 0 }}>
-          It is your responsibility to provide the correct ring size at the time of order. Full guidance is available on the Size Guide page, and a complimentary ring sizer can be posted to you before you order. If you are unsure, please get in touch before placing your order.
+          It is your responsibility to provide the correct ring size at the time of order. Full guidance is available on the <Link to="/pages/size-guide" style={{ color: darkText, textDecoration: 'underline' }}>Size Guide</Link> page, and a complimentary ring sizer can be posted to you before you order. If you are unsure, please get in touch before placing your order.
         </p>
 
         {/* Intellectual property */}
