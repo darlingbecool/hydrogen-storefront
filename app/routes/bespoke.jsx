@@ -34,7 +34,7 @@ export const meta = () => [
   { name: 'description', content: 'Commission a bespoke piece with Mercer 79 — handcrafted in the UK to your exact brief.' },
 ];
 
-export async function action({ request }) {
+export async function action({ request, context }) {
   const formData = await request.formData();
   const name = formData.get('name');
   const email = formData.get('email');
@@ -44,7 +44,33 @@ export async function action({ request }) {
     return { error: 'Please fill in all required fields.' };
   }
 
-  return { success: true };
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Mercer 79 Website <notifications@mail.mercer79.com>',
+        to: 'hello@mercer79.com',
+        reply_to: email,
+        subject: `New bespoke enquiry from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text();
+      console.error('Resend API error:', errorDetails);
+      return { error: 'Something went wrong sending your enquiry. Please try emailing us directly at hello@mercer79.com.' };
+    }
+
+    return { success: true };
+  } catch (err) {
+    console.error('Failed to send enquiry email:', err);
+    return { error: 'Something went wrong sending your enquiry. Please try emailing us directly at hello@mercer79.com.' };
+  }
 }
 
 function ImageBreak({ src, alt = "" }) {
