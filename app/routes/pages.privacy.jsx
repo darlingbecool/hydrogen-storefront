@@ -8,7 +8,7 @@ const borderCol = "#E8D7AE";
 
 export const meta = () => [
   { title: 'Privacy Notice | Mercer 79' },
-  { name: 'description', content: 'Customer Privacy Notice for Mercer 79 Ltd — how we collect, use and protect your personal information.' },
+  { name: 'description', content: 'Customer Privacy Notice for Mercer 79 Ltd - how we collect, use and protect your personal information.' },
 ];
 
 export default function PrivacyPolicy() {
@@ -212,11 +212,11 @@ export default function PrivacyPolicy() {
 
         <div className="brand-header">
           <div className="brand-name">Mercer 79 Ltd</div>
-          <div className="brand-sub">mercer79.com &nbsp;·&nbsp; hello@mercer79.com</div>
+          <div className="brand-sub">mercer79.com &nbsp;&middot;&nbsp; hello@mercer79.com</div>
         </div>
 
         <h1>Customer Privacy Notice</h1>
-        <p className="subtitle">Last updated: March 2026</p>
+        <p className="subtitle">Last updated: August 2026</p>
 
         <p>This privacy notice tells you what to expect us to do with your personal information when you visit our website, place an order, or contact us.</p>
 
@@ -224,7 +224,7 @@ export default function PrivacyPolicy() {
           <strong>Data Controller:</strong> Mercer 79 Ltd<br />
           <strong>Contact:</strong> hello@mercer79.com<br />
           <strong>Website:</strong> mercer79.com<br />
-          <strong>ICO Registration:</strong> [Insert ICO registration number]
+          <strong>ICO Registration:</strong> ZC109108
         </div>
 
         <div className="toc">
@@ -291,13 +291,13 @@ export default function PrivacyPolicy() {
 
         <h3>Your data protection rights</h3>
 
-        <div className="rights-item"><strong>Right of access</strong> — You have the right to ask us for copies of your personal information.</div>
-        <div className="rights-item"><strong>Right to rectification</strong> — You have the right to ask us to correct or delete personal information you think is inaccurate or incomplete.</div>
-        <div className="rights-item"><strong>Right to erasure</strong> — You have the right to ask us to delete your personal information in certain circumstances.</div>
-        <div className="rights-item"><strong>Right to restriction of processing</strong> — You have the right to ask us to limit how we use your personal information.</div>
-        <div className="rights-item"><strong>Right to object to processing</strong> — You have the right to object to the processing of your personal data in certain circumstances.</div>
-        <div className="rights-item"><strong>Right to data portability</strong> — You have the right to ask that we transfer your personal information to another organisation, or to you.</div>
-        <div className="rights-item"><strong>Right to withdraw consent</strong> — Where we rely on consent as our lawful basis, you have the right to withdraw your consent at any time.</div>
+        <div className="rights-item"><strong>Right of access</strong> - You have the right to ask us for copies of your personal information.</div>
+        <div className="rights-item"><strong>Right to rectification</strong> - You have the right to ask us to correct or delete personal information you think is inaccurate or incomplete.</div>
+        <div className="rights-item"><strong>Right to erasure</strong> - You have the right to ask us to delete your personal information in certain circumstances.</div>
+        <div className="rights-item"><strong>Right to restriction of processing</strong> - You have the right to ask us to limit how we use your personal information.</div>
+        <div className="rights-item"><strong>Right to object to processing</strong> - You have the right to object to the processing of your personal data in certain circumstances.</div>
+        <div className="rights-item"><strong>Right to data portability</strong> - You have the right to ask that we transfer your personal information to another organisation, or to you.</div>
+        <div className="rights-item"><strong>Right to withdraw consent</strong> - Where we rely on consent as our lawful basis, you have the right to withdraw your consent at any time.</div>
 
         <p>To make a data protection rights request, please contact us at <a href="mailto:hello@mercer79.com">hello@mercer79.com</a>. We will respond within one month.</p>
 
@@ -305,36 +305,36 @@ export default function PrivacyPolicy() {
 
         <h4>For providing goods and services (fulfilling orders):</h4>
         <ul>
-          <li><strong>Contract</strong> — we need your information to fulfil your order and carry out the contract between us.</li>
-          <li><strong>Legal obligation</strong> — we keep certain records because the law requires it.</li>
-          <li><strong>Legitimate interests</strong> — we use your information where it benefits you or us without causing undue harm, for example for website analytics and operational improvements.</li>
+          <li><strong>Contract</strong> - we need your information to fulfil your order and carry out the contract between us.</li>
+          <li><strong>Legal obligation</strong> - we keep certain records because the law requires it.</li>
+          <li><strong>Legitimate interests</strong> - we use your information where it benefits you or us without causing undue harm, for example for website analytics and operational improvements.</li>
         </ul>
 
         <h4>For customer account and order records:</h4>
         <ul>
-          <li><strong>Contract</strong> — we hold your order history as part of our ongoing relationship.</li>
-          <li><strong>Legitimate interests</strong> — maintaining accurate customer records benefits both you and us.</li>
+          <li><strong>Contract</strong> - we hold your order history as part of our ongoing relationship.</li>
+          <li><strong>Legitimate interests</strong> - maintaining accurate customer records benefits both you and us.</li>
         </ul>
 
         <h4>For service updates and marketing:</h4>
         <ul>
-          <li><strong>Consent</strong> — we only send marketing communications if you have explicitly opted in. You can withdraw consent at any time by unsubscribing.</li>
+          <li><strong>Consent</strong> - we only send marketing communications if you have explicitly opted in. You can withdraw consent at any time by unsubscribing.</li>
         </ul>
 
         <h4>For legal compliance:</h4>
         <ul>
-          <li><strong>Legal obligation</strong> — we are required by law to retain financial records for six years.</li>
+          <li><strong>Legal obligation</strong> - we are required by law to retain financial records for six years.</li>
         </ul>
 
         <h4>For queries, complaints and claims:</h4>
         <ul>
-          <li><strong>Contract</strong> — handling complaints about orders is part of our contractual relationship with you.</li>
-          <li><strong>Legitimate interests</strong> — keeping records of queries and correspondence benefits both parties.</li>
+          <li><strong>Contract</strong> - handling complaints about orders is part of our contractual relationship with you.</li>
+          <li><strong>Legitimate interests</strong> - keeping records of queries and correspondence benefits both parties.</li>
         </ul>
 
         {/* SECTION 3 */}
         <h2 id="source">3. Where We Get Personal Information From</h2>
-        <p>We collect all personal information directly from you — when you place an order, sign up to our email list, or contact us with a query or complaint. We do not purchase data from third parties or obtain your information from any other source.</p>
+        <p>We collect all personal information directly from you - when you place an order, sign up to our email list, or contact us with a query or complaint. We do not purchase data from third parties or obtain your information from any other source.</p>
 
         {/* SECTION 4 */}
         <h2 id="retention">4. How Long We Keep Information</h2>
@@ -369,7 +369,7 @@ export default function PrivacyPolicy() {
         {/* SECTION 5 */}
         <h2 id="sharing">5. Who We Share Information With</h2>
 
-        <p>We share personal information with the following data processors — organisations that handle personal information on our behalf.</p>
+        <p>We share personal information with the following data processors - organisations that handle personal information on our behalf.</p>
 
         <div className="processor-card">
           <div className="processor-header">Shopify Inc</div>
@@ -379,6 +379,18 @@ export default function PrivacyPolicy() {
               <tr><td>Country data sent to</td><td>United States of America and Canada</td></tr>
               <tr><td>Transfer mechanism</td><td>UK Addendum to EU Standard Contractual Clauses (SCCs)</td></tr>
               <tr><td>Activities</td><td>Shopify provides our e-commerce platform and processes customer orders, payment transactions, and delivery addresses on our behalf.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="processor-card">
+          <div className="processor-header">Stripe, Inc.</div>
+          <table className="processor-table">
+            <tbody>
+              <tr><td>Category</td><td>Payment processing provider</td></tr>
+              <tr><td>Country data sent to</td><td>United States of America</td></tr>
+              <tr><td>Transfer mechanism</td><td>UK International Data Transfer Addendum to the EU Standard Contractual Clauses (SCCs)</td></tr>
+              <tr><td>Activities</td><td>Stripe processes card payment details and related transaction data on our behalf, in order to take payment for orders placed through our website.</td></tr>
             </tbody>
           </table>
         </div>
@@ -396,12 +408,24 @@ export default function PrivacyPolicy() {
         </div>
 
         <div className="processor-card">
+          <div className="processor-header">Google Workspace (Google Ireland Limited)</div>
+          <table className="processor-table">
+            <tbody>
+              <tr><td>Category</td><td>Email hosting and business productivity provider</td></tr>
+              <tr><td>Country data sent to</td><td>United States of America, and other locations within Google's global data centre network</td></tr>
+              <tr><td>Transfer mechanism</td><td>UK Addendum to EU Standard Contractual Clauses (SCCs), incorporated into Google's Cloud Data Processing Addendum</td></tr>
+              <tr><td>Activities</td><td>Google Workspace hosts our business email accounts, including correspondence sent to and received from customers.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="processor-card">
           <div className="processor-header">Royal Mail Group Ltd</div>
           <table className="processor-table">
             <tbody>
               <tr><td>Category</td><td>Postal and parcel delivery services</td></tr>
               <tr><td>Country data sent to</td><td>United Kingdom only</td></tr>
-              <tr><td>Transfer mechanism</td><td>UK-based — no international transfer</td></tr>
+              <tr><td>Transfer mechanism</td><td>UK-based - no international transfer</td></tr>
               <tr><td>Activities</td><td>Royal Mail processes customer names and delivery addresses solely for the purpose of dispatching and delivering orders. Data is shared with Royal Mail only at the point of dispatch.</td></tr>
             </tbody>
           </table>
@@ -411,7 +435,7 @@ export default function PrivacyPolicy() {
 
         {/* SECTION 6 */}
         <h2 id="international">6. Sharing Information Outside the UK</h2>
-        <p>Where necessary, our data processors may transfer personal information outside of the UK. When doing so, they comply with UK GDPR, ensuring appropriate safeguards are in place. Shopify and Xero both rely on the UK Addendum to the EU Standard Contractual Clauses as their transfer mechanism.</p>
+        <p>Where necessary, our data processors may transfer personal information outside of the UK. When doing so, they comply with UK GDPR, ensuring appropriate safeguards are in place. Shopify, Stripe, Xero, and Google Workspace all rely on the UK Addendum to the EU Standard Contractual Clauses (or an equivalent UK-recognised mechanism) as their transfer mechanism.</p>
         <p>For further information or to obtain a copy of the appropriate safeguard, please contact us at <a href="mailto:hello@mercer79.com">hello@mercer79.com</a>.</p>
 
         {/* SECTION 7 */}
@@ -420,13 +444,13 @@ export default function PrivacyPolicy() {
 
         <div className="complain-box">
           <p style={{ margin: '0 0 8px', fontWeight: 600 }}>Information Commissioner's Office (ICO)</p>
-          <p style={{ margin: 0 }}>If you remain unhappy after contacting us, you have the right to lodge a complaint with the ICO — the UK's data protection supervisory authority. You can do so at <a href="https://ico.org.uk/make-a-complaint" target="_blank" rel="noreferrer">ico.org.uk/make-a-complaint</a> or by calling 0303 123 1113.</p>
+          <p style={{ margin: 0 }}>If you remain unhappy after contacting us, you have the right to lodge a complaint with the ICO - the UK's data protection supervisory authority. You can do so at <a href="https://ico.org.uk/make-a-complaint" target="_blank" rel="noreferrer">ico.org.uk/make-a-complaint</a> or by calling 0303 123 1113.</p>
         </div>
 
         <hr style={{ border: 'none', borderTop: `2px solid ${borderCol}`, margin: '48px 0 24px' }} />
 
         <p style={{ fontSize: 13, color: mutedText, textAlign: 'center' }}>
-          Mercer 79 Ltd &nbsp;·&nbsp; mercer79.com &nbsp;·&nbsp; Last updated March 2026
+          Mercer 79 Ltd &nbsp;&middot;&nbsp; mercer79.com &nbsp;&middot;&nbsp; Last updated August 2026
         </p>
 
       </div>
