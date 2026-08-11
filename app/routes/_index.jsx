@@ -10,7 +10,13 @@ const subtleText = "#4A4A4A";
 const borderColor = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Mercer 79 — Made-to-Order Gold Signet Rings'}];
+  return [
+    {title: 'Mercer 79 - Made-to-Order Gold Signet Rings'},
+    {
+      name: 'description',
+      content: 'Bespoke 9ct gold signet rings, made to order and hand-crafted in the UK. Choose your initial, your gold, your size - made once, for you.',
+    },
+  ];
 };
 
 export async function loader({context}) {
