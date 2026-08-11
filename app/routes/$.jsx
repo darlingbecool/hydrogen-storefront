@@ -72,7 +72,7 @@ export default function NotFound() {
           maxWidth: 480,
           margin: "0 auto 48px"
         }}>
-          The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
+          That page isn't here. Let's start again from the homepage.
         </p>
 
         {/* Action Button */}
