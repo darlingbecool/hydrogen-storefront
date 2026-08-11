@@ -11,7 +11,13 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Our Story | Mercer 79'}];
+  return [
+    {title: 'Our Story | Mercer 79'},
+    {
+      name: 'description',
+      content: "The story behind Mercer 79 - a bespoke gold signet ring brand, hand-crafted in the UK and made to order.",
+    },
+  ];
 };
 
 export default function AboutPage() {
