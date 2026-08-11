@@ -11,7 +11,13 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Contact | Mercer 79'}];
+  return [
+    {title: 'Contact | Mercer 79'},
+    {
+      name: 'description',
+      content: "Get in touch with Mercer 79 about a piece, sizing, or a bespoke commission - by email, Instagram, or the form below.",
+    },
+  ];
 };
 
 export async function action({ request, context }) {

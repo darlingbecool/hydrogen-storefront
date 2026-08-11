@@ -11,7 +11,13 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Care Guide | Mercer 79'}];
+  return [
+    {title: 'Care Guide | Mercer 79'},
+    {
+      name: 'description',
+      content: "How to care for your Mercer 79 gold signet ring - daily wear, cleaning, and storage, for a piece made to last decades.",
+    },
+  ];
 };
 
 export default function CareGuidePage() {

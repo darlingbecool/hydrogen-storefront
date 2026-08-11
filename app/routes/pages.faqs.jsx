@@ -119,7 +119,13 @@ const faqs = [
 ];
 
 export const meta = () => {
-  return [{title: 'FAQs | Mercer 79'}];
+  return [
+    {title: 'FAQs | Mercer 79'},
+    {
+      name: 'description',
+      content: "Answers to common questions about Mercer 79's bespoke gold signet rings - sizing, customisation, materials, and delivery.",
+    },
+  ];
 };
 
 function FAQItem({ faq }) {

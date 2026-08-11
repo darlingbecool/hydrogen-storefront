@@ -11,7 +11,13 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Terms & Conditions | Mercer 79'}];
+  return [
+    {title: 'Terms & Conditions | Mercer 79'},
+    {
+      name: 'description',
+      content: "Terms and conditions for orders placed with Mercer 79 Ltd.",
+    },
+  ];
 };
 
 export default function TermsPage() {

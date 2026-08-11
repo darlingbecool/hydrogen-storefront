@@ -51,6 +51,10 @@ const specificationsByProduct = {
 export const meta = ({data}) => {
   return [
     {title: `${data?.product.title ?? 'Product'} | Mercer 79`},
+    {
+      name: 'description',
+      content: `${data?.product.title ?? 'Mercer 79'} - a bespoke 9ct gold signet ring, made to order and hand-crafted in the UK.`,
+    },
     { rel: 'canonical', href: `/products/${data?.product.handle}` },
   ];
 };

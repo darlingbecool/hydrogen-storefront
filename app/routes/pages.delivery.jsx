@@ -11,7 +11,13 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Delivery & Returns | Mercer 79'}];
+  return [
+    {title: 'Delivery & Returns | Mercer 79'},
+    {
+      name: 'description',
+      content: "Delivery, packaging, and returns information for Mercer 79 orders - tracked UK and international shipping on made-to-order pieces.",
+    },
+  ];
 };
 
 export default function DeliveryReturnsPage() {
