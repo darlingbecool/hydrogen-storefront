@@ -9,14 +9,13 @@ const goldAccent = "#D4AF37";
 const mutedText = "#6A6A6A";
 
 export const meta = () => {
-  return [{title: 'Page Not Found | Mercer 94'}];
+  return [{title: 'Page Not Found | Mercer 79'}];
 };
 
 export default function NotFound() {
   return (
     <div style={{ 
       background: 'white', 
-      marginLeft: '50px',
       minHeight: '80vh',
       display: 'flex',
       alignItems: 'center',
@@ -76,7 +75,7 @@ export default function NotFound() {
           The page you're looking for doesn't exist or may have been moved. Let's get you back on track.
         </p>
 
-        {/* Action Buttons */}
+        {/* Action Button */}
         <div style={{
           display: 'flex',
           gap: 16,
@@ -108,71 +107,6 @@ export default function NotFound() {
           >
             GO HOME
           </Link>
-
-          <Link
-            to="/collections/all"
-            style={{
-              display: 'inline-block',
-              padding: "16px 32px",
-              border: `2px solid ${darkText}`,
-              borderRadius: 8,
-              background: "white",
-              color: darkText,
-              fontSize: 14,
-              letterSpacing: "0.15em",
-              fontWeight: 500,
-              fontFamily: bodyFont,
-              textDecoration: 'none',
-              transition: 'all 0.2s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = darkText;
-              e.target.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'white';
-              e.target.style.color = darkText;
-            }}
-          >
-            BROWSE COLLECTION
-          </Link>
-        </div>
-
-        {/* Helpful Links */}
-        <div style={{
-          marginTop: 64,
-          padding: 32,
-          background: warmBg,
-          borderRadius: 12,
-          border: `1px solid ${goldAccent}20`
-        }}>
-          <p style={{
-            fontSize: 15,
-            color: mutedText,
-            marginBottom: 16,
-            fontWeight: 500
-          }}>
-            Looking for something specific?
-          </p>
-          <div style={{
-            display: 'flex',
-            gap: 24,
-            justifyContent: 'center',
-            flexWrap: 'wrap'
-          }}>
-            <Link to="/collections/rings" style={{ fontSize: 14, color: darkText, textDecoration: 'underline' }}>
-              Rings
-            </Link>
-            <Link to="/collections/necklaces" style={{ fontSize: 14, color: darkText, textDecoration: 'underline' }}>
-              Necklaces
-            </Link>
-            <Link to="/pages/about" style={{ fontSize: 14, color: darkText, textDecoration: 'underline' }}>
-              About Us
-            </Link>
-            <Link to="/pages/contact" style={{ fontSize: 14, color: darkText, textDecoration: 'underline' }}>
-              Contact
-            </Link>
-          </div>
         </div>
 
       </div>
