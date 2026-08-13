@@ -82,7 +82,7 @@ export function Footer() {
           }}
           className="newsletter-content"
         >
-          <div style={{ flex: 1, textAlign: "left" }}>
+          <div style={{ flex: 1, textAlign: "left" }} className="newsletter-text">
             <h3 style={{
               fontFamily: playfair,
               fontSize: 28,
@@ -342,9 +342,9 @@ export function Footer() {
             flex-direction: column !important;
             text-align: center !important;
           }
-          .newsletter-content > div:first-child {
-            text-align: center !important;
-          }
+          .newsletter-text {
+  text-align: center !important;
+}
           .newsletter-content h3 {
             font-size: 28px !important;
           }
