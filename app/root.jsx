@@ -56,6 +56,7 @@ export function links() {
       href: 'https://shop.app',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'apple-touch-icon', href: '/apple-touch-icon.png'},
   ];
 }
 
