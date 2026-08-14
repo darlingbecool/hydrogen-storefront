@@ -199,6 +199,7 @@ export default function Product() {
               width: "100%", aspectRatio: "1",
               background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
               overflow: "hidden",
+              borderRadius: 8,
               display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
             }}>
               {selectedInitial ? (

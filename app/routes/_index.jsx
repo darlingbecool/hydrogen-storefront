@@ -235,10 +235,13 @@ export default function Homepage() {
           </p>
         </div>
       </section>
-
-      <div
+      
+  <div
   className="featured-grid"
-  style={{gridTemplateColumns: `repeat(${products.length}, 1fr)`}}
+  style={{
+    gridTemplateColumns: `repeat(${products.length}, minmax(240px, 340px))`,
+    justifyContent: 'center',
+  }}
 >
   {products.map((product) => (
     <ProductCard key={product.id} product={product} />
