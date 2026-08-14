@@ -74,6 +74,7 @@ export function PageLayout({
         {/* Top navigation bar */}
         <TopNav
           cart={cart}
+          isLoggedIn={isLoggedIn}
           onMenuClick={() => setMenuOpen(true)}
         />
 
@@ -82,6 +83,7 @@ export function PageLayout({
           isOpen={menuOpen}
           onClose={() => setMenuOpen(false)}
           cart={cart}
+          isLoggedIn={isLoggedIn}
         />
 
         {/* Main content — paddingTop offsets the fixed nav bar */}
@@ -110,7 +112,7 @@ function AsideGlobalizer() {
 }
 
 // ── Top navigation bar ─────────────────────────────────────────────────────────
-function TopNav({cart, onMenuClick}) {
+function TopNav({cart, isLoggedIn, onMenuClick}) {
   const {open} = useAside();
 
   return (
@@ -162,8 +164,20 @@ function TopNav({cart, onMenuClick}) {
           MERCER 79
         </Link>
 
-        {/* RIGHT — search, wishlist, bag (hidden on mobile — lives in slide menu instead) */}
+        {/* RIGHT — account, search, wishlist, bag (hidden on mobile — lives in slide menu instead) */}
         <div className="nav-icons-desktop" style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+          <Link
+            to="/account"
+            aria-label={isLoggedIn ? 'Account' : 'Sign in'}
+            className="nav-icon-btn"
+            style={{
+              color: darkText, display: 'flex', alignItems: 'center',
+              textDecoration: 'none', transition: 'color 0.2s ease',
+            }}
+          >
+            <AccountIcon />
+          </Link>
+
           <NavIconButton label="Search" onClick={() => open('search')}>
             <SearchIcon />
           </NavIconButton>
@@ -233,8 +247,8 @@ function NavIconButton({label, onClick, children}) {
 
 // ── Left slide-in menu ─────────────────────────────────────────────────────────
 // Content mirrors your old desktop sidebar exactly:
-// search, wishlist, SHOP/ABOUT/INFO accordion sections, tagline.
-function SlideMenu({isOpen, onClose, cart}) {
+// account, search, wishlist, SHOP/ABOUT/INFO accordion sections, tagline.
+function SlideMenu({isOpen, onClose, cart, isLoggedIn}) {
   const {open} = useAside();
   const [openSections, setOpenSections] = useState({
     SHOP: true,
@@ -316,6 +330,19 @@ function SlideMenu({isOpen, onClose, cart}) {
           marginBottom: 8,
           borderBottom: `1px solid ${borderColor}`,
         }}>
+          <Link
+            to="/account"
+            onClick={onClose}
+            aria-label={isLoggedIn ? 'Account' : 'Sign in'}
+            className="nav-icon-btn"
+            style={{
+              color: darkText, display: 'flex', alignItems: 'center',
+              textDecoration: 'none', transition: 'color 0.2s ease',
+            }}
+          >
+            <AccountIcon />
+          </Link>
+
           <NavIconButton label="Search" onClick={() => { open('search'); onClose(); }}>
             <SearchIcon />
           </NavIconButton>
@@ -539,6 +566,15 @@ function BagIcon() {
     <svg width="18" height="22" viewBox="0 0 22 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 7h16l-1.5 14H4.5L3 7z" />
       <path d="M7.5 7V5a3.5 3.5 0 0 1 7 0v2" />
+    </svg>
+  );
+}
+
+function AccountIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
   );
 }
