@@ -62,6 +62,7 @@ export default function Orders() {
     <div className="orders">
       <OrderSearchForm currentFilters={filters} />
       <OrdersTable orders={orders} filters={filters} />
+      <OrdersBrandStyles />
     </div>
   );
 }
@@ -93,21 +94,23 @@ function OrdersTable({orders, filters}) {
  */
 function EmptyOrders({hasFilters = false}) {
   return (
-    <div>
+    <div className="orders-empty">
       {hasFilters ? (
         <>
           <p>No orders found matching your search.</p>
-          <br />
           <p>
-            <Link to="/account/orders">Clear filters →</Link>
+            <Link to="/account/orders" className="orders-empty-link">
+              Clear filters &nbsp;→
+            </Link>
           </p>
         </>
       ) : (
         <>
           <p>You haven&apos;t placed any orders yet.</p>
-          <br />
           <p>
-            <Link to="/collections">Start Shopping →</Link>
+            <Link to="/collections" className="orders-empty-link">
+              Start Shopping &nbsp;→
+            </Link>
           </p>
         </>
       )}
@@ -178,13 +181,18 @@ function OrderSearchForm({currentFilters}) {
         </div>
 
         <div className="order-search-buttons">
-          <button type="submit" disabled={isSearching}>
+          <button
+            type="submit"
+            disabled={isSearching}
+            className="order-search-submit"
+          >
             {isSearching ? 'Searching' : 'Search'}
           </button>
           {hasFilters && (
             <button
               type="button"
               disabled={isSearching}
+              className="order-search-clear"
               onClick={() => {
                 setSearchParams(new URLSearchParams());
                 formRef.current?.reset();
@@ -205,22 +213,202 @@ function OrderSearchForm({currentFilters}) {
 function OrderItem({order}) {
   const fulfillmentStatus = flattenConnection(order.fulfillments)[0]?.status;
   return (
-    <>
-      <fieldset>
-        <Link to={`/account/orders/${btoa(order.id)}`}>
-          <strong>#{order.number}</strong>
+    <div className="order-item">
+      <div className="order-item-main">
+        <Link to={`/account/orders/${btoa(order.id)}`} className="order-item-number">
+          Order #{order.number}
         </Link>
-        <p>{new Date(order.processedAt).toDateString()}</p>
+        <p className="order-item-date">
+          {new Date(order.processedAt).toDateString()}
+        </p>
         {order.confirmationNumber && (
-          <p>Confirmation: {order.confirmationNumber}</p>
+          <p className="order-item-meta">
+            Confirmation: {order.confirmationNumber}
+          </p>
         )}
-        <p>{order.financialStatus}</p>
-        {fulfillmentStatus && <p>{fulfillmentStatus}</p>}
-        <Money data={order.totalPrice} />
-        <Link to={`/account/orders/${btoa(order.id)}`}>View Order →</Link>
-      </fieldset>
-      <br />
-    </>
+        <p className="order-item-meta">
+          {order.financialStatus}
+          {fulfillmentStatus ? ` · ${fulfillmentStatus}` : ''}
+        </p>
+      </div>
+      <div className="order-item-side">
+        <Money data={order.totalPrice} className="order-item-price" />
+        <Link to={`/account/orders/${btoa(order.id)}`} className="order-item-link">
+          View Order &nbsp;→
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// ── Brand styling for this page's markup, scoped via class names ──────────────
+function OrdersBrandStyles() {
+  const playfair = `'Playfair Display', serif`;
+  const bodyFont = `system-ui, -apple-system, sans-serif`;
+  const darkText = '#1A1A1A';
+  const goldAccent = '#D4AF37';
+  const mutedText = '#6A6A6A';
+  const borderColor = '#E8D7AE';
+
+  return (
+    <style>{`
+      .order-search-form {
+        margin-bottom: 40px;
+      }
+      .order-search-fieldset {
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        padding: 24px;
+        max-width: 520px;
+      }
+      .order-search-legend {
+        font-family: ${playfair};
+        font-size: 16px;
+        font-weight: 400;
+        color: ${darkText};
+        padding: 0 8px;
+      }
+      .order-search-inputs {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+      .order-search-input {
+        flex: 1;
+        min-width: 160px;
+        font-family: ${bodyFont};
+        font-size: 14px;
+        color: ${darkText};
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        padding: 10px 12px;
+        outline: none;
+        transition: border-color 0.2s ease;
+      }
+      .order-search-input:focus {
+        border-color: ${goldAccent};
+      }
+      .order-search-buttons {
+        display: flex;
+        gap: 12px;
+      }
+      .order-search-submit {
+        background: ${darkText};
+        color: white;
+        border: none;
+        border-radius: 2px;
+        font-family: ${bodyFont};
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 10px 22px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .order-search-submit:hover {
+        background: ${goldAccent};
+      }
+      .order-search-submit:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .order-search-clear {
+        background: none;
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        color: ${mutedText};
+        font-family: ${bodyFont};
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 10px 22px;
+        cursor: pointer;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .order-search-clear:hover {
+        color: ${darkText};
+        border-color: ${darkText};
+      }
+
+      .orders-empty p {
+        font-family: ${bodyFont};
+        font-size: 15px;
+        color: ${mutedText};
+        margin: 0 0 12px;
+      }
+      .orders-empty-link {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        color: ${darkText};
+        text-decoration: none;
+        border-bottom: 1px solid ${darkText};
+        padding-bottom: 2px;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .orders-empty-link:hover {
+        color: ${goldAccent};
+        border-color: ${goldAccent};
+      }
+
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        flex-wrap: wrap;
+        padding: 20px 0;
+        border-bottom: 1px solid ${borderColor};
+      }
+      .order-item-number {
+        font-family: ${playfair};
+        font-size: 18px;
+        color: ${darkText};
+        text-decoration: none;
+      }
+      .order-item-number:hover {
+        color: ${goldAccent};
+      }
+      .order-item-date {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        color: ${mutedText};
+        margin: 6px 0 0;
+      }
+      .order-item-meta {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        color: ${mutedText};
+        margin: 4px 0 0;
+      }
+      .order-item-side {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .order-item-price {
+        font-family: ${bodyFont};
+        font-size: 15px;
+        font-weight: 600;
+        color: ${darkText};
+      }
+      .order-item-link {
+        font-family: ${bodyFont};
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: ${darkText};
+        text-decoration: none;
+        border-bottom: 1px solid ${darkText};
+        padding-bottom: 1px;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .order-item-link:hover {
+        color: ${goldAccent};
+        border-color: ${goldAccent};
+      }
+    `}</style>
   );
 }
 
