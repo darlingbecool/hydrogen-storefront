@@ -242,6 +242,7 @@ export default function Homepage() {
     gridTemplateColumns: `repeat(${products.length}, 400px)`,
     maxWidth: `${products.length * 400 + (products.length - 1) * 24}px`,
     margin: '0 auto',
+    padding: '80px 0',
   }}
 >
   {products.map((product) => (
