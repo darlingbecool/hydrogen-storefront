@@ -235,12 +235,13 @@ export default function Homepage() {
           </p>
         </div>
       </section>
-      
+
   <div
   className="featured-grid"
   style={{
-    gridTemplateColumns: `repeat(${products.length}, minmax(240px, 340px))`,
-    justifyContent: 'center',
+    gridTemplateColumns: `repeat(${products.length}, 400px)`,
+    maxWidth: `${products.length * 400 + (products.length - 1) * 24}px`,
+    margin: '0 auto',
   }}
 >
   {products.map((product) => (
