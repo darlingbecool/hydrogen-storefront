@@ -256,24 +256,22 @@ export default function Addresses() {
   return (
     <div className="account-addresses">
       <h2>Addresses</h2>
-      <br />
       {!addresses.nodes.length ? (
-        <p>You have no addresses saved.</p>
+        <p className="account-addresses-empty">You have no addresses saved.</p>
       ) : (
         <div>
           <div>
             <legend>Create address</legend>
             <NewAddressForm />
           </div>
-          <br />
-          <hr />
-          <br />
+          <hr className="account-addresses-divider" />
           <ExistingAddresses
             addresses={addresses}
             defaultAddress={defaultAddress}
           />
         </div>
       )}
+      <AddressesBrandStyles />
     </div>
   );
 }
@@ -300,11 +298,12 @@ function NewAddressForm() {
       defaultAddress={null}
     >
       {({stateForMethod}) => (
-        <div>
+        <div className="account-address-actions">
           <button
             disabled={stateForMethod('POST') !== 'idle'}
             formMethod="POST"
             type="submit"
+            className="account-submit-btn"
           >
             {stateForMethod('POST') !== 'idle' ? 'Creating' : 'Create'}
           </button>
@@ -329,11 +328,12 @@ function ExistingAddresses({addresses, defaultAddress}) {
           defaultAddress={defaultAddress}
         >
           {({stateForMethod}) => (
-            <div>
+            <div className="account-address-actions">
               <button
                 disabled={stateForMethod('PUT') !== 'idle'}
                 formMethod="PUT"
                 type="submit"
+                className="account-submit-btn"
               >
                 {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
               </button>
@@ -341,6 +341,7 @@ function ExistingAddresses({addresses, defaultAddress}) {
                 disabled={stateForMethod('DELETE') !== 'idle'}
                 formMethod="DELETE"
                 type="submit"
+                className="account-delete-btn"
               >
                 {stateForMethod('DELETE') !== 'idle' ? 'Deleting' : 'Delete'}
               </button>
@@ -481,7 +482,7 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
           pattern="^\+?[1-9]\d{3,14}$"
           type="tel"
         />
-        <div>
+        <div className="account-address-checkbox-row">
           <input
             defaultChecked={isDefaultAddress}
             id="defaultAddress"
@@ -491,19 +492,149 @@ export function AddressForm({addressId, address, defaultAddress, children}) {
           <label htmlFor="defaultAddress">Set as default address</label>
         </div>
         {error ? (
-          <p>
-            <mark>
-              <small>{error}</small>
-            </mark>
+          <p className="account-form-error">
+            <small>{error}</small>
           </p>
-        ) : (
-          <br />
-        )}
+        ) : null}
         {children({
           stateForMethod: (method) => (formMethod === method ? state : 'idle'),
         })}
       </fieldset>
     </Form>
+  );
+}
+
+// ── Brand styling for the addresses page ───────────────────────────────────────
+function AddressesBrandStyles() {
+  const playfair = `'Playfair Display', serif`;
+  const bodyFont = `system-ui, -apple-system, sans-serif`;
+  const darkText = '#1A1A1A';
+  const goldAccent = '#D4AF37';
+  const mutedText = '#6A6A6A';
+  const borderColor = '#E8D7AE';
+
+  return (
+    <style>{`
+      .account-addresses h2 {
+        font-family: ${playfair};
+        font-weight: 400;
+        font-size: 22px;
+        color: ${darkText};
+        margin: 0 0 28px;
+      }
+      .account-addresses-empty {
+        font-family: ${bodyFont};
+        font-size: 15px;
+        color: ${mutedText};
+      }
+      .account-addresses legend {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: ${mutedText};
+        padding: 0 4px 12px;
+      }
+      .account-addresses-divider {
+        border: none;
+        border-top: 1px solid ${borderColor};
+        margin: 32px 0;
+      }
+      .account-addresses fieldset {
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        padding: 24px;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+      .account-addresses label {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        color: ${mutedText};
+        display: block;
+        margin-bottom: 4px;
+      }
+      .account-addresses input[type="text"],
+      .account-addresses input[type="tel"] {
+        width: 100%;
+        font-family: ${bodyFont};
+        font-size: 14px;
+        color: ${darkText};
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        padding: 10px 12px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease;
+      }
+      .account-addresses input[type="text"]:focus,
+      .account-addresses input[type="tel"]:focus {
+        border-color: ${goldAccent};
+      }
+      .account-address-checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .account-address-checkbox-row label {
+        margin: 0;
+      }
+      .account-address-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 4px;
+      }
+      .account-submit-btn {
+        background: ${darkText};
+        color: white;
+        border: none;
+        border-radius: 2px;
+        font-family: ${bodyFont};
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 11px 26px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .account-submit-btn:hover {
+        background: ${goldAccent};
+      }
+      .account-submit-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .account-delete-btn {
+        background: none;
+        border: 1px solid ${borderColor};
+        border-radius: 2px;
+        color: ${mutedText};
+        font-family: ${bodyFont};
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 11px 26px;
+        cursor: pointer;
+        transition: color 0.2s ease, border-color 0.2s ease;
+      }
+      .account-delete-btn:hover {
+        color: #B3261E;
+        border-color: #B3261E;
+      }
+      .account-delete-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .account-form-error {
+        font-family: ${bodyFont};
+        font-size: 13px;
+        color: #B3261E;
+        margin: 0 0 4px;
+      }
+    `}</style>
   );
 }
 
