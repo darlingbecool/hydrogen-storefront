@@ -31,19 +31,49 @@ const legalLinks = [
 export function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [subscribeError, setSubscribeError] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
   const [openSections, setOpenSections] = useState({});
 
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      console.log('Newsletter signup:', email);
-      setTimeout(() => {
-        setSubscribed(false);
-        setEmail("");
-      }, 3000);
+  const [subscribeError, setSubscribeError] = useState("");
+const [isSubscribing, setIsSubscribing] = useState(false);
+
+const handleSubscribe = async (e) => {
+  e.preventDefault();
+  if (!email.trim()) return;
+
+  setIsSubscribing(true);
+  setSubscribeError("");
+
+  try {
+    const formData = new FormData();
+    formData.append('email', email);
+
+    const response = await fetch('/api/newsletter', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || result.error) {
+      setSubscribeError(result.error || 'Something went wrong. Please try again.');
+      setIsSubscribing(false);
+      return;
     }
-  };
+
+    setSubscribed(true);
+    setIsSubscribing(false);
+    setTimeout(() => {
+      setSubscribed(false);
+      setEmail("");
+    }, 4000);
+  } catch (err) {
+    console.error('Newsletter signup failed:', err);
+    setSubscribeError('Something went wrong. Please try again.');
+    setIsSubscribing(false);
+  }
+};
 
   const toggleSection = (section) => {
     setOpenSections(prev => ({
@@ -128,24 +158,26 @@ export function Footer() {
                 }}
               />
               <button
-                type="submit"
-                style={{
-                  padding: "16px 32px",
-                  border: "none",
-                  borderRadius: 8,
-                  background: subscribed ? "#2D5A27" : darkText,
-                  color: "white",
-                  fontSize: 13,
-                  letterSpacing: "0.1em",
-                  fontWeight: 500,
-                  fontFamily: bodyFont,
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {subscribed ? "✓ Subscribed" : "Join"}
-              </button>
+  type="submit"
+  disabled={isSubscribing}
+  style={{
+    padding: "16px 32px",
+    border: "none",
+    borderRadius: 8,
+    background: subscribed ? "#2D5A27" : darkText,
+    color: "white",
+    fontSize: 13,
+    letterSpacing: "0.1em",
+    fontWeight: 500,
+    fontFamily: bodyFont,
+    cursor: isSubscribing ? "default" : "pointer",
+    transition: "all 0.3s ease",
+    whiteSpace: "nowrap",
+    opacity: isSubscribing ? 0.7 : 1,
+  }}
+>
+  {isSubscribing ? "Joining..." : subscribed ? "✓ Subscribed" : "Join"}
+</button>
             </form>
             <p
               style={{
@@ -158,6 +190,11 @@ export function Footer() {
             >
               Unsubscribe anytime.
             </p>
+            {subscribeError && (
+              <p role="alert" style={{ fontSize: 12, color: '#c0392b', marginTop: 12 }}>
+                {subscribeError}
+              </p>
+            )}
           </div>
         </div>
       </section>
