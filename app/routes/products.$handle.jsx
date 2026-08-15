@@ -335,6 +335,7 @@ export default function Product() {
             <div className="initial-grid">
               {alphabet.map((letter) => (
                 <button key={letter} onClick={() => setSelectedInitial(letter)}
+                aria-pressed={selectedInitial === letter}
                   style={{
                     aspectRatio: "1",
                     border: selectedInitial === letter ? `2px solid ${darkText}` : `1px solid ${borderCol}`,
