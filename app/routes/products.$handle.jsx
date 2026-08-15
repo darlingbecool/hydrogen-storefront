@@ -19,6 +19,7 @@ const bodyFont = "system-ui, -apple-system, sans-serif";
 const warmBg = "#F5F2ED";
 const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
+const goldAccentText = "#8A6D22";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
@@ -270,7 +271,7 @@ export default function Product() {
             <p style={{
               fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
               letterSpacing: "0.15em", textTransform: "uppercase",
-              color: goldAccent, marginBottom: 16,
+              color: goldAccentText, marginBottom: 16,
             }}>
               Ring size
             </p>
@@ -319,7 +320,7 @@ export default function Product() {
               <p style={{
                 fontFamily: bodyFont, fontSize: 11, fontWeight: 600,
                 letterSpacing: "0.15em", textTransform: "uppercase",
-                color: goldAccent, margin: 0,
+                color: goldAccentText, margin: 0,
               }}>
                 Your initial
               </p>
