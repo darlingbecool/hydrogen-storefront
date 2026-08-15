@@ -113,7 +113,7 @@ const faqs = [
       },
       {
         q: "Can I return my piece?",
-        a: "Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Full details are on our <Link to="/pages/terms" style={linkStyle}>Terms & Conditions</Link> page. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right."
+        a: <>Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Full details are on our <Link to="/pages/terms" style={linkStyle}>Terms & Conditions</Link> page. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right.</>
       },
     ]
   },
