@@ -274,22 +274,22 @@ export default function Product() {
             }}>
               Ring size
             </p>
-            <select
-              value={selectedSize}
-              onChange={(e) => {
-                const url = new URL(window.location.href);
-                url.searchParams.set('Size', e.target.value);
-                window.location.href = url.toString();
-              }}
-              style={{
-                width: "100%", padding: "16px 20px",
-                border: `1px solid ${borderCol}`,
-                borderRadius: 8, background: "white", color: darkText, fontSize: 15,
-                fontFamily: bodyFont, cursor: "pointer", appearance: "none",
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")`,
-                backgroundRepeat: "no-repeat", backgroundPosition: "right 20px center", paddingRight: "50px"
-              }}
-            >
+            <div style={{ position: "relative" }}>
+  <select
+    value={selectedSize}
+    onChange={(e) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set('Size', e.target.value);
+      window.location.href = url.toString();
+    }}
+    style={{
+      width: "100%", padding: "16px 20px",
+      border: `1px solid ${borderCol}`,
+      borderRadius: 8, background: "white", color: darkText, fontSize: 15,
+      fontFamily: bodyFont, cursor: "pointer", appearance: "none",
+      paddingRight: "50px"
+    }}
+  >
               <option value="">Select ring size</option>
               {productOptions
                 .find(opt => opt.name === 'Size')
@@ -297,6 +297,16 @@ export default function Product() {
                 <option key={name} value={name}>{name}</option>
               ))}
             </select>
+  <svg
+    width="12" height="8" viewBox="0 0 12 8" fill="none"
+    style={{
+      position: "absolute", right: 20, top: "50%",
+      transform: "translateY(-50%)", pointerEvents: "none",
+    }}
+  >
+    <path d="M1 1L6 6L11 1" stroke={darkText} strokeWidth="2" strokeLinecap="round" />
+  </svg>
+</div>
             <p style={{ fontSize: 13, color: mutedText, marginTop: 12, lineHeight: 1.5 }}>
               Not sure of your size? Get in touch and we'll{' '}
               <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>post you a ring sizer</Link>.
