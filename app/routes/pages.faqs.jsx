@@ -6,6 +6,7 @@ const bodyFont = "system-ui, -apple-system, sans-serif";
 const warmBg = "#F5F2ED";
 const darkText = "#1A1A1A";
 const goldAccent = "#D4AF37";
+const goldAccentText = "#8A6D22";
 const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
@@ -149,7 +150,7 @@ function FAQItem({ faq }) {
           fontWeight: 600,
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
-          color: goldAccent,
+          color: goldAccentText,
           paddingRight: 16,
           lineHeight: 1.4,
         }}>
