@@ -124,6 +124,9 @@ function CartDiscounts({discountCodes}) {
       ?.filter((discount) => discount.applicable)
       ?.map(({code}) => code) || [];
 
+      const discountFetcher = useFetcher({key: 'cart-discount-update'});
+  const discountError = discountFetcher.data?.errors?.[0]?.message;
+
   return (
     <div style={{ marginBottom: 12 }}>
       {/* Applied discount codes */}
@@ -167,7 +170,7 @@ function CartDiscounts({discountCodes}) {
       )}
 
       {/* Discount input */}
-      <UpdateDiscountForm discountCodes={codes}>
+      <UpdateDiscountForm discountCodes={codes} fetcherKey="cart-discount-update">
         <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
           <input
             id="discount-code-input"
@@ -210,6 +213,11 @@ function CartDiscounts({discountCodes}) {
           </button>
         </div>
       </UpdateDiscountForm>
+      {discountError && (
+        <p role="alert" style={{ fontSize: 12, color: '#c0392b', marginTop: -4, marginBottom: 8 }}>
+          {discountError}
+        </p>
+      )}
     </div>
   );
 }
@@ -220,6 +228,7 @@ function UpdateDiscountForm({discountCodes, children}) {
       route="/cart"
       action={CartForm.ACTIONS.DiscountCodesUpdate}
       inputs={{ discountCodes: discountCodes || [] }}
+      fetcherKey={fetcherKey}
     >
       {children}
     </CartForm>
