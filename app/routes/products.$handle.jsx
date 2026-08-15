@@ -511,6 +511,7 @@ export default function Product() {
               <div key={section.id} style={{ borderBottom: `1px solid ${borderCol}` }}>
                 <button
                   onClick={() => setOpenAccordion(openAccordion === section.id ? null : section.id)}
+                  onClick={() => setOpenAccordion
                   style={{ width: "100%", padding: "16px 0", background: "none", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", fontFamily: bodyFont }}
                 >
                   <span style={{ fontSize: 15, color: darkText, fontWeight: 500 }}>{section.label}</span>
