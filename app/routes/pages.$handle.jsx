@@ -5,7 +5,14 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.page.title ?? ''}`}];
+  return [
+    {title: `${data?.page.title ?? ''} | Mercer 79`},
+    {
+      name: 'description',
+      content: data?.page.seo?.description || `${data?.page.title ?? ''} - Mercer 79, bespoke gold signet rings made to order and hand-crafted in the UK.`,
+    },
+    {rel: 'canonical', href: `https://mercer79.com/pages/${data?.page.handle ?? ''}`},
+  ];
 };
 
 /**
