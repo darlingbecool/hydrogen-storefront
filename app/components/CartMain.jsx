@@ -135,10 +135,10 @@ function CartEmpty({hidden = false}) {
           marginBottom: 32,
           lineHeight: 1.6,
         }}>
-          Discover our collection of hand-crafted jewelry
+          Discover our collection of hand-crafted jewellery
         </p>
         <Link
-          to="/collections/all"
+          to="/"
           onClick={close}
           style={{
             display: 'inline-block',
