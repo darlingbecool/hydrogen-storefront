@@ -598,3 +598,76 @@ button.reset:hover:not(:has(> *)) {
   gap: 0.75rem;
   flex-wrap: wrap;
 }
+
+/* Account pages — shared brand styling */
+.account-profile h2,
+.account-addresses h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 22px;
+  color: #1A1A1A;
+  margin: 0 0 28px;
+}
+.account-profile legend,
+.account-addresses legend {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6A6A6A;
+  padding: 0 4px 12px;
+}
+.account-profile fieldset,
+.account-addresses fieldset {
+  border: 1px solid #E8D7AE;
+  border-radius: 2px;
+  padding: 24px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.account-profile label,
+.account-addresses label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  color: #6A6A6A;
+  display: block;
+  margin-bottom: 6px;
+}
+.account-profile input,
+.account-addresses input[type="text"],
+.account-addresses input[type="tel"] {
+  width: 100%;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: #1A1A1A;
+  border: 1px solid  border: 1px solidra  border: 1px solid  b10  border: 1px solid  border: 1px solidrabo  border: 1px sositi  border: 1px sol0.  border: 1px soun  border: 1px t:focus,  border: 1px solid  nput  border: 1px solid  borcoun  border: 1px solid  border: 1px solidra  border: 1r:  border: 1px solun  border: 1px solid  broun  border: 1px solid  border
+              ;
+  border-radius: 2px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  pa  pa  pa  pa  px;
+             nter;
+             nter;
+x;und 0x;und 0x;un
+..................n:hover ..................n:ho }
+.account-submit-btn:disabl.account-submit-btn:disabl.account-submit-btn:disabte-btn {
+  background: none;
+  border: 1px solid #E8D7AE;
+  border-radius: 2px;
+  color: #6A6A6A;
+  font-family: system-ui, -apple-system, sans-  font-family: system-ui, -apple-systacing: 0.08em;
+                                                     cu                 tr                0.                                                     cu                 tr                0.                                                     cu                 tr                0.                                                     cu                 tr                0.                                                     cu                 tr           -system, sans-serif;
+  font-size: 15px;
+                                                   bor                 er                       ;
+                        ount-a                  w {
+                   align-items: center                .account-address-checkbox-row label { margin: 0; }
+.account-address-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
