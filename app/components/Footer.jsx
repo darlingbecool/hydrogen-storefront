@@ -173,7 +173,7 @@ const handleSubscribe = async (e) => {
     opacity: isSubscribing ? 0.7 : 1,
   }}
 >
-  {isSubscribing ? "Joining..." : subscribed ? "✓ Subscribed" : "Join"}
+  {isSubscribing ? "Joining..." : subscribed ? "✓ Check your email" : "Join"}
 </button>
             </form>
             <p
