@@ -113,7 +113,7 @@ const faqs = [
       },
       {
         q: "Can I return my piece?",
-        a: "Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right."
+        a: "Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Full details are on our <Link to="/pages/terms" style={linkStyle}>Terms & Conditions</Link> page. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right."
       },
     ]
   },
@@ -126,6 +126,7 @@ export const meta = () => {
       name: 'description',
       content: "Answers to common questions about Mercer 79's bespoke gold signet rings - sizing, customisation, materials, and delivery.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/faqs'},    
   ];
 };
 
@@ -136,13 +137,22 @@ function FAQItem({ faq }) {
     <div style={{ borderBottom: `1px solid ${borderCol}` }}>
       <div
         onClick={() => setOpen(!open)}
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '16px 0',
-          cursor: 'pointer',
-        }}
+role="button"
+tabIndex={0}
+aria-expanded={open}
+onKeyDown={(e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    setOpen(!open);
+  }
+}}
+style={{
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '16px 0',
+  cursor: 'pointer',
+}}
       >
         <span style={{
           fontFamily: bodyFont,
