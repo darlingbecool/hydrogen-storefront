@@ -206,7 +206,7 @@ export default function Bespoke() {
           </div>
 
           {success ? (
-            <div style={{ textAlign: "center", padding: "48px 0" }}>
+  <div role="alert" style={{ textAlign: "center", padding: "48px 0" }}>
               <div style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${goldAccent}`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
                 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke={goldAccent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M4 10l5 5 7-8" />
@@ -244,8 +244,8 @@ export default function Bespoke() {
               </div>
 
               {error && (
-                <p style={{ fontSize: 13, color: "#c0392b", marginBottom: 16, textAlign: "center" }}>{error}</p>
-              )}
+  <p role="alert" style={{ fontSize: 13, color: "#c0392b", marginBottom: 16, textAlign: "center" }}>{error}</p>
+)}
 
               <button
                 type="submit"
