@@ -120,6 +120,12 @@ export default function TermsPage() {
           Nothing in these terms affects your rights under the Consumer Rights Act 2015.
         </p>
 
+        {/* Lost in transit */}
+<h2 style={h2}>If your order is lost in transit</h2>
+<p style={{ ...prose, marginBottom: 0 }}>
+  In the rare event that a piece is lost in transit, we will remake it for you at no additional cost. Please allow a reasonable period for Royal Mail to complete their own investigation before a replacement is put into production, and get in touch as soon as you're concerned your order hasn't arrived.
+</p>
+
         {/* Sizing */}
         <h2 style={h2}>Sizing</h2>
         <p style={{ ...prose, marginBottom: 0 }}>
