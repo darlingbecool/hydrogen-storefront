@@ -29,8 +29,20 @@ export async function loader({context}) {
 export default function Homepage() {
   const {products} = useLoaderData();
 
+  const organisationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Mercer 79",
+    url: "https://mercer79.com",
+    description: "Bespoke 9ct gold signet rings, made to order and hand-crafted in the UK.",
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationSchema) }}
+      />
       <style>{`
         /* ── Hero ── */
         .hero-section {

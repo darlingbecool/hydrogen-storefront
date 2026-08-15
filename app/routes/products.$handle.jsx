@@ -138,10 +138,35 @@ export default function Product() {
   const resinVariant = resinVariants?.[0] ?? null;
 
   const specifications = specificationsByProduct[product.handle] ?? [];
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: product.title,
+  description: product.description,
+  image: mainImage?.url,
+  sku: selectedVariant?.sku,
+  brand: {
+    "@type": "Brand",
+    name: "Mercer 79",
+  },
+  offers: {
+    "@type": "Offer",
+    url: `https://mercer79.com/products/${product.handle}`,
+    priceCurrency: selectedVariant?.price?.currencyCode || "GBP",
+    price: selectedVariant?.price?.amount || "0",
+    availability: selectedVariant?.availableForSale
+      ? "https://schema.org/InStock"
+      : "https://schema.org/OutOfStock",
+  },
+};
 
   return (
-    <div style={{ background: "white", minHeight: "100vh" }}>
-      <style>{`
+  <div style={{ background: "white", minHeight: "100vh" }}>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+    />
+    <style>{`
         .product-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
