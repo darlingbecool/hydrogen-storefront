@@ -112,104 +112,10 @@ export default function AccountProfile() {
           {state !== 'idle' ? 'Updating' : 'Update'}
         </button>
       </Form>
-      <AccountFormBrandStyles />
     </div>
   );
 }
 
-// ── Brand styling shared by account form pages ─────────────────────────────────
-function AccountFormBrandStyles() {
-  const playfair = `'Playfair Display', serif`;
-  const bodyFont = `system-ui, -apple-system, sans-serif`;
-  const darkText = '#1A1A1A';
-  const goldAccent = '#D4AF37';
-  const mutedText = '#6A6A6A';
-  const borderColor = '#E8D7AE';
-
-  return (
-    <style>{`
-      .account-profile h2,
-      .account-addresses h2 {
-        font-family: ${playfair};
-        font-weight: 400;
-        font-size: 22px;
-        color: ${darkText};
-        margin: 0 0 28px;
-      }
-      .account-profile legend,
-      .account-addresses legend {
-        font-family: ${bodyFont};
-        font-size: 13px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: ${mutedText};
-        padding: 0 4px;
-      }
-      .account-profile fieldset,
-      .account-addresses fieldset {
-        border: 1px solid ${borderColor};
-        border-radius: 2px;
-        padding: 24px;
-        max-width: 420px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 24px;
-      }
-      .account-profile label,
-      .account-addresses label {
-        font-family: ${bodyFont};
-        font-size: 13px;
-        color: ${mutedText};
-        display: block;
-        margin-bottom: 6px;
-      }
-      .account-profile input,
-      .account-addresses input {
-        width: 100%;
-        font-family: ${bodyFont};
-        font-size: 14px;
-        color: ${darkText};
-        border: 1px solid ${borderColor};
-        border-radius: 2px;
-        padding: 10px 12px;
-        outline: none;
-        box-sizing: border-box;
-        transition: border-color 0.2s ease;
-      }
-      .account-profile input:focus,
-      .account-addresses input:focus {
-        border-color: ${goldAccent};
-      }
-      .account-submit-btn {
-        background: ${darkText};
-        color: white;
-        border: none;
-        border-radius: 2px;
-        font-family: ${bodyFont};
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        padding: 11px 26px;
-        cursor: pointer;
-        transition: background 0.2s ease;
-      }
-      .account-submit-btn:hover {
-        background: ${goldAccent};
-      }
-      .account-submit-btn:disabled {
-        opacity: 0.5;
-        cursor: default;
-      }
-      .account-form-error {
-        font-family: ${bodyFont};
-        font-size: 13px;
-        color: #B3261E;
-        margin: 0 0 16px;
-      }
-    `}</style>
-  );
-}
 /**
  * @typedef {{
  *   error: string | null;
