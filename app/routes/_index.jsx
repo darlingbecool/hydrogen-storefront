@@ -194,7 +194,7 @@ export default function Homepage() {
           <p style={{
             fontSize: 11,
             letterSpacing: '0.2em',
-            color: goldAccent,
+            color: darkText,
             fontWeight: 600,
             marginBottom: 28,
             fontFamily: bodyFont,
@@ -263,7 +263,7 @@ export default function Homepage() {
             fontFamily: bodyFont,
             fontSize: 11,
             letterSpacing: '0.2em',
-            color: goldAccent,
+            color: darkText,
             fontWeight: 600,
             textTransform: 'uppercase',
             marginBottom: 20,

@@ -33,7 +33,7 @@ export default function NotFound() {
         <div style={{
           fontFamily: playfair,
           fontSize: 120,
-          color: goldAccent,
+          color: darkText,
           fontWeight: 400,
           lineHeight: 1,
           marginBottom: 24,

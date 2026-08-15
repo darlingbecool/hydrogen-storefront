@@ -159,7 +159,7 @@ export default function Bespoke() {
 
       {/* Hero */}
       <div style={{ maxWidth: 680, margin: "0 auto", padding: "88px 32px 72px", textAlign: "center" }}>
-        <p style={{ fontSize: 11, letterSpacing: "0.2em", color: goldAccent, fontWeight: 500, marginBottom: 16 }}>
+        <p style={{ fontSize: 11, letterSpacing: "0.2em", color: darkText, fontWeight: 500, marginBottom: 16 }}>
           BESPOKE COMMISSIONS
         </p>
         <div style={{ width: 40, height: 1, background: goldAccent, margin: "0 auto 48px" }} />
@@ -178,13 +178,13 @@ export default function Bespoke() {
       {/* Process */}
       <div style={{ background: warmBg, padding: "80px 32px" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
-          <p style={{ fontSize: 11, letterSpacing: "0.2em", color: goldAccent, fontWeight: 500, marginBottom: 16 }}>THE PROCESS</p>
+          <p style={{ fontSize: 11, letterSpacing: "0.2em", color: darkText, fontWeight: 500, marginBottom: 16 }}>THE PROCESS</p>
           <h2 style={{ fontFamily: playfair, fontSize: 32, fontWeight: 400, color: darkText }}>How it works</h2>
         </div>
         <div className="bespoke-process-cards">
           {processSteps.map((step) => (
             <div key={step.num} style={{ background: warmBg, padding: "40px 32px" }}>
-              <p style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 500, marginBottom: 20 }}>{step.num}</p>
+              <p style={{ fontSize: 11, letterSpacing: "0.15em", color: darkText, fontWeight: 500, marginBottom: 20 }}>{step.num}</p>
               <h3 style={{ fontFamily: playfair, fontSize: 20, fontWeight: 400, color: darkText, marginBottom: 14 }}>{step.title}</h3>
               <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.8 }}>{step.body}</p>
             </div>
@@ -196,7 +196,7 @@ export default function Bespoke() {
       <div style={{ background: warmBg, padding: "80px 32px" }}>
         <div style={{ maxWidth: 600, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <p style={{ fontSize: 11, letterSpacing: "0.2em", color: goldAccent, fontWeight: 500, marginBottom: 16 }}>GET IN TOUCH</p>
+            <p style={{ fontSize: 11, letterSpacing: "0.2em", color: darkText, fontWeight: 500, marginBottom: 16 }}>GET IN TOUCH</p>
             <h2 style={{ fontFamily: playfair, fontSize: 36, fontWeight: 400, color: darkText, marginBottom: 16 }}>
               Start your commission
             </h2>

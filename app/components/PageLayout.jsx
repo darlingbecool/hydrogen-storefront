@@ -393,7 +393,7 @@ function SlideMenu({isOpen, onClose, cart, isLoggedIn}) {
                   <span style={{
                     fontFamily: bodyFont,
                     fontSize: 11, letterSpacing: '0.15em',
-                    color: goldAccent, fontWeight: 600,
+                    color: darkText, fontWeight: 600,
                     textTransform: 'uppercase',
                   }}>
                     {section.title}

@@ -158,7 +158,7 @@ function FAQItem({ faq }) {
         </span>
         <span style={{
           fontSize: 22,
-          color: goldAccent,
+          color: darkText,
           flexShrink: 0,
           transition: 'transform 0.2s',
           transform: open ? 'rotate(45deg)' : 'rotate(0deg)',

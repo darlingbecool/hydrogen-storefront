@@ -34,7 +34,13 @@ const sizes = [
 ];
 
 export const meta = () => {
-  return [{title: 'Size Guide | Mercer 79'}];
+  return [
+    {title: 'Size Guide | Mercer 79'},
+    {
+      name: 'description',
+      content: "Find your ring size with Mercer 79's UK sizing guide, or request a complimentary ring sizer before you order.",
+    },
+  ];
 };
 
 export default function SizeGuidePage() {
@@ -128,7 +134,7 @@ export default function SizeGuidePage() {
                 fontWeight: 600,
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
-                color: goldAccent,
+                color: darkText,
                 marginBottom: 0,
                 marginTop: 2,
                 flexShrink: 0,
@@ -137,7 +143,7 @@ export default function SizeGuidePage() {
                 {step.num}
               </p>
               <div>
-                <p style={{ fontFamily: bodyFont, fontSize: 11, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: goldAccent, marginBottom: 8, marginTop: 0 }}>
+                <p style={{ fontFamily: bodyFont, fontSize: 11, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: darkText, marginBottom: 8, marginTop: 0 }}>
                   {step.title}
                 </p>
                 <p style={{ fontSize: 14, color: subtleText, lineHeight: 1.7, margin: 0 }}>

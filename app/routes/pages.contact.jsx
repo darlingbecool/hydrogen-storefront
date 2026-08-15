@@ -126,7 +126,7 @@ export default function ContactPage() {
     fontWeight: 600,
     letterSpacing: '0.15em',
     textTransform: 'uppercase',
-    color: goldAccent,
+    color: darkText,
     marginBottom: 8,
   };
 

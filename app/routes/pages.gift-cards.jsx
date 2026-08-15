@@ -108,7 +108,7 @@ export default function GiftCardPage() {
                 fontWeight: 600,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
-                color: goldAccent,
+                color: darkText,
                 margin: 0,
               }}>
                 Mercer 79
@@ -144,7 +144,7 @@ export default function GiftCardPage() {
             fontWeight: 600,
             letterSpacing: "0.15em",
             textTransform: "uppercase",
-            color: goldAccent,
+            color: darkText,
             marginBottom: 12,
             marginTop: 0,
           }}>
@@ -181,7 +181,7 @@ export default function GiftCardPage() {
               fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: goldAccent,
+              color: darkText,
               marginBottom: 16,
               marginTop: 0,
             }}>
@@ -240,7 +240,7 @@ export default function GiftCardPage() {
               fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: goldAccent,
+              color: darkText,
               marginBottom: 16,
               marginTop: 0,
             }}>
@@ -300,7 +300,7 @@ export default function GiftCardPage() {
               fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: goldAccent,
+              color: darkText,
               marginBottom: 16,
               marginTop: 0,
             }}>

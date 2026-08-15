@@ -205,7 +205,7 @@ export function Footer() {
               <p style={{
                 fontSize: 12,
                 letterSpacing: "0.08em",
-                color: goldAccent,
+                color: darkText,
                 fontWeight: 500,
                 fontFamily: bodyFont,
                 margin: 0,
@@ -217,7 +217,7 @@ export function Footer() {
             {/* Shop Column */}
             <div className="footer-column">
               <div className="footer-column-header" onClick={() => toggleSection('shop')}>
-                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>SHOP</h4>
+                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: darkText, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>SHOP</h4>
                 <svg className="footer-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke={mutedText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.3s ease", transform: openSections.shop ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <path d="M2 4l4 4 4-4" />
                 </svg>
@@ -234,7 +234,7 @@ export function Footer() {
             {/* Help Column */}
             <div className="footer-column">
               <div className="footer-column-header" onClick={() => toggleSection('help')}>
-                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>HELP</h4>
+                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: darkText, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>HELP</h4>
                 <svg className="footer-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke={mutedText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.3s ease", transform: openSections.help ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <path d="M2 4l4 4 4-4" />
                 </svg>
@@ -251,7 +251,7 @@ export function Footer() {
             {/* Legal Column */}
             <div className="footer-column">
               <div className="footer-column-header" onClick={() => toggleSection('legal')}>
-                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>LEGAL</h4>
+                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: darkText, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>LEGAL</h4>
                 <svg className="footer-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke={mutedText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.3s ease", transform: openSections.legal ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <path d="M2 4l4 4 4-4" />
                 </svg>
@@ -268,7 +268,7 @@ export function Footer() {
             {/* Connect Column */}
             <div className="footer-column">
               <div className="footer-column-header" onClick={() => toggleSection('connect')}>
-                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: goldAccent, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>CONNECT</h4>
+                <h4 style={{ fontSize: 11, letterSpacing: "0.15em", color: darkText, fontWeight: 600, margin: "0", fontFamily: bodyFont }}>CONNECT</h4>
                 <svg className="footer-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke={mutedText} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ transition: "transform 0.3s ease", transform: openSections.connect ? "rotate(180deg)" : "rotate(0deg)" }}>
                   <path d="M2 4l4 4 4-4" />
                 </svg>

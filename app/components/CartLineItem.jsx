@@ -125,7 +125,7 @@ export function CartLineItem({layout, line, childrenMap}) {
               .map((option) => (
                 <div key={option.name} style={{
                 fontSize: 12,
-                color: goldAccent,
+                color: darkText,
                 marginBottom: 4,
                 letterSpacing: '0.05em',
                 fontWeight: 500,
@@ -139,7 +139,7 @@ export function CartLineItem({layout, line, childrenMap}) {
           {engravingAttr && (
             <div style={{
               fontSize: 12,
-              color: goldAccent,
+              color: darkText,
               marginBottom: 8,
               letterSpacing: '0.05em',
               fontWeight: 500,

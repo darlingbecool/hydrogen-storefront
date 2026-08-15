@@ -67,7 +67,7 @@ export default function Collection() {
           fontFamily: bodyFont,
           fontSize: 16,
           fontWeight: 400,
-          color: goldAccent,
+          color: darkText,
           marginBottom: 16,
           lineHeight: 1.1,
           textTransform: 'uppercase',

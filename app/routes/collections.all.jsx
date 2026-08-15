@@ -242,7 +242,7 @@ function ProductCard({product, isFavorite, onToggleFavorite}) {
         {/* Product info */}
         <p className="product-category" style={{
           fontSize: 11, letterSpacing: '0.15em',
-          color: goldAccent, fontWeight: 500,
+          color: darkText, fontWeight: 500,
           margin: '0 0 8px', textTransform: 'uppercase',
         }}>
           {category}
