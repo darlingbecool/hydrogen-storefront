@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import { Link } from 'react-router';
 import {
   getSelectedProductOptions,
@@ -97,6 +97,7 @@ function loadDeferredData({context, params}) {
 export default function Product() {
   const {product, resinVariants} = useLoaderData();
   const {open} = useAside();
+  const navigate = useNavigate();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -279,10 +280,10 @@ export default function Product() {
   <select
     value={selectedSize}
     onChange={(e) => {
-      const url = new URL(window.location.href);
-      url.searchParams.set('Size', e.target.value);
-      window.location.href = url.toString();
-    }}
+  const url = new URL(window.location.href);
+  url.searchParams.set('Size', e.target.value);
+  navigate(url.pathname + url.search, { replace: true, preventScrollReset: true });
+}}
     style={{
       width: "100%", padding: "16px 20px",
       border: `1px solid ${borderCol}`,
