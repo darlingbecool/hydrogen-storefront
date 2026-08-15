@@ -11,7 +11,14 @@ const mutedText = "#6A6A6A";
 const subtleText = "#4A4A4A";
 
 export const meta = () => {
-  return [{title: 'All Jewellery | Mercer 94'}];
+  return [
+    {title: 'All Jewellery | Mercer 79'},
+    {
+      name: 'description',
+      content: "Browse the full Mercer 79 collection - bespoke gold signet rings, made to order and hand-crafted in the UK.",
+    },
+    {rel: 'canonical', href: 'https://mercer79.com/collections/all'},
+  ];
 };
 
 export async function loader({context, request}) {
@@ -27,9 +34,9 @@ export async function loader({context, request}) {
 // Replace each src with your chosen image from Shopify Admin → Content → Files.
 // Tiles span 2 columns and match the height of a product card (aspect-ratio 1:1 square).
 const editorialImages = {
-  tile1: 'https://cdn.shopify.com/s/files/1/1012/2549/6921/files/2.png?v=1772808285',
-  tile2: 'https://cdn.shopify.com/s/files/1/1012/2549/6921/files/1.png?v=1772808284',
-  tile3: 'https://cdn.shopify.com/s/files/1/1012/2549/6921/files/REPLACE_WITH_TILE_3_IMAGE.jpg',
+  tile1: '',
+  tile2: '',
+  tile3: '',
 };
 
 export default function Collection() {
@@ -51,19 +58,19 @@ export default function Collection() {
   const nodes = products.nodes;
 
   if (nodes[0]) gridItems.push({type: 'product', product: nodes[0]});
-  gridItems.push({type: 'editorial', id: 'tile1', src: editorialImages.tile1, alt: 'Mercer 94 editorial'});
+  gridItems.push({type: 'editorial', id: 'tile1', src: editorialImages.tile1, alt: 'Mercer 97 editorial'});
 
   if (nodes[1]) gridItems.push({type: 'product', product: nodes[1]});
   if (nodes[2]) gridItems.push({type: 'product', product: nodes[2]});
   if (nodes[3]) gridItems.push({type: 'product', product: nodes[3]});
-  gridItems.push({type: 'editorial', id: 'tile2', src: editorialImages.tile2, alt: 'Mercer 94 editorial'});
+  gridItems.push({type: 'editorial', id: 'tile2', src: editorialImages.tile2, alt: 'Mercer 97 editorial'});
 
   let productCount = 4;
   for (let i = 4; i < nodes.length; i++) {
     gridItems.push({type: 'product', product: nodes[i]});
     productCount++;
     if (productCount % 9 === 4 && i < nodes.length - 1) {
-      gridItems.push({type: 'editorial', id: 'tile3', src: editorialImages.tile3, alt: 'Mercer 94 editorial'});
+      gridItems.push({type: 'editorial', id: 'tile3', src: editorialImages.tile3, alt: 'Mercer 97 editorial'});
     }
   }
 
@@ -176,7 +183,15 @@ export default function Collection() {
 function EditorialTile({item}) {
   return (
     <div className={`editorial-tile ${item.id === 'tile1' ? 'editorial-tile-first' : ''}`}>
-      <img src={item.src} alt={item.alt} />
+      {item.src ? (
+        <img src={item.src} alt={item.alt} />
+      ) : (
+        <div style={{
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)',
+        }} />
+      )}
     </div>
   );
 }
