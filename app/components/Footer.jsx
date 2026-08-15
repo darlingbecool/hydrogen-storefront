@@ -35,9 +35,6 @@ export function Footer() {
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [openSections, setOpenSections] = useState({});
 
-  const [subscribeError, setSubscribeError] = useState("");
-const [isSubscribing, setIsSubscribing] = useState(false);
-
 const handleSubscribe = async (e) => {
   e.preventDefault();
   if (!email.trim()) return;
