@@ -11,7 +11,14 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 export const meta = () => {
-  return [{title: 'Packaging | Mercer 79'}];
+  return [
+    {title: 'Packaging | Mercer 79'},
+    {
+      name: 'description',
+      content: "How Mercer 79 pieces are packaged - presented by hand in a soft-touch box, ready to give or keep.",
+    },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/gift-wrapping'},
+  ];
 };
 
 export default function PackagingPage() {

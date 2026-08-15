@@ -35,6 +35,7 @@ const specificationsByProduct = {
     { label: "Style", value: "Oval signet" },
     { label: "Diamond setting", value: "Raised, not inset" },
     { label: "Gold", value: "9ct yellow gold" },
+    { label: "Hallmarking", value: "Hallmarked at a UK Assay Office" },
     { label: "Finish", value: "High polish" },
     { label: "Face dimensions", value: "13mm × 10mm" },
     { label: "Band width", value: "2mm at narrowest" },
@@ -43,6 +44,7 @@ const specificationsByProduct = {
     { label: "Style", value: "Rectangular signet" },
     { label: "Diamond setting", value: "Flush-set" },
     { label: "Gold", value: "9ct yellow gold" },
+    { label: "Hallmarking", value: "Hallmarked at a UK Assay Office" },
     { label: "Finish", value: "High polish" },
     { label: "Face dimensions", value: "13mm × 10.5mm" },
     { label: "Band width", value: "2mm at narrowest" },
@@ -512,7 +514,7 @@ const productSchema = {
                 id: "delivery", label: "Delivery & returns",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand — a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand - a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Sent via Royal Mail Special Delivery, tracked and insured</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Complimentary UK delivery on all orders over £300</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Made-to-order pieces cannot be returned</p>
@@ -526,7 +528,7 @@ const productSchema = {
                 id: "care", label: "Care",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery — the ring that inspired this piece is decades old and barely shows it</p>
+                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery - the ring that inspired this piece is decades old and barely shows it</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the box provided when not wearing</p>
@@ -561,7 +563,7 @@ const productSchema = {
             <div>
               <p style={{ fontSize: 15, color: darkText, fontWeight: 500, margin: "0 0 6px" }}>Questions about this piece?</p>
               <p style={{ fontSize: 13, color: subtleText, margin: 0, lineHeight: 1.6 }}>
-                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order — we're happy to talk through sizing, the making process, or any other questions.
+                <Link to="/pages/contact" style={{ color: darkText, textDecoration: "underline" }}>Get in touch</Link> before you order - we're happy to talk through sizing, the making process, or any other questions.
               </p>
             </div>
           </div>

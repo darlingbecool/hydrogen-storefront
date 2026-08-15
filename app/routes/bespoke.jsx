@@ -13,7 +13,7 @@ const borderCol = "#E8D7AE";
 const processSteps = [
   {
     num: "01", title: "The Brief",
-    body: "Start with whatever you have — a sketch, a photo, a few words describing what you're after. We'll take it from there.",
+    body: "Start with whatever you have - a sketch, a photo, a few words describing what you're after. We'll take it from there.",
   },
   {
     num: "02", title: "Design & Quote",
@@ -31,7 +31,7 @@ const processSteps = [
 
 export const meta = () => [
   { title: 'Bespoke | Mercer 79' },
-  { name: 'description', content: 'Commission a bespoke piece with Mercer 79 — handcrafted in the UK to your exact brief.' },
+  { name: 'description', content: 'Commission a bespoke piece with Mercer 79 - handcrafted in the UK to your exact brief.' },
 ];
 
 export async function action({ request, context }) {
@@ -239,7 +239,7 @@ export default function Bespoke() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Describe what you have in mind — as much or as little as you know. We'll reply by email, where you're welcome to send reference images or anything else that helps."
+                  placeholder="Describe what you have in mind - as much or as little as you know. We'll reply by email, where you're welcome to send reference images or anything else that helps."
                 />
               </div>
 
