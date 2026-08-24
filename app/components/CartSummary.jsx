@@ -222,7 +222,7 @@ function CartDiscounts({discountCodes}) {
   );
 }
 
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({discountCodes, fetcherKey, children}) {
   return (
     <CartForm
       route="/cart"
@@ -332,6 +332,11 @@ function CartGiftCard({giftCardCodes}) {
           </button>
         </div>
       </AddGiftCardForm>
+      {giftCardAddFetcher.data?.errors?.[0]?.message && (
+        <p role="alert" style={{ fontSize: 12, color: '#c0392b', marginTop: -4, marginBottom: 8 }}>
+          {giftCardAddFetcher.data.errors[0].message}
+        </p>
+      )}
     </div>
   );
 }
