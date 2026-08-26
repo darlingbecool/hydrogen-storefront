@@ -515,7 +515,6 @@ const productSchema = {
                 id: "delivery", label: "Delivery & returns",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Every piece is packaged by hand - a black soft-touch ring box with velour interior, presented in its sleeve with Mercer 79 marked in gold on the inside lid, wrapped in black tissue and packed securely for transit</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Sent via Royal Mail Special Delivery, tracked and insured</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Complimentary UK delivery on all orders over £300</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Made-to-order pieces cannot be returned</p>
@@ -529,7 +528,6 @@ const productSchema = {
                 id: "care", label: "Care",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Solid gold is one of the most hardwearing materials in jewellery - the ring that inspired this piece is decades old and barely shows it</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the box provided when not wearing</p>
