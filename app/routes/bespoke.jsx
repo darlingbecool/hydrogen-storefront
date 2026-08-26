@@ -13,19 +13,19 @@ const borderCol = "#E8D7AE";
 const processSteps = [
   {
     num: "01", title: "The Brief",
-    body: "Start with whatever you have - a sketch, a photo, a few words describing what you're after. We'll take it from there.",
+    body: "Start with a sketch, a photo or a few words describing what you're after.",
   },
   {
     num: "02", title: "Design & Quote",
-    body: "We'll turn your brief into a design proposal and a detailed quote, so you know exactly what you're agreeing to before anything's made.",
+    body: "We'll turn your brief into a design proposal and a detailed quote.",
   },
   {
     num: "03", title: "Crafting",
-    body: "With your approval and deposit in, your piece goes into the workshop — made by hand in the UK.",
+    body: "With your approval, your piece goes into the workshop.",
   },
   {
     num: "04", title: "Inspiration",
-    body: "Family crests and heirlooms, custom initials and monograms, engagement pieces, or a stone you already own. If you have an idea, that's enough to start.",
+    body: "Family crests and heirlooms, custom initials and monograms. If you have an idea, we would love to hear from you.",
   },
 ];
 
