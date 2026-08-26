@@ -113,7 +113,7 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, description} = product;
+  const {title, descriptionHtml} = product;
 
   const [activeThumb, setActiveThumb] = useState(0);
   const [selectedInitial, setSelectedInitial] = useState(null);
@@ -287,9 +287,10 @@ const productSchema = {
             <p style={{ fontSize: 24, color: darkText, fontWeight: 500, marginBottom: 20 }}>
               £{formattedPrice.toLocaleString()}
             </p>
-            <div style={{ fontSize: 16, color: subtleText, lineHeight: 1.7 }}>
-              {description}
-            </div>
+            <div
+  style={{ fontSize: 16, color: subtleText, lineHeight: 1.7 }}
+  dangerouslySetInnerHTML={{__html: descriptionHtml}}
+/>
           </div>
 
           <div style={{ height: 1, background: borderCol, marginBottom: SECTION_GAP }} />
