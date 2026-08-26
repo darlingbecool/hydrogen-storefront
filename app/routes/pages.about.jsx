@@ -17,6 +17,7 @@ export const meta = () => {
       name: 'description',
       content: "The story behind Mercer 79 - a bespoke gold signet ring brand, hand-crafted in the UK and made to order.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/about'},
   ];
 };
 
@@ -83,10 +84,10 @@ export default function AboutPage() {
           The ring that started it
         </h2>
         <p style={prose}>
-          The ring belonged to my partner's uncle. An oval signet in 9ct yellow gold, engraved with his initials - SG - worn every day for decades until it was passed down, and eventually found its way into a drawer.
+          A gold signet ring, engraved with the initials SG. The ring belonged to my partner's uncle, worn every day for decades before it was passed down to my partner. It wasn't his style, so it went into a drawer, until I came across it when we moved house.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          I found it there, and when I looked at it properly, noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
+          I looked at it properly for the first time, and noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
         </p>
 
         {/* Image placeholder */}
@@ -121,32 +122,31 @@ export default function AboutPage() {
           Made by hand, in the UK
         </h2>
         <p style={prose}>
-          I worked with a goldsmith to recreate the ring as closely as possible, with one change: instead of an engraved initial, the initial is set in diamonds - raised slightly from the surface, tactile as much as visual. That piece became No. 1. The Oval Signet Ring with Diamond Initial.
-        </p>
-        <p style={prose}>
-          Nothing in the collection is held in stock. Every piece is made specifically to order, taking four to six weeks.
+          I worked with a goldsmith to recreate the ring as closely as possible, with one change: instead of an engraved initial, the initial is set in diamonds, raised slightly from the surface. That piece became No. 1, the Oval Signet Ring with Diamond Initial.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          The ring that inspired this brand is decades old and barely shows it. That is the standard I hold every piece to - the kind of thing you wear every day and never take off.
+          The ring that inspired this brand is forty years old, and still worn every day. That's the standard I hold every piece to: not something to keep for best, but something crafted to be worn - every day, for decades.
         </p>
 
-        {/* Image placeholder */}
-        <div style={{
-          width: '100%',
-          aspectRatio: '3/2',
-          background: warmBg,
-          border: `1px solid ${borderCol}`,
-          borderRadius: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: mutedText,
-          fontSize: 11,
-          letterSpacing: '0.15em',
-          margin: '32px 0 0',
+        {/* Sign-off */}
+        <p style={{
+          fontFamily: playfair,
+          fontSize: 18,
+          color: darkText,
+          marginTop: 40,
+          marginBottom: 0,
         }}>
-          IMAGE - WORKSHOP / PROCESS
-        </div>
+          Kate
+        </p>
+        <p style={{
+          fontFamily: bodyFont,
+          fontSize: 13,
+          color: mutedText,
+          marginTop: 4,
+          marginBottom: 0,
+        }}>
+          Founder, Mercer 79
+        </p>
 
         {/* Closing CTA */}
         <div style={{
