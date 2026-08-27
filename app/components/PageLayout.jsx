@@ -367,7 +367,6 @@ function SlideMenu({isOpen, onClose, cart, isLoggedIn}) {
             }}
           >
             <WishlistIcon />
-            <WishlistBadge />
           </Link>
           <NavIconButton label="Bag" onClick={() => { open('cart'); onClose(); }}>
             <BagIcon />
