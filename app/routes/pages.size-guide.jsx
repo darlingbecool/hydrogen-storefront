@@ -40,6 +40,7 @@ export const meta = () => {
       name: 'description',
       content: "Find your ring size with Mercer 79's UK sizing guide, or request a complimentary ring sizer before you order.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/size-guide'},
   ];
 };
 
@@ -96,13 +97,13 @@ export default function SizeGuidePage() {
           Size Guide
         </h1>
         <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
-          Because every piece is made to order, getting your size right before you place your order matters. Take your time - and if you would like help, just get in touch.
+          Because every piece is made to order, it's important to get your size right before you place your order. If you would like help, please get in touch.
         </p>
 
         {/* Section 1: How to measure */}
         <h2 style={h2}>Finding your size</h2>
 
-        <p style={prose}>There are three reliable ways to find your ring size. The first is the most accurate.</p>
+        <p style={prose}>There are three reliable ways to find your ring size.</p>
 
         <div style={{
           display: 'grid',
@@ -124,7 +125,7 @@ export default function SizeGuidePage() {
             {
               num: '03',
               title: 'String or paper method',
-              text: 'Wrap a thin strip of paper or string snugly around the base of your finger. Mark where it meets, lay it flat, and measure the length in millimetres for your circumference.',
+              text: 'Wrap a thin strip of paper or string snugly around the base of your finger. Mark where it meets, lay it flat, and measure the length in millimetres. Match your circumference to the chart below.',
             },
           ].map((step) => (
             <div key={step.num} style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
@@ -214,7 +215,7 @@ export default function SizeGuidePage() {
         </div>
 
         {/* Section 4: Still unsure */}
-        <h2 style={h2}>Still unsure?</h2>
+        <h2 style={h2}>I'd like a ring sizer</h2>
 
         <p style={prose}>
           A complimentary ring sizer can be posted to you anywhere in the UK before you place your order. It takes a minute to use and removes any guesswork. Just get in touch with your name and address.
