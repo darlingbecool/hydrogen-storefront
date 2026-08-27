@@ -19,11 +19,7 @@ const faqs = [
     items: [
       {
         q: "How long will my order take?",
-        a: "The lead time for all pieces is four to six weeks from the date of order. You will receive updates as your piece moves through the making process."
-      },
-      {
-        q: "Can I see progress on my order?",
-        a: "Yes - updates are sent at each key stage. Any questions along the way can be sent to us directly."
+        a: "The lead time for all pieces is four to six weeks from the date of order. If this changes, you will be notified."
       },
       {
         q: "What's a resin proof, and how does it work?",
@@ -36,15 +32,15 @@ const faqs = [
     items: [
       {
         q: "What gold carats are available?",
-        a: "Every piece can be made in 9ct, 14ct, or 18ct yellow gold. Prices shown are for 9ct - 14ct and 18ct are available on request, at an adjusted price confirmed with you before your order is placed."
+        a: "Every piece can be made in 9ct, 14ct, or 18ct yellow gold. Prices shown are for 9ct. If you are interested in 14ct or 18ct, please get in touch for pricing."
       },
       {
         q: "Can I customise my ring?",
-        a: "Beyond a single initial, we can also set a symbol, a number, or two initials together, and switch the diamond setting between raised and flush-set. Get in touch before ordering, or use the bespoke enquiry form, to talk through what you have in mind."
+        a: "Beyond a single initial, we can also set a symbol, a number, or two initials together, and switch the diamond setting between raised and flush-set. You can email us at hello@mercer79.com, or use the bespoke enquiry form, to talk through what you have in mind."
       },
       {
         q: "Can I order something that isn't on the site?",
-        a: "The current collection focuses on signet rings and a minimal band. If you have something specific in mind, use the bespoke enquiry form to talk it through."
+        a: "We'd love to hear your ideas - if you have something specific in mind, use the bespoke enquiry form to talk it through."
       },
     ]
   },
@@ -53,11 +49,11 @@ const faqs = [
     items: [
       {
         q: "What metals do you use?",
-        a: "All pieces are made in solid gold, 9ct as standard. Get in touch if you'd prefer 14ct or 18ct."
+        a: "All pieces are made in solid gold, 9ct as standard. Please get in touch if you'd prefer 14ct or 18ct."
       },
       {
         q: "What is the difference between natural and lab-grown diamonds?",
-        a: "Both are real diamonds, chemically and physically identical. Natural diamonds are formed over billions of years underground; lab-grown diamonds are created in a controlled environment in a fraction of the time. Both are available for all Mercer 79 pieces."
+        a: "Natural diamonds are formed over billions of years underground; lab-grown diamonds are created in a controlled environment in a fraction of the time. Natural is our standard - please get in touch if you'd prefer lab-grown."
       },
       {
         q: "Are your diamonds ethically sourced?",
@@ -70,11 +66,11 @@ const faqs = [
     items: [
       {
         q: "How do I find my ring size?",
-        a: <>Full guidance is on the <Link to="/pages/size-guide" style={linkStyle}>Size Guide</Link> page. A complimentary ring sizer can be posted to you anywhere in the UK before you order - just get in touch with your name and address.</>
+        a: <>Full guidance is on the <Link to="/pages/size-guide" style={linkStyle}>Size Guide</Link> page. A complimentary ring sizer can be posted to you anywhere in the UK before you order - please get in touch with your name and address.</>
       },
       {
         q: "What if my ring doesn't fit when it arrives?",
-        a: "Get in touch and we'll advise on next steps. Because each piece is made to order, please take time to confirm your size before ordering - the Size Guide and complimentary ring sizer are there to help with that."
+        a: "Please get in touch and we'll advise on next steps. Because each piece is made to order, please take time to confirm your size before ordering - the Size Guide and complimentary ring sizer are there to help with that."
       },
     ]
   },
@@ -92,11 +88,11 @@ const faqs = [
     items: [
       {
         q: "How will my order be delivered?",
-        a: <>All pieces are carefully packaged and sent via tracked, insured post. Full details are on the <Link to="/pages/delivery" style={linkStyle}>Delivery & Returns</Link> page.</>
+        a: <>All pieces are carefully packaged and sent via tracked, insured post, with a signature required on delivery. Full details are on the <Link to="/pages/delivery" style={linkStyle}>Delivery & Returns</Link> page.</>
       },
       {
         q: "Do you ship internationally?",
-        a: "Yes. Get in touch before ordering for delivery times and costs outside the UK."
+        a: "Yes. Please get in touch before ordering for delivery times and costs outside the UK."
       },
     ]
   },
@@ -105,7 +101,7 @@ const faqs = [
     items: [
       {
         q: "Can I make changes once my order is placed?",
-        a: "Once confirmed, your order goes straight to the goldsmith for production, so we're not able to make changes to size, initial, or gold carat after that point. If you're not sure about something, ordering a resin proof first is a good way to check before committing to gold - or send us any questions before you order."
+        a: "Once confirmed, your order goes straight to the goldsmith for production, so we're not able to make changes to size, initial, or gold carat after that point. If you're not sure about something, ordering a resin proof first is a good way to check before committing to gold - or please send us any questions before you order."
       },
       {
         q: "Can I cancel my order?",
@@ -239,7 +235,7 @@ export default function FAQsPage() {
           Frequently asked questions
         </h1>
         <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
-          If your question is not here, get in touch and we'll answer it directly.
+          If your question is not here, please get in touch and we'll answer it directly.
         </p>
 
         {faqs.map((section, si) => (
@@ -258,7 +254,7 @@ export default function FAQsPage() {
           borderTop: `2px solid ${borderCol}`,
         }}>
           <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.8, marginBottom: 16 }}>
-            Still have a question? Get in touch and we'll answer it directly.
+            Still have a question? Please get in touch and we'll answer it directly.
           </p>
           <Link
             to="/pages/contact"
