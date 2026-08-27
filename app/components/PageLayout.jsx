@@ -1,6 +1,7 @@
 import {Await, Link} from 'react-router';
 import {Suspense, useId, useState, useEffect} from 'react';
 import {Aside, useAside} from '~/components/Aside';
+import {getWishlist} from '~/lib/wishlist';
 import {Footer} from '~/components/Footer';
 import {CartMain} from '~/components/CartMain';
 import {
@@ -182,9 +183,19 @@ function TopNav({cart, isLoggedIn, onMenuClick}) {
             <SearchIcon />
           </NavIconButton>
 
-          <NavIconButton label="Wishlist">
+          <Link
+            to="/wishlist"
+            aria-label="Wishlist"
+            className="nav-icon-btn"
+            style={{
+              color: darkText, display: 'flex', alignItems: 'center',
+              textDecoration: 'none', transition: 'color 0.2s ease',
+              position: 'relative',
+            }}
+          >
             <WishlistIcon />
-          </NavIconButton>
+            <WishlistBadge />
+          </Link>
 
           <NavIconButton label="Bag" onClick={() => open('cart')}>
             <BagIcon />
@@ -346,9 +357,20 @@ function SlideMenu({isOpen, onClose, cart, isLoggedIn}) {
           <NavIconButton label="Search" onClick={() => { open('search'); onClose(); }}>
             <SearchIcon />
           </NavIconButton>
-          <NavIconButton label="Wishlist">
+          <Link
+            to="/wishlist"
+            onClick={onClose}
+            aria-label="Wishlist"
+            className="nav-icon-btn"
+            style={{
+              color: darkText, display: 'flex', alignItems: 'center',
+              textDecoration: 'none', transition: 'color 0.2s ease',
+              position: 'relative',
+            }}
+          >
             <WishlistIcon />
-          </NavIconButton>
+            <WishlistBadge />
+          </Link>
           <NavIconButton label="Bag" onClick={() => { open('cart'); onClose(); }}>
             <BagIcon />
             <Suspense fallback={null}>
@@ -576,6 +598,32 @@ function AccountIcon() {
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>
+  );
+}
+
+function WishlistBadge() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const updateCount = () => setCount(getWishlist().length);
+    updateCount();
+    window.addEventListener('wishlist-updated', updateCount);
+    return () => window.removeEventListener('wishlist-updated', updateCount);
+  }, []);
+
+  if (count === 0) return null;
+
+  return (
+    <span style={{
+      position: 'absolute', top: '0px', right: '0px',
+      background: darkText, color: 'white',
+      borderRadius: '50%', width: 14, height: 14,
+      fontSize: 9, fontWeight: 600,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: bodyFont, lineHeight: 1,
+    }}>
+      {count > 9 ? '9+' : count}
+    </span>
   );
 }
 
