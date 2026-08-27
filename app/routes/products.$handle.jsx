@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLoaderData, useNavigate } from 'react-router';
 import { Link } from 'react-router';
 import {
@@ -13,6 +13,7 @@ import {
 } from '@shopify/hydrogen';
 import { useAside } from '~/components/Aside';
 import { redirectIfHandleIsLocalized } from '~/lib/redirect';
+import { addToWishlist, removeFromWishlist, getWishlist } from '~/lib/wishlist';
 
 const playfair = "'Playfair Display', serif";
 const bodyFont = "system-ui, -apple-system, sans-serif";
@@ -118,6 +119,7 @@ export default function Product() {
   const [activeThumb, setActiveThumb] = useState(0);
   const [selectedInitial, setSelectedInitial] = useState(null);
   const [openAccordion, setOpenAccordion] = useState(null);
+  const [savedItemId, setSavedItemId] = useState(null);
   const cartFormRef = useRef(null);
 
   const sizeOption = selectedVariant.selectedOptions.find(opt => opt.name === "Size");
@@ -140,27 +142,57 @@ export default function Product() {
   const resinVariant = resinVariants?.[0] ?? null;
 
   const specifications = specificationsByProduct[product.handle] ?? [];
-const productSchema = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: product.title,
-  description: product.description,
-  image: mainImage?.url,
-  sku: selectedVariant?.sku,
-  brand: {
-    "@type": "Brand",
-    name: "Mercer 79",
-  },
-  offers: {
-    "@type": "Offer",
-    url: `https://mercer79.com/products/${product.handle}`,
-    priceCurrency: selectedVariant?.price?.currencyCode || "GBP",
-    price: selectedVariant?.price?.amount || "0",
-    availability: selectedVariant?.availableForSale
-      ? "https://schema.org/InStock"
-      : "https://schema.org/OutOfStock",
-  },
-};
+
+  useEffect(() => {
+    if (selectedInitial && selectedSize) {
+      const existing = getWishlist().find(
+        (item) => item.handle === product.handle && item.size === selectedSize && item.initial === selectedInitial
+      );
+      setSavedItemId(existing ? existing.id : null);
+    } else {
+      setSavedItemId(null);
+    }
+  }, [selectedInitial, selectedSize, product.handle]);
+
+  const handleWishlistToggle = () => {
+    if (savedItemId) {
+      removeFromWishlist(savedItemId);
+      setSavedItemId(null);
+    } else {
+      const updated = addToWishlist({
+        handle: product.handle,
+        title: product.title,
+        size: selectedSize,
+        initial: selectedInitial,
+        image: mainImage?.url,
+        price: formattedPrice,
+      });
+      const newest = updated[updated.length - 1];
+      setSavedItemId(newest.id);
+    }
+  };
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: mainImage?.url,
+    sku: selectedVariant?.sku,
+    brand: {
+      "@type": "Brand",
+      name: "Mercer 79",
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://mercer79.com/products/${product.handle}`,
+      priceCurrency: selectedVariant?.price?.currencyCode || "GBP",
+      price: selectedVariant?.price?.amount || "0",
+      availability: selectedVariant?.availableForSale
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+    },
+  };
 
   return (
   <div style={{ background: "white", minHeight: "100vh" }}>
@@ -436,6 +468,37 @@ const productSchema = {
             >
               {!canAdd ? "Select size & initial to continue" : "Add to bag"}
             </button>
+            <button
+              type="button"
+              disabled={!canAdd}
+              onClick={handleWishlistToggle}
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                boxSizing: "border-box",
+                marginTop: 12,
+                padding: 14,
+                border: `1px solid ${borderCol}`,
+                borderRadius: 8,
+                background: "transparent",
+                color: canAdd ? darkText : mutedText,
+                fontSize: 12,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                fontFamily: bodyFont,
+                cursor: canAdd ? "pointer" : "default",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill={savedItemId ? darkText : "none"} stroke="currentColor" strokeWidth="1.5">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
+              {savedItemId ? "Saved" : "Save this configuration"}
+            </button>
           </div>
 
           {/* Trust bar */}
@@ -528,6 +591,7 @@ const productSchema = {
                 id: "care", label: "Care",
                 content: (
                   <div style={{ paddingLeft: 0 }}>
+
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Clean every few months with warm water, mild soap, and a soft toothbrush</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Remove before heavy exercise, cleaning products, or applying perfume and lotions</p>
                     <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.6, margin: "4px 0", paddingLeft: 16, textIndent: -16 }}>· Store in the box provided when not wearing</p>
