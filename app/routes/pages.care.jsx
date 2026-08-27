@@ -17,6 +17,7 @@ export const meta = () => {
       name: 'description',
       content: "How to care for your Mercer 79 gold signet ring - daily wear, cleaning, and storage, for a piece made to last decades.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/care'},
   ];
 };
 
@@ -72,8 +73,8 @@ export default function CareGuidePage() {
           Care Guide
         </h1>
         <p style={{ fontSize: isMobile ? 15 : 17, color: subtleText, lineHeight: 1.85, marginBottom: 0, marginTop: 0 }}>
-          Solid gold is one of the most durable materials in jewellery. Looked after well, a piece can last decades without losing anything. The ring that inspired this brand is proof of that.
-        </p>
+  Solid gold is one of the most durable materials in jewellery. Looked after well, a piece can last decades without losing anything. The ring that inspired this brand is proof of that.
+</p>
 
         {/* Daily wear */}
         <h2 style={h2}>Daily wear</h2>
@@ -96,8 +97,8 @@ export default function CareGuidePage() {
         {/* Storage */}
         <h2 style={h2}>Storage</h2>
         <p style={prose}>
-          Every Mercer 79 order comes with a box - use it. Storing your ring loose with other jewellery is the most common cause of surface scratches, and gold is softer than most people expect.
-        </p>
+  Every Mercer 79 order comes with a box. Storing your ring loose with other jewellery is the most common cause of surface scratches, and gold is softer than most people expect.
+</p>
         <p style={{ ...prose, marginBottom: 0 }}>
           Keep it somewhere dry. Avoid leaving it on the edge of a sink or in a bathroom cabinet long-term - humidity and condensation are not good for gold over time.
         </p>
@@ -109,8 +110,8 @@ export default function CareGuidePage() {
           borderTop: `2px solid ${borderCol}`,
         }}>
           <p style={prose}>
-            If you have a question about caring for your specific piece, get in touch.
-          </p>
+  If you have a question about caring for your specific piece, please get in touch.
+</p>
           <Link
             to="/pages/contact"
             style={{
