@@ -15,18 +15,22 @@ const linkStyle = { color: darkText, textDecoration: 'underline' };
 
 const faqs = [
   {
-    category: "The making process",
-    items: [
-      {
-        q: "How long will my order take?",
-        a: "The lead time for all pieces is four to six weeks from the date of order. If this changes, you will be notified."
-      },
-      {
-        q: "What's a resin proof, and how does it work?",
-        a: "A resin proof is a resin version of your ring, made in your chosen size and initial, so you can check the fit and feel before committing to gold. It's available for £36, deducted from the price if you go on to order the gold ring. Delivered in one to two weeks."
-      },
-    ]
-  },
+  category: "The making process",
+  items: [
+    {
+      q: "How long will my order take?",
+      a: "The lead time for all pieces is four to six weeks from the date of order. If this changes, you will be notified."
+    },
+    {
+      q: "I need it sooner than 4-6 weeks - is that possible?",
+      a: "Please bear the four to six week lead time in mind when ordering for a specific occasion. If you have a date in mind, please get in touch before placing your order and we will do our best to help."
+    },
+    {
+      q: "What's a resin proof, and how does it work?",
+      a: "A resin proof is a resin version of your ring, made in your chosen size and initial, so you can check the fit and feel before committing to gold. It's available for £36, deducted from the price if you go on to order the gold ring. Delivered in one to two weeks."
+    },
+  ]
+},
   {
     category: "Customisation",
     items: [
