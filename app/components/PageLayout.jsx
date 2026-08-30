@@ -1,4 +1,4 @@
-import {Await, Link} from 'react-router';
+import {Await, Link, useLocation} from 'react-router';
 import {Suspense, useId, useState, useEffect} from 'react';
 import {Aside, useAside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
@@ -67,9 +67,10 @@ export function PageLayout({
   return (
     <div style={{background: 'white', minHeight: '100vh'}}>
       <Aside.Provider>
-        <AsideGlobalizer />
-        <CartAside cart={cart} />
-        <SearchAside />
+  <AsideGlobalizer />
+  <AutoCloseOnNavigate onMenuClose={() => setMenuOpen(false)} />
+  <CartAside cart={cart} />
+  <SearchAside />
 
         {/* Top navigation bar */}
         <TopNav
@@ -108,6 +109,17 @@ function AsideGlobalizer() {
     window.Aside = aside;
     return () => { delete window.Aside; };
   }, [aside]);
+  return null;
+}
+function AutoCloseOnNavigate({onMenuClose}) {
+  const {close} = useAside();
+  const location = useLocation();
+
+  useEffect(() => {
+    close();
+    onMenuClose();
+  }, [location.pathname]);
+
   return null;
 }
 
