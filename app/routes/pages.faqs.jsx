@@ -56,8 +56,8 @@ const faqs = [
         a: "All pieces are made in solid gold, 9ct as standard. Please get in touch if you'd prefer 14ct or 18ct."
       },
       {
-        q: "What is the difference between natural and lab-grown diamonds?",
-        a: "Natural diamonds are formed over billions of years underground; lab-grown diamonds are created in a controlled environment in a fraction of the time. Natural is our standard - please get in touch if you'd prefer lab-grown."
+        q: "Do you offer lab-grown diamonds?",
+        a: "Natural is our standard. If you'd prefer lab-grown, please get in touch."
       },
       {
         q: "Are your diamonds ethically sourced?",
@@ -113,7 +113,7 @@ const faqs = [
       },
       {
         q: "Can I return my piece?",
-        a: <>Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Full details are on our <Link to="/pages/terms" style={linkStyle}>Terms & Conditions</Link> page. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, it will always be put right.</>
+        a: <>Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. Full details are on our <Link to="/pages/terms" style={linkStyle}>Terms & Conditions</Link> page. Please take your time before ordering, and get in touch with any questions first. If something arrives damaged or does not match what was agreed, please get in touch so we can look into it.</>
       },
     ]
   },
@@ -258,7 +258,7 @@ export default function FAQsPage() {
           borderTop: `2px solid ${borderCol}`,
         }}>
           <p style={{ fontSize: 15, color: subtleText, lineHeight: 1.8, marginBottom: 16 }}>
-            Still have a question? Please get in touch and we'll answer it directly.
+            Still have a question? Please get in touch.
           </p>
           <Link
             to="/pages/contact"

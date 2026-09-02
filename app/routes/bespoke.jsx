@@ -20,12 +20,12 @@ const processSteps = [
     body: "We'll turn your brief into a design proposal and a detailed quote.",
   },
   {
-    num: "03", title: "Crafting",
-    body: "With your approval, your piece goes into the workshop.",
+    num: "03", title: "Resin Model",
+    body: "Before anything is made in gold, we'll create a resin model so you can check the fit and feel first.",
   },
   {
-    num: "04", title: "Inspiration",
-    body: "Family crests and heirlooms, custom initials and monograms. If you have an idea, we would love to hear from you.",
+    num: "04", title: "Crafting",
+    body: "With your approval, your piece goes into the workshop.",
   },
 ];
 
@@ -168,8 +168,8 @@ export default function Bespoke() {
           <em style={{ fontStyle: "italic", color: subtleText }}>made by hand</em>
         </h1>
         <p style={{ fontSize: 17, color: subtleText, lineHeight: 1.8, maxWidth: 520, margin: "0 auto" }}>
-          Every piece in the Mercer 79 collection began as someone's idea of exactly what they wanted. If you don't see it, we'd love to hear what you have in mind.
-        </p>
+  Every piece in the Mercer 79 collection began as someone's idea of exactly what they wanted. Family crests and heirlooms, custom initials and monograms - if you have an idea, we'd love to hear it.
+</p>
       </div>
 
       {/* Image break — add src="..." when you have photography */}

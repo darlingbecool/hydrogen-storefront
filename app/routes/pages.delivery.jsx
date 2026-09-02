@@ -17,6 +17,7 @@ export const meta = () => {
       name: 'description',
       content: "Delivery, packaging, and returns information for Mercer 79 orders - tracked UK and international shipping on made-to-order pieces.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/delivery'},
   ];
 };
 
@@ -111,14 +112,14 @@ export default function DeliveryReturnsPage() {
           Because every Mercer 79 piece is made to order specifically for you, it falls outside the standard 14-day return right under UK consumer law. This is a recognised legal exemption that applies to bespoke and personalised goods.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
-          This is not small print - it is simply the nature of how the pieces are made. Please take your time before ordering. The product pages cover materials and details in full, and we are happy to answer any questions before you place your order.
-        </p>
+  This reflects how each piece is genuinely made - by hand, to order, specifically for you. Please take your time before ordering. The product pages cover materials and details in full, and we are happy to answer any questions before you place your order.
+</p>
 
         {/* If something isn't right */}
         <h2 style={h2}>If something is not right</h2>
-        <p style={prose}>
-          If a piece arrives damaged, or does not match what was agreed at the time of order, it will always be put right. Please get in touch as soon as possible with photographs and a description of the issue.
-        </p>
+<p style={prose}>
+  If a piece arrives damaged, or does not match what was agreed at the time of order, please get in touch as soon as possible with photographs and a description of the issue, so we can look into it.
+</p>
         <p style={{ ...prose, marginBottom: 0 }}>
           Queries about an order can be sent to{' '}
           <a href="mailto:hello@mercer79.com" style={{ color: darkText, textDecoration: 'underline' }}>
