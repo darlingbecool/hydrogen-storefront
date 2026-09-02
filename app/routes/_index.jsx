@@ -323,7 +323,7 @@ function ProductCard({product}) {
   color: darkText,
   marginBottom: 6,
   letterSpacing: '0.01em',
-  padding: '0 4px',
+  padding: '0 12px',
 }}>
   {product.title}
 </p>
@@ -334,6 +334,7 @@ function ProductCard({product}) {
         color: mutedText,
         margin: 0,
         letterSpacing: '0.04em',
+        padding: '0 12px',
       }}>
         £{formattedPrice.toLocaleString()}
       </p>
