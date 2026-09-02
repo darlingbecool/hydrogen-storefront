@@ -17,6 +17,7 @@ export const meta = () => {
       name: 'description',
       content: "Terms and conditions for orders placed with Mercer 79 Ltd.",
     },
+    {rel: 'canonical', href: 'https://mercer79.com/pages/terms'},
   ];
 };
 
@@ -114,7 +115,7 @@ export default function TermsPage() {
         {/* Faulty or incorrect goods */}
         <h2 style={h2}>Faulty or incorrect goods</h2>
         <p style={prose}>
-          If a piece arrives damaged, or does not match what was agreed at the time of order, your statutory rights are not affected. Please get in touch as soon as possible with photographs and a description of the issue and it will be put right.
+          If a piece arrives damaged, or does not match what was agreed at the time of order, your statutory rights are not affected. Please get in touch as soon as possible with photographs and a description of the issue, so we can look into it.
         </p>
         <p style={{ ...prose, marginBottom: 0 }}>
           Nothing in these terms affects your rights under the Consumer Rights Act 2015.
