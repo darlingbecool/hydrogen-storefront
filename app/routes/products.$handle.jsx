@@ -246,7 +246,7 @@ export default function Product() {
             font-size: 11px !important;
             padding: 8px 4px !important;
           }
-          .product-title { font-size: 32px !important; }
+          .product-title { font-size: 32px !important; padding: 0 4px; }
           .thumbnail-row { display: none !important; }
         }
       `}</style>
