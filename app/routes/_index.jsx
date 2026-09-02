@@ -317,15 +317,16 @@ function ProductCard({product}) {
       </div>
 
       <p style={{
-        fontFamily: playfair,
-        fontSize: 17,
-        fontWeight: 400,
-        color: darkText,
-        marginBottom: 6,
-        letterSpacing: '0.01em',
-      }}>
-        {product.title}
-      </p>
+  fontFamily: playfair,
+  fontSize: 17,
+  fontWeight: 400,
+  color: darkText,
+  marginBottom: 6,
+  letterSpacing: '0.01em',
+  padding: '0 4px',
+}}>
+  {product.title}
+</p>
 
       <p style={{
         fontFamily: bodyFont,
