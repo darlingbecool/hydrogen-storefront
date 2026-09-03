@@ -155,6 +155,14 @@ export default function Bespoke() {
           .bespoke-process-cards { grid-template-columns: 1fr !important; }
           .bespoke-form-row { grid-template-columns: 1fr !important; }
         }
+        .bespoke-image-break {
+          display: none;
+        }
+        @media (max-width: 768px) {
+          .bespoke-image-break {
+            display: block;
+          }
+        }
       `}</style>
 
       {/* Hero */}
