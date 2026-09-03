@@ -208,9 +208,9 @@ export default function Homepage() {
     align-items: center;
   }
   .story-banner-image-wrap {
-    width: 100%;
-    padding: 0 24px 24px;
-  }
+  width: 100%;
+  padding: 0 12px 24px;
+}
   .story-banner-image-frame {
     height: 280px;
   }
