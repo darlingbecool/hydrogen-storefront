@@ -90,23 +90,19 @@ export default function AboutPage() {
           I looked at it properly for the first time, and noticed something that stopped me: the initials engraved into the gold were the same as my children's. I put it on. I haven't taken it off since.
         </p>
 
-        {/* Image placeholder */}
-        <div style={{
-          width: '100%',
-          aspectRatio: '3/2',
-          background: warmBg,
-          border: `1px solid ${borderCol}`,
-          borderRadius: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: mutedText,
-          fontSize: 11,
-          letterSpacing: '0.15em',
-          margin: '32px 0 0',
-        }}>
-          IMAGE - THE ORIGINAL RING
-        </div>
+        {/* Story image */}
+<img
+  src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_3620_2.jpg?v=1788442270"
+  alt="A brief description of the image"
+  style={{
+    width: '100%',
+    aspectRatio: '3/2',
+    objectFit: 'cover',
+    borderRadius: 4,
+    margin: '32px 0 0',
+    display: 'block',
+  }}
+/>
 
         {/* Section 2: The making */}
         <h2 style={{
