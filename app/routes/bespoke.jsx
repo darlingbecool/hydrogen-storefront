@@ -180,12 +180,13 @@ export default function Bespoke() {
 </p>
       </div>
 
-      {/* Image break */}
-<ImageBreak
-  src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8707.jpg?v=1788440012"
-  alt="Hand with gold engraved signet ring and gold signet ring with diamond initial"
-/>
-
+            {/* Image break */}
+      <div className="bespoke-image-break">
+        <ImageBreak
+          src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8707.jpg?v=1788440012"
+          alt="Hand with gold engraved signet ring and gold signet ring with diamond initial"
+        />
+      </div>
       {/* Process */}
       <div style={{ background: warmBg, padding: "80px 32px" }}>
         <div style={{ textAlign: "center", marginBottom: 56 }}>
