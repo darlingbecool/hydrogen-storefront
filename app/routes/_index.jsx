@@ -135,6 +135,7 @@ export default function Homepage() {
 .story-banner {
   position: relative;
   width: 100%;
+  height: 560px;
   display: flex;
   align-items: stretch;
   overflow: hidden;
@@ -156,7 +157,7 @@ export default function Homepage() {
 }
 .story-banner-image-frame {
   width: 100%;
-  aspect-ratio: 3/4;
+  height: 100%;
   overflow: hidden;
   box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
@@ -192,6 +193,7 @@ export default function Homepage() {
 @media (max-width: 768px) {
   .story-banner {
     flex-direction: column;
+    height: auto;
   }
   .story-banner-text {
     width: 100%;
