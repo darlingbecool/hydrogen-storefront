@@ -132,72 +132,76 @@ export default function Homepage() {
         }
 
         /* ── Story banner ── */
-        .story-banner {
-          position: relative;
-          width: 100%;
-          min-height: 640px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          background: linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 40%, #F0E6C8 70%, #F5F2ED 100%);
-        }
-        .story-banner-img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          transition: transform 0.8s ease;
-        }
-        .story-banner:hover .story-banner-img {
-          transform: scale(1.03);
-        }
-        .story-banner-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            to right,
-            rgba(245, 242, 237, 0.82) 0%,
-            rgba(245, 242, 237, 0.55) 50%,
-            rgba(245, 242, 237, 0.15) 100%
-          );
-        }
-        .story-banner-content {
-          position: relative;
-          z-index: 1;
-          width: 100%;
-          max-width: 1040px;
-          margin: 0 auto;
-          padding: 80px 80px;
-        }
-        .story-banner-cta {
-          display: inline-block;
-          padding: 14px 40px;
-          border: 1px solid ${darkText};
-          background: transparent;
-          font-size: 11px;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          font-family: ${bodyFont};
-          color: ${darkText};
-          text-decoration: none;
-          margin-top: 32px;
-          transition: background 0.2s ease, color 0.2s ease;
-        }
-        .story-banner-cta:hover {
-          background: ${darkText};
-          color: #ffffff;
-        }
-        @media (max-width: 768px) {
-          .story-banner-content {
-            padding: 60px 24px;
-          }
-          .story-banner-overlay {
-            background: rgba(245, 242, 237, 0.7);
-          }
-        }
+.story-banner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  text-decoration: none;
+  background: linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 50%, #F5F2ED 100%);
+}
+.story-banner-text {
+  width: 44%;
+  padding: 56px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.story-banner-image-wrap {
+  width: 56%;
+  padding: 40px 40px 40px 0;
+  display: flex;
+  align-items: center;
+}
+.story-banner-image-frame {
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+.story-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+.story-banner:hover .story-banner-img {
+  transform: scale(1.03);
+}
+.story-banner-cta {
+  display: inline-block;
+  width: fit-content;
+  padding: 14px 40px;
+  border: 1px solid ${darkText};
+  background: transparent;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-family: ${bodyFont};
+  color: ${darkText};
+  text-decoration: none;
+  margin-top: 32px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.story-banner-cta:hover {
+  background: ${darkText};
+  color: #ffffff;
+}
+@media (max-width: 768px) {
+  .story-banner {
+    flex-direction: column;
+  }
+  .story-banner-text {
+    width: 100%;
+    padding: 48px 24px 24px;
+  }
+  .story-banner-image-wrap {
+    width: 100%;
+    padding: 0 24px 48px;
+  }
+}
       `}</style>
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
@@ -263,39 +267,41 @@ export default function Homepage() {
 </div>
 
       {/* ── STORY BANNER ─────────────────────────────────────────────────────── */}
-      <Link to="/pages/about" className="story-banner">
-        <img
-          className="story-banner-img"
-          src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8654_2.jpg?v=1785944728"
-          alt="Hand wearing layered gold signet rings and a necklace"
-        />
-        <div className="story-banner-overlay" />
-        <div className="story-banner-content">
-          <p style={{
-            fontFamily: bodyFont,
-            fontSize: 11,
-            letterSpacing: '0.2em',
-            color: darkText,
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            marginBottom: 20,
-          }}>
-            The story
-          </p>
-          <h2 style={{
-            fontFamily: playfair,
-            fontSize: 52,
-            fontWeight: 400,
-            color: darkText,
-            lineHeight: 1.1,
-            maxWidth: 520,
-            marginBottom: 0,
-          }}>
-            A ring found in a drawer.<br />Never taken off since.
-          </h2>
-          <span className="story-banner-cta">Read the story</span>
-        </div>
-      </Link>
+<Link to="/pages/about" className="story-banner">
+  <div className="story-banner-text">
+    <p style={{
+      fontFamily: bodyFont,
+      fontSize: 11,
+      letterSpacing: '0.2em',
+      color: goldAccent,
+      fontWeight: 600,
+      textTransform: 'uppercase',
+      marginBottom: 20,
+    }}>
+      The story
+    </p>
+    <h2 style={{
+      fontFamily: playfair,
+      fontSize: 34,
+      fontWeight: 400,
+      color: darkText,
+      lineHeight: 1.15,
+      marginBottom: 0,
+    }}>
+      A ring found in a drawer.<br />Never taken off since.
+    </h2>
+    <span className="story-banner-cta">Read the story</span>
+  </div>
+  <div className="story-banner-image-wrap">
+    <div className="story-banner-image-frame">
+      <img
+        className="story-banner-img"
+        src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8654_2.jpg?v=1785944728"
+        alt="Hand wearing a gold signet ring"
+      />
+    </div>
+  </div>
+</Link>
     </>
   );
 }
