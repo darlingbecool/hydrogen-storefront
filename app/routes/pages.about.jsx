@@ -96,7 +96,7 @@ export default function AboutPage() {
   alt="A brief description of the image"
   style={{
     width: '100%',
-    aspectRatio: '3/2',
+    aspectRatio: '3/4',
     objectFit: 'cover',
     borderRadius: 4,
     margin: '32px 0 0',
