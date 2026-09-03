@@ -133,31 +133,35 @@ export default function Homepage() {
 
         /* ── Story banner ── */
 .story-banner {
-  position: relative;
-  width: 100%;
-  height: 560px;
   display: flex;
-  align-items: stretch;
-  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   text-decoration: none;
   background: linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 50%, #F5F2ED 100%);
+  padding-bottom: 48px;
+}
+.story-banner-row {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
 }
 .story-banner-text {
   width: 44%;
-  padding: 56px 64px;
+  padding: 56px 64px 24px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 .story-banner-image-wrap {
   width: 56%;
-  padding: 40px 40px 40px 0;
+  padding: 40px 40px 24px 0;
   display: flex;
   align-items: center;
 }
 .story-banner-image-frame {
   width: 100%;
-  height: 100%;
+  height: 420px;
   overflow: hidden;
   box-shadow: 0 12px 32px rgba(0,0,0,0.12);
 }
@@ -170,6 +174,9 @@ export default function Homepage() {
 }
 .story-banner:hover .story-banner-img {
   transform: scale(1.03);
+}
+.story-banner h2 {
+  text-decoration: none;
 }
 .story-banner-cta {
   display: inline-block;
@@ -191,17 +198,24 @@ export default function Homepage() {
   color: #ffffff;
 }
 @media (max-width: 768px) {
-  .story-banner {
+  .story-banner-row {
     flex-direction: column;
-    height: auto;
   }
   .story-banner-text {
     width: 100%;
-    padding: 48px 24px 24px;
+    padding: 40px 24px 16px;
+    text-align: center;
+    align-items: center;
   }
   .story-banner-image-wrap {
     width: 100%;
-    padding: 0 24px 48px;
+    padding: 0 24px 24px;
+  }
+  .story-banner-image-frame {
+    height: 280px;
+  }
+  .story-banner h2 {
+    font-size: 24px !important;
   }
 }
       `}</style>
@@ -270,39 +284,42 @@ export default function Homepage() {
 
       {/* ── STORY BANNER ─────────────────────────────────────────────────────── */}
 <Link to="/pages/about" className="story-banner">
-  <div className="story-banner-text">
-    <p style={{
-      fontFamily: bodyFont,
-      fontSize: 11,
-      letterSpacing: '0.2em',
-      color: goldAccent,
-      fontWeight: 600,
-      textTransform: 'uppercase',
-      marginBottom: 20,
-    }}>
-      The story
-    </p>
-    <h2 style={{
-      fontFamily: playfair,
-      fontSize: 34,
-      fontWeight: 400,
-      color: darkText,
-      lineHeight: 1.15,
-      marginBottom: 0,
-    }}>
-      A ring found in a drawer.<br />Never taken off since.
-    </h2>
-    <span className="story-banner-cta">Read the story</span>
-  </div>
-  <div className="story-banner-image-wrap">
-    <div className="story-banner-image-frame">
-      <img
-        className="story-banner-img"
-        src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8654_2.jpg?v=1785944728"
-        alt="Hand wearing a gold signet ring"
-      />
+  <div className="story-banner-row">
+    <div className="story-banner-text">
+      <p style={{
+        fontFamily: bodyFont,
+        fontSize: 11,
+        letterSpacing: '0.2em',
+        color: goldAccent,
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        marginBottom: 20,
+      }}>
+        The story
+      </p>
+      <h2 style={{
+        fontFamily: playfair,
+        fontSize: 34,
+        fontWeight: 400,
+        color: darkText,
+        lineHeight: 1.15,
+        marginBottom: 0,
+        textDecoration: 'none',
+      }}>
+        A ring found in a drawer.<br />Never taken off since.
+      </h2>
+    </div>
+    <div className="story-banner-image-wrap">
+      <div className="story-banner-image-frame">
+        <img
+          className="story-banner-img"
+          src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_8654_2.jpg?v=1785944728"
+          alt="Hand wearing a gold signet ring"
+        />
+      </div>
     </div>
   </div>
+  <span className="story-banner-cta">Read the story</span>
 </Link>
     </>
   );
