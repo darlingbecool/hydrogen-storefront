@@ -1,5 +1,5 @@
 import {CartForm, Money} from '@shopify/hydrogen';
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
 
 const playfair = "'Playfair Display', serif";
@@ -69,7 +69,7 @@ export function CartSummary({cart, layout}) {
       <CartGiftCard giftCardCodes={cart?.appliedGiftCards} />
 
       {/* Checkout button */}
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
+      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} lines={cart?.lines?.nodes ?? []} />
 
       {/* Reassurance note */}
       <p style={{
@@ -87,34 +87,67 @@ export function CartSummary({cart, layout}) {
   );
 }
 
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({checkoutUrl, lines}) {
+  const [acknowledged, setAcknowledged] = useState(false);
+
+  const hasMadeToOrderItem = lines.some((line) =>
+    line.attributes?.some((attr) => attr.key === 'Initial or Symbol')
+  );
+
   if (!checkoutUrl) return null;
 
+  const isDisabled = hasMadeToOrderItem && !acknowledged;
+
   return (
-    <a
-      href={checkoutUrl}
-      target="_self"
-      style={{
-        display: 'block',
-        width: '100%',
-        padding: '18px 0',
-        background: darkText,
-        color: 'white',
-        borderRadius: 8,
-        fontSize: 13,
-        letterSpacing: '0.15em',
-        fontWeight: 500,
-        fontFamily: bodyFont,
-        textAlign: 'center',
-        textDecoration: 'none',
-        transition: 'background 0.25s ease',
-        boxSizing: 'border-box',
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.background = goldAccent}
-      onMouseLeave={(e) => e.currentTarget.style.background = darkText}
-    >
-      PROCEED TO CHECKOUT
-    </a>
+    <div>
+      {hasMadeToOrderItem && (
+        <label style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          gap: 8,
+          marginBottom: 12,
+          fontSize: 12,
+          color: mutedText,
+          fontFamily: bodyFont,
+          lineHeight: 1.5,
+          cursor: 'pointer',
+        }}>
+          <input
+            type="checkbox"
+            checked={acknowledged}
+            onChange={(e) => setAcknowledged(e.target.checked)}
+            style={{ marginTop: 2, flexShrink: 0 }}
+          />
+          I understand this made-to-order piece cannot be cancelled or returned once ordered.
+        </label>
+      )}
+      <a
+        href={isDisabled ? undefined : checkoutUrl}
+        target="_self"
+        onClick={(e) => { if (isDisabled) e.preventDefault(); }}
+        style={{
+          display: 'block',
+          width: '100%',
+          padding: '18px 0',
+          background: isDisabled ? '#ccc' : darkText,
+          color: 'white',
+          borderRadius: 8,
+          fontSize: 13,
+          letterSpacing: '0.15em',
+          fontWeight: 500,
+          fontFamily: bodyFont,
+          textAlign: 'center',
+          textDecoration: 'none',
+          transition: 'background 0.25s ease',
+          boxSizing: 'border-box',
+          cursor: isDisabled ? 'default' : 'pointer',
+        }}
+        onMouseEnter={(e) => { if (!isDisabled) e.currentTarget.style.background = goldAccent; }}
+        onMouseLeave={(e) => { if (!isDisabled) e.currentTarget.style.background = darkText; }}
+      >
+        PROCEED TO CHECKOUT
+      </a>
+    </div>
   );
 }
 
