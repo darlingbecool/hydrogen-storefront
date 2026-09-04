@@ -92,8 +92,8 @@ export default function AboutPage() {
 
         {/* Story image */}
 <img
-  src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_3620_2.jpg?v=1788442270"
-  alt="A brief description of the image"
+  src="https://cdn.shopify.com/s/files/1/1012/2549/6921/files/IMG_1908.jpg?v=1788526251"
+  alt="The founder of Mercer 79 wearing the origingal gold signet ring that inspired the brand"
   style={{
     width: '100%',
     aspectRatio: '3/4',
