@@ -11,26 +11,25 @@ const subtleText = "#4A4A4A";
 const borderCol = "#E8D7AE";
 
 const sizes = [
-  { uk: "D",  diameter: "14.9", circumference: "46.8" },
-  { uk: "E",  diameter: "15.3", circumference: "48.0" },
-  { uk: "F",  diameter: "15.7", circumference: "49.3" },
-  { uk: "G",  diameter: "16.1", circumference: "50.6" },
-  { uk: "H",  diameter: "16.5", circumference: "51.9" },
-  { uk: "I",  diameter: "16.9", circumference: "53.1" },
-  { uk: "J",  diameter: "17.3", circumference: "54.4" },
-  { uk: "K",  diameter: "17.7", circumference: "55.7" },
-  { uk: "L",  diameter: "18.1", circumference: "57.0" },
-  { uk: "M",  diameter: "18.5", circumference: "58.3" },
-  { uk: "N",  diameter: "18.9", circumference: "59.5" },
-  { uk: "O",  diameter: "19.3", circumference: "60.8" },
-  { uk: "P",  diameter: "19.7", circumference: "62.1" },
-  { uk: "Q",  diameter: "20.1", circumference: "63.4" },
-  { uk: "R",  diameter: "20.5", circumference: "64.6" },
-  { uk: "S",  diameter: "20.9", circumference: "65.9" },
-  { uk: "T",  diameter: "21.3", circumference: "67.2" },
-  { uk: "U",  diameter: "21.7", circumference: "68.5" },
-  { uk: "V",  diameter: "22.1", circumference: "69.7" },
-  { uk: "W",  diameter: "22.5", circumference: "71.0" },
+  { uk: "E", diameter: "13.68" },
+  { uk: "F", diameter: "14.20" },
+  { uk: "G", diameter: "14.40" },
+  { uk: "H", diameter: "14.77" },
+  { uk: "I", diameter: "15.17" },
+  { uk: "J", diameter: "15.55" },
+  { uk: "K", diameter: "15.98" },
+  { uk: "L", diameter: "16.40" },
+  { uk: "M", diameter: "16.79" },
+  { uk: "N", diameter: "17.20" },
+  { uk: "O", diameter: "17.59" },
+  { uk: "P", diameter: "17.95" },
+  { uk: "Q", diameter: "18.38" },
+  { uk: "R", diameter: "18.76" },
+  { uk: "S", diameter: "19.14" },
+  { uk: "T", diameter: "19.53" },
+  { uk: "U", diameter: "19.90" },
+  { uk: "V", diameter: "20.29" },
+  { uk: "W", diameter: "20.67" },
 ];
 
 export const meta = () => {
@@ -103,7 +102,6 @@ export default function SizeGuidePage() {
         {/* Section 1: How to measure */}
         <h2 style={h2}>Finding your size</h2>
 
-        <p style={prose}>There are three reliable ways to find your ring size.</p>
 
         <div style={{
           display: 'grid',
@@ -122,11 +120,7 @@ export default function SizeGuidePage() {
               title: 'Measure an existing ring',
               text: 'Place a well-fitting ring on a flat surface and measure the internal diameter - straight across the inside of the band - in millimetres. Match to the chart below.',
             },
-            {
-              num: '03',
-              title: 'String or paper method',
-              text: 'Wrap a thin strip of paper or string snugly around the base of your finger. Mark where it meets, lay it flat, and measure the length in millimetres. Match your circumference to the chart below.',
-            },
+
           ].map((step) => (
             <div key={step.num} style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
               <p style={{
@@ -169,8 +163,8 @@ export default function SizeGuidePage() {
         <h2 style={h2}>UK ring size chart</h2>
 
         <p style={{ ...prose, marginBottom: 28 }}>
-          All measurements are in millimetres. Diameter is measured straight across the inside of the band; circumference is the full inner length around the ring.
-        </p>
+  All measurements are in millimetres. Diameter is measured straight across the inside of the band.
+</p>
 
         <div style={{
           border: `1px solid ${borderCol}`,
@@ -181,11 +175,11 @@ export default function SizeGuidePage() {
           {/* Table header */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr 1fr',
+            gridTemplateColumns: '1fr 1fr',
             background: darkText,
             padding: '14px 0',
           }}>
-            {['UK size', 'Diameter (mm)', 'Circumference (mm)'].map((h) => (
+           {['UK size', 'Diameter (mm)'].map((h) => (
               <div key={h} style={{
                 textAlign: 'center',
                 fontSize: 11,
@@ -202,14 +196,13 @@ export default function SizeGuidePage() {
           {sizes.map((row, i) => (
             <div key={row.uk} style={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr 1fr',
+              gridTemplateColumns: '1fr 1fr',
               background: i % 2 === 0 ? 'white' : warmBg,
               padding: '11px 0',
               borderTop: `1px solid ${borderCol}`,
             }}>
               <div style={{ textAlign: 'center', fontSize: 15, color: darkText, fontWeight: 500 }}>{row.uk}</div>
               <div style={{ textAlign: 'center', fontSize: 15, color: subtleText }}>{row.diameter}</div>
-              <div style={{ textAlign: 'center', fontSize: 15, color: subtleText }}>{row.circumference}</div>
             </div>
           ))}
         </div>
