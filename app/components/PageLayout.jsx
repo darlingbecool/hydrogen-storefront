@@ -32,6 +32,7 @@ const navSections = [
     title: 'ABOUT',
     items: [
       {label: 'Our Story', path: '/pages/about'},
+      {label: 'Journal', path: '/blogs/journal'},
       {label: 'Size Guide', path: '/pages/size-guide'},
       {label: 'Care Guide', path: '/pages/care'},
       {label: 'FAQs', path: '/pages/faqs'},
