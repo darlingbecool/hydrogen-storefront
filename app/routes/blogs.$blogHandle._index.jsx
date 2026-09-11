@@ -3,34 +3,34 @@ import {Image, getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
+const playfair = "'Playfair Display', serif";
+const bodyFont = "system-ui, -apple-system, sans-serif";
+const darkText = "#1A1A1A";
+const goldAccent = "#D4AF37";
+const mutedText = "#6A6A6A";
+const subtleText = "#4A4A4A";
+const warmBg = "#F5F2ED";
+const borderTone = "#E8D7AE";
+
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+  return [{title: `Mercer 79 | ${data?.blog.title ?? 'Journal'}`}];
 };
 
 /**
  * @param {Route.LoaderArgs} args
  */
 export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   return {...deferredData, ...criticalData};
 }
 
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {Route.LoaderArgs}
- */
 async function loadCriticalData({context, request, params}) {
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
+    pageBy: 6,
   });
 
   if (!params.blogHandle) {
@@ -44,7 +44,6 @@ async function loadCriticalData({context, request, params}) {
         ...paginationVariables,
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!blog?.articles) {
@@ -56,14 +55,13 @@ async function loadCriticalData({context, request, params}) {
   return {blog};
 }
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {Route.LoaderArgs}
- */
 function loadDeferredData({context}) {
   return {};
+}
+
+function stripHtml(html) {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
 }
 
 export default function Blog() {
@@ -72,53 +70,190 @@ export default function Blog() {
   const {articles} = blog;
 
   return (
-    <div className="blog">
-      <h1>{blog.title}</h1>
-      <div className="blog-grid">
-        <PaginatedResourceSection connection={articles}>
-          {({node: article, index}) => (
-            <ArticleItem
-              article={article}
-              key={article.id}
-              loading={index < 2 ? 'eager' : 'lazy'}
-            />
-          )}
-        </PaginatedResourceSection>
-      </div>
+    <div style={{background: 'white'}}>
+      {/* ── Header ── */}
+      <section
+        style={{
+          background: `linear-gradient(135deg, ${warmBg} 0%, ${borderTone} 50%, ${warmBg} 100%)`,
+          padding: '96px 80px 72px',
+          textAlign: 'center',
+        }}
+        className="journal-hero"
+      >
+        <p
+          style={{
+            fontSize: 11,
+            letterSpacing: '0.2em',
+            color: goldAccent,
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            marginBottom: 16,
+            fontFamily: bodyFont,
+          }}
+        >
+          Mercer 79
+        </p>
+        <h1
+          style={{
+            fontFamily: playfair,
+            fontSize: 44,
+            color: darkText,
+            fontWeight: 400,
+            margin: 0,
+            lineHeight: 1.15,
+          }}
+        >
+          The journal
+        </h1>
+        <p
+          style={{
+            fontSize: 15,
+            color: subtleText,
+            maxWidth: 440,
+            margin: '20px auto 0',
+            lineHeight: 1.7,
+            fontFamily: bodyFont,
+          }}
+        >
+          Notes on craft, history, and the pieces we make.
+        </p>
+      </section>
+
+      {/* ── Article grid ── */}
+      <section style={{padding: '72px 80px 96px'}} className="journal-grid-section">
+        <div
+          style={{
+            maxWidth: 1200,
+            margin: '0 auto',
+          }}
+        >
+          <div className="journal-grid">
+            <PaginatedResourceSection connection={articles}>
+              {({node: article, index}) => (
+                <ArticleItem
+                  article={article}
+                  key={article.id}
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                />
+              )}
+            </PaginatedResourceSection>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        .journal-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 40px 32px;
+        }
+        @media (max-width: 900px) {
+          .journal-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+        @media (max-width: 768px) {
+          .journal-hero {
+            padding: 64px 24px 48px !important;
+          }
+          .journal-hero h1 {
+            font-size: 32px !important;
+          }
+          .journal-grid-section {
+            padding: 48px 24px 64px !important;
+          }
+        }
+        .journal-article-link:hover .journal-article-image img {
+          transform: scale(1.04);
+        }
+        .journal-article-link:hover .journal-article-title {
+          color: ${goldAccent};
+        }
+      `}</style>
     </div>
   );
 }
 
-/**
- * @param {{
- *   article: ArticleItemFragment;
- *   loading?: HTMLImageElement['loading'];
- * }}
- */
 function ArticleItem({article, loading}) {
-  const publishedAt = new Intl.DateTimeFormat('en-US', {
+  const publishedAt = new Intl.DateTimeFormat('en-GB', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   }).format(new Date(article.publishedAt));
+
+  const excerpt = stripHtml(article.contentHtml).slice(0, 110);
+
   return (
-    <div className="blog-article" key={article.id}>
-      <Link to={`/blogs/${article.blog.handle}/${article.handle}`}>
-        {article.image && (
-          <div className="blog-article-image">
-            <Image
-              alt={article.image.altText || article.title}
-              aspectRatio="3/2"
-              data={article.image}
-              loading={loading}
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-          </div>
-        )}
-        <h3>{article.title}</h3>
-        <small>{publishedAt}</small>
-      </Link>
-    </div>
+    <Link
+      to={`/blogs/${article.blog.handle}/${article.handle}`}
+      className="journal-article-link"
+      style={{textDecoration: 'none', color: 'inherit', display: 'block'}}
+    >
+      {article.image && (
+        <div
+          className="journal-article-image"
+          style={{
+            aspectRatio: '4/3',
+            overflow: 'hidden',
+            background: warmBg,
+            marginBottom: 16,
+          }}
+        >
+          <Image
+            alt={article.image.altText || article.title}
+            aspectRatio="4/3"
+            data={article.image}
+            loading={loading}
+            sizes="(min-width: 900px) 33vw, 100vw"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.6s ease',
+            }}
+          />
+        </div>
+      )}
+      <h3
+        className="journal-article-title"
+        style={{
+          fontFamily: playfair,
+          fontSize: 19,
+          fontWeight: 400,
+          color: darkText,
+          margin: '0 0 8px',
+          lineHeight: 1.35,
+          transition: 'color 0.2s ease',
+        }}
+      >
+        {article.title}
+      </h3>
+      {excerpt && (
+        <p
+          style={{
+            fontSize: 13.5,
+            color: mutedText,
+            lineHeight: 1.65,
+            margin: '0 0 10px',
+            fontFamily: bodyFont,
+          }}
+        >
+          {excerpt}
+          {excerpt.length === 110 ? '…' : ''}
+        </p>
+      )}
+      <p
+        style={{
+          fontSize: 11,
+          color: mutedText,
+          letterSpacing: '0.04em',
+          margin: 0,
+          fontFamily: bodyFont,
+        }}
+      >
+        {publishedAt}
+      </p>
+    </Link>
   );
 }
 
