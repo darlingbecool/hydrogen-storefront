@@ -153,7 +153,21 @@ export default function Product() {
       setSavedItemId(null);
     }
   }, [selectedInitial, selectedSize, product.handle]);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.klaviyo) return;
 
+    window.klaviyo.track('Viewed Product', {
+      Name: product.title,
+      ProductID: product.id.substring(product.id.lastIndexOf('/') + 1),
+      Categories: product.collections?.nodes?.map((c) => c.handle) ?? null,
+      ImageURL: mainImage?.url,
+      URL: `https://mercer79.com/products/${product.handle}`,
+      Brand: product.vendor,
+      Price: selectedVariant?.price?.amount,
+      CompareAtPrice: selectedVariant?.compareAtPrice?.amount,
+    });
+  }, [product.id]);
+  
   const handleWishlistToggle = () => {
     if (savedItemId) {
       removeFromWishlist(savedItemId);
