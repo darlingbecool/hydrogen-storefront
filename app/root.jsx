@@ -17,7 +17,7 @@ import {PageLayout} from './components/PageLayout';
 import AIConcierge from '~/components/AIConcierge';
 
 // TODO: replace with your Klaviyo public API key (Klaviyo > Settings > Account > API Keys — 6 characters)
-const KLAVIYO_PUBLIC_KEY = 'PUBLIC_KEY';
+const KLAVIYO_PUBLIC_KEY = 'UrEDSy';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
