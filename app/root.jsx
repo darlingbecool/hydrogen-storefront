@@ -16,6 +16,9 @@ import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import AIConcierge from '~/components/AIConcierge';
 
+// TODO: replace with your Klaviyo public API key (Klaviyo > Settings > Account > API Keys — 6 characters)
+const KLAVIYO_PUBLIC_KEY = 'PUBLIC_KEY';
+
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -161,6 +164,12 @@ export function Layout({children}) {
         {children}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script
+          nonce={nonce}
+          type="application/javascript"
+          async
+          src={`https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=${KLAVIYO_PUBLIC_KEY}`}
+        />
       </body>
     </html>
   );

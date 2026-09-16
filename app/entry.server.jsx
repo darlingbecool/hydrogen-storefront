@@ -25,6 +25,8 @@ export default async function handleRequest(
   connectSrc: [
     "'self'",
     'https://mercer79-proxy.vercel.app',
+    'https://static.klaviyo.com',
+    'https://a.klaviyo.com',
   ],
 });
 
