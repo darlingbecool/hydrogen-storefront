@@ -167,7 +167,7 @@ export default function Product() {
       CompareAtPrice: selectedVariant?.compareAtPrice?.amount,
     });
   }, [product.id]);
-  
+
   const handleWishlistToggle = () => {
     if (savedItemId) {
       removeFromWishlist(savedItemId);
@@ -448,9 +448,32 @@ export default function Product() {
                 ] : [],
               }}
             >
-              {(fetcher) => (
-                <input type="hidden" name="_cart_form" value="1" ref={cartFormRef} />
-              )}
+              {(fetcher) => {
+      useEffect(() => {
+        if (
+          fetcher.state === 'idle' &&
+          fetcher.data?.cart &&
+          !fetcher.data?.errors?.length &&
+          typeof window !== 'undefined' &&
+          window.klaviyo
+        ) {
+          window.klaviyo.track('Added to Cart', {
+            $value: fetcher.data.cart.cost?.subtotalAmount?.amount,
+            total_price: fetcher.data.cart.cost?.subtotalAmount?.amount,
+            original_total_price: fetcher.data.cart.cost?.subtotalAmount?.amount,
+            AddedItemProductName: product.title,
+            AddedItemProductID: product.id.substring(product.id.lastIndexOf('/') + 1),
+            AddedItemImageURL: mainImage?.url,
+            AddedItemPrice: selectedVariant?.price?.amount,
+            AddedItemQuantity: 1,
+          });
+        }
+      }, [fetcher.state, fetcher.data]);
+
+      return (
+        <input type="hidden" name="_cart_form" value="1" ref={cartFormRef} />
+      );
+    }}
             </CartForm>
             <button
               type="button"
