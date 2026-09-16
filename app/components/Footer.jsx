@@ -58,7 +58,14 @@ const handleSubscribe = async (e) => {
       setIsSubscribing(false);
       return;
     }
-
+    // Identify this browser to Klaviyo's client-side tracking now that
+    // we have a confirmed email, so onsite behaviour (Viewed Product,
+    // Added to Cart, Started Checkout) attaches to this profile.
+    if (typeof window !== 'undefined' && window.klaviyo) {
+      window.klaviyo.identify({
+        email: email,
+      });
+    }
     setSubscribed(true);
     setIsSubscribing(false);
     setTimeout(() => {
