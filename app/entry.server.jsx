@@ -27,11 +27,13 @@ export default async function handleRequest(
     'https://cdn.shopify.com',
     'https://shopify.com',
     'https://static.klaviyo.com',
+    'https://static-tracking.klaviyo.com',
   ],
   connectSrc: [
     "'self'",
     'https://mercer79-proxy.vercel.app',
     'https://static.klaviyo.com',
+    'https://static-tracking.klaviyo.com',
     'https://a.klaviyo.com',
   ],
 });
