@@ -69,7 +69,11 @@ export function CartSummary({cart, layout}) {
       <CartGiftCard giftCardCodes={cart?.appliedGiftCards} />
 
       {/* Checkout button */}
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} lines={cart?.lines?.nodes ?? []} />
+      <CartCheckoutActions
+        checkoutUrl={cart?.checkoutUrl}
+        lines={cart?.lines?.nodes ?? []}
+        cost={cart?.cost}
+      />
 
       {/* Reassurance note */}
       <p style={{
@@ -87,8 +91,9 @@ export function CartSummary({cart, layout}) {
   );
 }
 
-function CartCheckoutActions({checkoutUrl, lines}) {
+function CartCheckoutActions({checkoutUrl, lines, cost}) {
   const [acknowledged, setAcknowledged] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const hasMadeToOrderItem = lines.some((line) =>
     line.attributes?.some((attr) => attr.key === 'Initial or Symbol')
@@ -96,7 +101,46 @@ function CartCheckoutActions({checkoutUrl, lines}) {
 
   if (!checkoutUrl) return null;
 
-  const isDisabled = hasMadeToOrderItem && !acknowledged;
+  const isDisabled = (hasMadeToOrderItem && !acknowledged) || isNavigating;
+
+  const handleCheckoutClick = (e) => {
+    if (isDisabled) {
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+
+    if (typeof window !== 'undefined' && window.klaviyo) {
+      const containsResinProof = lines.some((line) =>
+        line.merchandise?.product?.handle?.startsWith('resin-proof-')
+      );
+
+      window.klaviyo.track('Started Checkout', {
+        $value: cost?.totalAmount?.amount,
+        total_price: cost?.totalAmount?.amount,
+        original_total_price: cost?.subtotalAmount?.amount,
+        ContainsResinProof: containsResinProof,
+        items: lines.map((line) => ({
+          ProductID: line.merchandise?.product?.id?.substring(
+            line.merchandise.product.id.lastIndexOf('/') + 1,
+          ),
+          ProductName: line.merchandise?.product?.title,
+          Quantity: line.quantity,
+          ItemPrice: line.merchandise?.price?.amount,
+          RowTotal: line.cost?.totalAmount?.amount,
+        })),
+      });
+    }
+
+    // Give the tracking request a moment to actually leave the browser
+    // before we navigate away to Shopify's hosted checkout — a same-tab
+    // redirect can otherwise cut the request off mid-flight.
+    setIsNavigating(true);
+    setTimeout(() => {
+      window.location.href = checkoutUrl;
+    }, 300);
+  };
 
   return (
     <div>
@@ -124,7 +168,7 @@ function CartCheckoutActions({checkoutUrl, lines}) {
       <a
         href={isDisabled ? undefined : checkoutUrl}
         target="_self"
-        onClick={(e) => { if (isDisabled) e.preventDefault(); }}
+        onClick={handleCheckoutClick}
         style={{
           display: 'block',
           width: '100%',
@@ -143,10 +187,10 @@ function CartCheckoutActions({checkoutUrl, lines}) {
           cursor: isDisabled ? 'default' : 'pointer',
         }}
         onMouseEnter={(e) => { if (!isDisabled) e.currentTarget.style.background = goldAccent; }}
-        onMouseLeave={(e) => { if (!isDisabled) e.currentTarget.style.background = darkText; }}
-      >
-        PROCEED TO CHECKOUT
-      </a>
+onMouseLeave={(e) => { if (!isDisabled) e.currentTarget.style.background = darkText; }}
+>
+  {isNavigating ? 'REDIRECTING…' : 'PROCEED TO CHECKOUT'}
+</a>
     </div>
   );
 }
