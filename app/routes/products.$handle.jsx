@@ -559,58 +559,85 @@ export default function Product() {
           <div style={{ marginBottom: SECTION_GAP }}>
             {[
               {
-                id: "resin", label: "Check the fit first",
-                content: (
-                  <div style={{ paddingLeft: 0 }}>
-                    <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.7, margin: "4px 0 16px" }}>
-                      Want to check size and fit? We'll make a resin version of your ring in your chosen size and initial so you can check the fit and feel before ordering. Delivered in 1–2 weeks. If you go on to order the gold ring, we'll take the resin cost off the price.
-                    </p>
-                    {!selectedInitial || !selectedSize ? (
-                      <p style={{ fontSize: 12, color: mutedText, fontStyle: "italic", margin: 0 }}>
-                        Select your size and initial above to order a resin proof.
-                      </p>
-                    ) : (
-                      <CartForm
-                        route="/cart"
-                        action={CartForm.ACTIONS.LinesAdd}
-                        inputs={{
-                          lines: [{
-                            merchandiseId: resinVariant?.id ?? '',
-                            quantity: 1,
-                            attributes: [
-                              { key: 'Initial', value: selectedInitial },
-                              { key: 'Ring size', value: selectedSize },
-                              { key: 'Based on', value: product.title },
-                            ],
-                          }],
-                        }}
-                      >
-                        {(fetcher) => (
-                          <button
-                            type="submit"
-                            disabled={!resinVariant}
-                            onClick={() => { if (resinVariant) open('cart'); }}
-                            style={{
-                              padding: "12px 24px",
-                              border: `1px solid ${darkText}`,
-                              borderRadius: 8,
-                              background: "transparent",
-                              color: darkText,
-                              fontSize: 11,
-                              letterSpacing: "0.12em",
-                              textTransform: "uppercase",
-                              cursor: "pointer",
-                              fontFamily: bodyFont,
-                            }}
-                          >
-                            {fetcher.state !== 'idle' ? "Adding..." : `Order resin proof — £36 (Size ${selectedSize}, Initial ${selectedInitial})`}
-                          </button>
-                        )}
-                      </CartForm>
-                    )}
-                  </div>
-                )
-              },
+  id: "resin", label: "Check the fit first",
+  content: (
+    <div style={{ paddingLeft: 0 }}>
+      <p style={{ fontSize: 13, color: subtleText, lineHeight: 1.7, margin: "4px 0 16px" }}>
+        Want to check size and fit? We'll make a resin version of your ring in your chosen size and initial so you can check the fit and feel before ordering. Delivered in 1–2 weeks. If you go on to order the gold ring, we'll take the resin cost off the price.
+      </p>
+      {!selectedInitial || !selectedSize ? (
+        <p style={{ fontSize: 12, color: mutedText, fontStyle: "italic", margin: 0 }}>
+          Select your size and initial above to order a resin proof.
+        </p>
+      ) : (
+        <CartForm
+          route="/cart"
+          action={CartForm.ACTIONS.LinesAdd}
+          inputs={{
+            lines: [{
+              merchandiseId: resinVariant?.id ?? '',
+              quantity: 1,
+              attributes: [
+                { key: 'Initial', value: selectedInitial },
+                { key: 'Ring size', value: selectedSize },
+                { key: 'Based on', value: product.title },
+              ],
+            }],
+          }}
+        >
+          {(fetcher) => {
+            useEffect(() => {
+              if (
+                fetcher.state === 'idle' &&
+                fetcher.data?.cart &&
+                !fetcher.data?.errors?.length &&
+                typeof window !== 'undefined' &&
+                window.klaviyo
+              ) {
+                // Distinct event name — deliberately NOT "Added to Cart" —
+                // so this never triggers flows scoped to the main
+                // signet ring purchase journey (e.g. resin-proof upsell
+                // flows that shouldn't fire for someone already
+                // ordering a resin proof).
+                window.klaviyo.track('Added Resin Proof to Cart', {
+                  $value: 36,
+                  ResinProductName: `Resin Proof — ${product.title}`,
+                  ResinBasedOnProduct: product.title,
+                  ResinSize: selectedSize,
+                  ResinInitial: selectedInitial,
+                  ResinPrice: 36,
+                  Quantity: 1,
+                });
+              }
+            }, [fetcher.state, fetcher.data]);
+
+            return (
+              <button
+                type="submit"
+                disabled={!resinVariant}
+                onClick={() => { if (resinVariant) open('cart'); }}
+                style={{
+                  padding: "12px 24px",
+                  border: `1px solid ${darkText}`,
+                  borderRadius: 8,
+                  background: "transparent",
+                  color: darkText,
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  fontFamily: bodyFont,
+                }}
+              >
+                {fetcher.state !== 'idle' ? "Adding..." : `Order resin proof — £36 (Size ${selectedSize}, Initial ${selectedInitial})`}
+              </button>
+            );
+          }}
+        </CartForm>
+      )}
+    </div>
+  )
+},
               {
                 id: "delivery", label: "Delivery & returns",
                 content: (
