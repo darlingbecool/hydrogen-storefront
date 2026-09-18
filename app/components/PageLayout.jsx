@@ -26,6 +26,7 @@ const navSections = [
     {label: 'No. 1 Oval Signet', path: '/products/no-1-oval-signet'},
     {label: 'No. 2 Rectangular Signet', path: '/products/no-2-rectangular-signet'},
     {label: 'Bespoke', path: '/bespoke'},
+     {label: 'Resin Proof', path: '/pages/resin-proof'},
   ],
 },
   {
