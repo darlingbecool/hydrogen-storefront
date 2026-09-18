@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useLoaderData} from 'react-router';
-import {CartForm} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
+import {CartForm, Image} from '@shopify/hydrogen';
 
 const playfair = "'Playfair Display', serif";
 const bodyFont = "system-ui, -apple-system, sans-serif";
@@ -78,12 +78,14 @@ export async function loader({context}) {
 
   return {
     no1Variants: no1?.product?.variants?.nodes ?? [],
+    no1Image: no1?.product?.featuredImage ?? null,
     no2Variants: no2?.product?.variants?.nodes ?? [],
+    no2Image: no2?.product?.featuredImage ?? null,
   };
 }
 
 export default function ResinProof() {
-  const {no1Variants, no2Variants} = useLoaderData();
+  const {no1Variants, no1Image, no2Variants, no2Image} = useLoaderData();
 
   return (
     <div style={{ background: "white", minHeight: "100vh" }}>
@@ -151,15 +153,17 @@ export default function ResinProof() {
 
         <div className="resin-ring-cards">
           <ResinOrderCard
-            ringLabel="No. 1 Oval Signet"
-            basedOnProduct="No. 1 Oval Signet Ring with Diamond Initial"
-            variants={no1Variants}
-          />
-          <ResinOrderCard
-            ringLabel="No. 2 Rectangular Signet"
-            basedOnProduct="No. 2 Rectangular Signet Ring with Diamond-Set Initial"
-            variants={no2Variants}
-          />
+  ringLabel="No. 1 Oval Signet"
+  basedOnProduct="No. 1 Oval Signet Ring with Diamond Initial"
+  variants={no1Variants}
+  image={no1Image}
+/>
+<ResinOrderCard
+  ringLabel="No. 2 Rectangular Signet"
+  basedOnProduct="No. 2 Rectangular Signet Ring with Diamond-Set Initial"
+  variants={no2Variants}
+  image={no2Image}
+/>
         </div>
       </div>
 
@@ -185,7 +189,7 @@ export default function ResinProof() {
   );
 }
 
-function ResinOrderCard({ ringLabel, basedOnProduct, variants }) {
+function ResinOrderCard({ ringLabel, basedOnProduct, variants, image }) {
   const { open } = useAside();
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedInitial, setSelectedInitial] = useState('');
@@ -204,12 +208,21 @@ function ResinOrderCard({ ringLabel, basedOnProduct, variants }) {
     <div style={{ border: `1px solid ${borderCol}`, borderRadius: 12, overflow: "hidden", background: "white" }}>
       <div style={{
         width: "100%", aspectRatio: "4 / 3",
-        background: "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
+        background: image ? "white" : "linear-gradient(135deg, #F5F2ED 0%, #E8D7AE 60%, #F5F2ED 100%)",
         display: "flex", alignItems: "center", justifyContent: "center",
+        overflow: "hidden",
       }}>
-        <span style={{ fontFamily: playfair, fontSize: 64, color: darkText, opacity: 0.85 }}>
-          {selectedInitial || ringLabel.charAt(0)}
-        </span>
+        {image ? (
+          <Image
+            data={image}
+            sizes="(min-width: 900px) 500px, 100vw"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        ) : (
+          <span style={{ fontFamily: playfair, fontSize: 64, color: darkText, opacity: 0.85 }}>
+            {selectedInitial || ringLabel.charAt(0)}
+          </span>
+        )}
       </div>
 
       <div style={{ padding: "28px 28px 32px" }}>
@@ -325,6 +338,7 @@ const RESIN_VARIANTS_QUERY = `#graphql
     $handle: String!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
+      featuredImage { id url altText width height }
       variants(first: 30) {
         nodes {
           id
