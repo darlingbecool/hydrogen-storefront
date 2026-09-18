@@ -195,12 +195,12 @@ function ResinOrderCard({ ringLabel, basedOnProduct, variants, image }) {
   const [selectedInitial, setSelectedInitial] = useState('');
 
   const sizeOptions = variants
-    .map((v) => v.selectedOptions?.find((o) => o.name === 'Size')?.value)
-    .filter(Boolean);
+  .map((v) => v.selectedOptions?.find((o) => o.name === 'Ring size')?.value)
+  .filter(Boolean);
 
-  const matchedVariant = variants.find((v) =>
-    v.selectedOptions?.some((o) => o.name === 'Size' && o.value === selectedSize)
-  );
+const matchedVariant = variants.find((v) =>
+  v.selectedOptions?.some((o) => o.name === 'Ring size' && o.value === selectedSize)
+);
 
   const canAdd = Boolean(matchedVariant?.id && selectedInitial);
 
